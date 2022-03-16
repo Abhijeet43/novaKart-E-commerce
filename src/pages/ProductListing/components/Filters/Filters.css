@@ -1,0 +1,150 @@
+.aside {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.aside-heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+}
+
+.aside-title,
+.aside-clear {
+  font-size: var(--font-size-4);
+}
+
+.aside-title {
+  color: var(--lynx-gray-color);
+}
+
+.aside-clear {
+  color: var(--primary-color);
+}
+
+.aside-clear:hover {
+  text-decoration: underline;
+}
+
+.filter-container {
+  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.filter-title {
+  font-size: var(--font-size-5);
+  color: var(--lynx-gray-color);
+}
+
+.filter-title.price {
+  margin-bottom: 3rem;
+}
+
+.filter-type {
+  padding: 1rem 0;
+  font-size: var(--font-size-6);
+  display: flex;
+  align-items: center;
+}
+
+.filter-type input {
+  margin-right: 0.5rem;
+}
+
+/* SLIDER */
+.range {
+  position: relative;
+  height: 5rem;
+  width: 28rem;
+  background: var(--secondary-color);
+  border-radius: 0.35rem;
+  padding: 0 3.8rem 0 4rem;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
+}
+.sliderValue {
+  position: relative;
+  width: 100%;
+}
+.slider-points {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  height: 3.5rem;
+  width: 3.5rem;
+  transform: translateX(-30%) scale(0);
+  font-size: var(--font-size-6);
+  top: -3rem;
+  left: 0;
+  line-height: 4rem;
+  z-index: 2;
+  color: var(--secondary-color);
+  transform-origin: bottom;
+  transition: transform 0.3s ease-in-out;
+}
+.slider-points.show {
+  transform: translateX(-50%) scale(1);
+}
+.slider-points:after {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: var(--primary-color);
+  border: 0.2rem solid var(--secondary-color);
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+.field .value {
+  position: absolute;
+  font-size: var(--font-size-7);
+  color: var(--primary-color);
+  font-weight: var(--font-weight-2);
+}
+.field .value.left {
+  left: -3rem;
+}
+.field .value.right {
+  right: -3.5rem;
+}
+.range input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0.3rem;
+  background: var(--lynx-gray-color);
+  border-radius: 0.25rem;
+  outline: none;
+  border: none;
+  z-index: 2222;
+}
+.range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 0.2rem solid var(--primary-color);
+  cursor: pointer;
+}
+
+@media (max-width: 540px) {
+  .aside {
+    display: none;
+  }
+}

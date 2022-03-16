@@ -1,0 +1,30 @@
+.page-btns {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.page-btns span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid var(--primary-color);
+  color: var(--primary-color);
+  margin-left: 10px;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+}
+
+.page-btns span:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 540px) {
+  .page-btns {
+    margin: 1.5rem;
+    text-align: center;
+  }
+}
