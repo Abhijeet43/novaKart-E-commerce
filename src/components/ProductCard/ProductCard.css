@@ -1,0 +1,107 @@
+.card {
+  transition: transform 0.3s ease;
+  max-width: 23rem;
+}
+
+.card:hover {
+  transform: translateY(-0.5rem);
+}
+
+.card-badge {
+  font-size: var(--font-size-7);
+}
+
+.card-icon > svg {
+  height: 2rem;
+  fill: var(--black-color);
+  transition: fill 200ms ease-in-out;
+}
+
+.card-icon:hover svg {
+  fill: var(--danger-color);
+}
+
+.card-body {
+  padding: 0 1rem;
+  margin: 0;
+}
+
+.card-head {
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+}
+
+.card-title,
+.card-rating,
+.card-price {
+  padding: 0.3rem;
+}
+
+.card-title {
+  font-size: var(--font-size-6);
+  padding-left: 1rem;
+}
+
+.card-price {
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-3);
+}
+
+.price-before {
+  font-size: var(--font-size-6);
+}
+
+.price-discount {
+  font-size: var(--font-size-8);
+}
+
+.card-footer {
+  padding: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.card-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  max-width: 100%;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+.card-btn:hover {
+  filter: brightness(110%);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .card {
+    max-width: 90%;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .card-title {
+    padding: 1rem 0 0 5rem;
+  }
+
+  .card-badge {
+    font-size: var(--font-size-5);
+    top: 2.5rem;
+  }
+
+  .card-icon {
+    top: 3rem;
+  }
+
+  .card-rating {
+    padding: 0;
+  }
+
+  .stars {
+    justify-content: center;
+  }
+}
