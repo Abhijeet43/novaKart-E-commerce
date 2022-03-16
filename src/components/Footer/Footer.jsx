@@ -1,5 +1,6 @@
-import React from 'react';
-import './Footer.css';
+import React from "react";
+import "./Footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,37 +11,43 @@ const Footer = () => {
       <div className="footer-nav">
         <ul>
           <li className="footer-item">
-            <a className="footer-link" href="../landing-page/landing-page.html"
-              >Home</a
-            >
+            <Link to="/" className="footer-link">
+              Home
+            </Link>
           </li>
           <li className="footer-item">
-            <a className="footer-link" href="../all-products/all-products.html"
-              >Products</a
-            >
+            <Link className="footer-link" to="/products">
+              Products
+            </Link>
           </li>
           <li className="footer-item">
-            <a className="footer-link" href="#">About</a>
+            <Link className="footer-link" to="/about">
+              About
+            </Link>
           </li>
         </ul>
       </div>
       <div className="footer-nav">
         <ul>
           <li className="footer-item">
-            <a className="footer-link" href="../cart/cart.html">My Cart</a>
+            <Link className="footer-link" to="/cart">
+              My Cart
+            </Link>
           </li>
           <li className="footer-item">
-            <a className="footer-link" href="../wishlist/wishlist.html"
-              >My Wishlist</a
-            >
+            <Link className="footer-link" to="/wishlist">
+              My Wishlist
+            </Link>
           </li>
           <li className="footer-item">
-            <a className="footer-link" href="#">Settings</a>
+            <Link className="footer-link" to="/setting">
+              Settings
+            </Link>
           </li>
         </ul>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export { Footer }
+export { Footer };

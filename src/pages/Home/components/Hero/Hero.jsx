@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Hero.css";
 import { headerImg } from "../../../../assets/index";
 
@@ -15,12 +16,9 @@ const Hero = () => {
           Consistent <br />
           hardwork gains success. Greatness will come.
         </p>
-        <a
-          href="../all-products/all-products.html"
-          className="btn btn-primary btn-explore"
-        >
+        <Link to="/products" className="btn btn-primary btn-explore">
           Explore Now <i className="fas fa-arrow-right"></i>
-        </a>
+        </Link>
       </div>
       <div className="hero-img">
         <img src={headerImg} alt="hero-img" />
