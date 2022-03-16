@@ -1,0 +1,57 @@
+.cart-price-container {
+  padding: 2rem;
+  margin-left: 5rem;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.price-heading {
+  font-size: var(--font-size-3);
+  line-height: 5rem;
+  border-bottom: 0.1rem solid var(--lynx-gray-color);
+}
+
+.price-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prices {
+  text-align: center;
+}
+
+.price-item {
+  display: block;
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-6);
+  padding: 1rem 0.5rem;
+}
+
+.coupon-input {
+  width: 10rem;
+  height: 2.5rem;
+}
+
+.price-item.coupon {
+  border-bottom: 0.1rem solid var(--lynx-gray-color);
+}
+
+.price-item.total {
+  font-weight: var(--font-weight-4);
+}
+
+/* ORDER BUTTON */
+.cart-btn-order {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  max-width: 100%;
+  font-size: var(--font-size-6);
+  padding: 0.5em;
+}
+
+@media (max-width: 1023px) {
+  .cart-price-container {
+    width: 60rem;
+    margin: auto;
+  }
+}
