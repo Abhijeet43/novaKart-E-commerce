@@ -18,7 +18,7 @@ const CartCard = ({
       <div className="cart-card-content">
         <div className="cart-card-text">
           <h2 className="cart-card-title">{cardTitle}</h2>
-          <label for="quantity-1" className="cart-card-quantity-label">
+          <label htmlFor="quantity-1" className="cart-card-quantity-label">
             Quantity
           </label>
           <input
