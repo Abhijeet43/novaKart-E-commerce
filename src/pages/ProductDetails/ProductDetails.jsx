@@ -6,7 +6,7 @@ import { galleryOne } from "../../assets/index";
 
 const ProductDetails = () => {
   return (
-    <main class="main-section">
+    <main className="main-section">
       <ProductDetailsCard
         cardImage={galleryOne}
         cardCategory={"T-Shirts"}

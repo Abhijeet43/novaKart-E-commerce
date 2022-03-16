@@ -12,18 +12,19 @@ const ProductDetailsCard = ({
   cardDescription,
 }) => {
   return (
-    <section class="product-details-section">
-      <div class="product-img">
+    <section className="product-details-section">
+      <div className="product-img">
         <img src={cardImage} alt={cardAlt} />
       </div>
-      <div class="product-details">
-        <p class="product-section">Home / {cardCategory}</p>
-        <h1 class="product-title">{cardTitle}</h1>
-        <p class="product-price">
-          ₹{cardPrice} <small class="price-before">₹{cardPriceBefore}</small>
-          <small class="price-discount">{cardDiscount}%OFF</small>
+      <div className="product-details">
+        <p className="product-section">Home / {cardCategory}</p>
+        <h1 className="product-title">{cardTitle}</h1>
+        <p className="product-price">
+          ₹{cardPrice}{" "}
+          <small className="price-before">₹{cardPriceBefore}</small>
+          <small className="price-discount">{cardDiscount}%OFF</small>
         </p>
-        <select name="sizes" class="size-select">
+        <select name="sizes" className="size-select">
           <option>Select Size</option>
           <option value="xxl">XXL</option>
           <option value="xl">XL</option>
@@ -33,17 +34,17 @@ const ProductDetailsCard = ({
         <input
           type="number"
           name="quantity"
-          class="quantity-select"
+          className="quantity-select"
           value="1"
         />
-        <a href="#" class="btn btn-primary">
+        <a href="#" className="btn btn-primary">
           Add To Cart
         </a>
-        <h3 class="product-description-title">
-          Product Description <i class="fas fa-indent"></i>
+        <h3 className="product-description-title">
+          Product Description <i className="fas fa-indent"></i>
         </h3>
         <br />
-        <p class="product-description">{cardDescription}</p>
+        <p className="product-description">{cardDescription}</p>
       </div>
     </section>
   );

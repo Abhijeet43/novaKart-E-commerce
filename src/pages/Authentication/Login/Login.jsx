@@ -23,7 +23,7 @@ const Login = () => {
           <div className="form-group check-remember">
             <div className="checkbox-group">
               <input type="checkbox" id="checkbox-remember" />
-              <label for="checkbox-remember">Remember Me</label>
+              <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
             <a href="#" className="form-link">
               Forgot Password?

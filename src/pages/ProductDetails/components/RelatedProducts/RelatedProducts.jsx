@@ -11,14 +11,14 @@ import {
 
 const RelatedProducts = () => {
   return (
-    <section class="related-products">
-      <div class="related-products-header">
-        <h2 class="related-products-title">Related Products</h2>
-        <a href="#" class="section-link">
+    <section className="related-products">
+      <div className="related-products-header">
+        <h2 className="related-products-title">Related Products</h2>
+        <a href="#" className="section-link">
           View All
         </a>
       </div>
-      <div class="card-container">
+      <div className="card-container">
         <ProductCard
           cardImage={productOne}
           cardAlt={"Red T-Shirt"}

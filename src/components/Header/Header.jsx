@@ -36,7 +36,7 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <a href="#" className="nav-link">
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </a>
           </li>
           <li className="nav-item">

@@ -30,7 +30,7 @@ const Signup = () => {
           </div>
           <div className="form-group checkbox-group-signup">
             <input type="checkbox" id="news-letter" />
-            <label for="news-letter">
+            <label htmlFor="news-letter">
               Sign up for emails to get updates from NovaKart.
             </label>
           </div>
