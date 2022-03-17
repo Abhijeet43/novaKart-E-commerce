@@ -7,8 +7,7 @@
 
 /* CATEGORIES */
 .categories {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .categories-container {
