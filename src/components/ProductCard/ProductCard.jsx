@@ -1,20 +1,26 @@
 import React from "react";
 import "./ProductCard.css";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({
-  cardImage,
-  cardTitle,
-  cardBadge,
-  cardPrice,
-  cardPriceBefore,
-  cardDiscount,
+  id,
+  image,
+  title,
+  alt,
+  badge,
+  price,
+  discount,
+  inStock,
 }) => {
+  const priceBefore =
+    Number(price) +
+    +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
   return (
     <div className="card">
       <div className="card-img">
-        <img src={cardImage} alt="product-1.img" />
+        <img src={image} alt={alt} />
       </div>
-      <div className="card-badge">{cardBadge}</div>
+      {badge ? <div className="card-badge">{badge}</div> : ""}
       <div className="card-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +38,7 @@ const ProductCard = ({
         </svg>
       </div>
       <div className="card-head">
-        <h4 className="card-title">{cardTitle}</h4>
+        <h4 className="card-title">{title}</h4>
       </div>
       <div className="card-body">
         <div className="card-rating">
@@ -56,15 +62,16 @@ const ProductCard = ({
         </div>
         <div className="card-text">
           <p className="card-price">
-            ₹{cardPrice}{" "}
-            <small className="price-before">₹{cardPriceBefore}</small>
-            <small className="price-discount">{cardDiscount}%OFF</small>
+            ₹{price} <small className="price-before">₹{priceBefore}</small>
+            <small className="price-discount">{discount}%OFF</small>
           </p>
         </div>
       </div>
       <div className="card-footer">
         <button className="card-btn">Add to Cart</button>
-        <button className="card-btn">View Item</button>
+        <Link to={`/products/${id}`} className="card-btn">
+          View Item
+        </Link>
       </div>
     </div>
   );

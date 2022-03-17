@@ -64,10 +64,13 @@
 .card-btn {
   background: var(--primary-color);
   color: var(--secondary-color);
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-3);
   max-width: 100%;
   width: 100%;
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 0.25rem;
+  text-align: center;
 }
 
 .card-btn:hover {
