@@ -1,25 +1,30 @@
 import React from "react";
 import { ProductDetailsCard } from "./components/ProductDetailsCard/ProductDetailsCard";
 import { RelatedProducts } from "./components/RelatedProducts/RelatedProducts";
+import { useParams } from "react-router-dom";
 
-import { galleryOne } from "../../assets/index";
+import { useData } from "../../context/data-context";
+import { getCategoryId } from "../../functions/category";
+import { getProduct } from "../../functions/products";
 
 const ProductDetails = () => {
+  const {
+    dataState: { products, categories },
+  } = useData();
+
+  const { productId } = useParams();
+
+  const product = getProduct(products, productId);
+  const categoryId = getCategoryId(categories, product.categoryName);
+
   return (
     <main className="main-section">
-      <ProductDetailsCard
-        cardImage={galleryOne}
-        cardCategory={"T-Shirts"}
-        cardAlt={"Red T-Shirt"}
-        cardTitle={"Red T-Shirt"}
-        cardPriceBefore={"1299"}
-        cardPrice={"899"}
-        cardDiscount={"40"}
-        cardDescription={
-          "Give your summer wardrobe a style upgrade with this Men's Active T-Shirt.Team it with a pair of shorts for your morning workout or a denims for an evening out."
-        }
+      <ProductDetailsCard product={product} categoryId={categoryId} />
+      <RelatedProducts
+        category={product.categoryName}
+        id={product.id}
+        categoryId={categoryId}
       />
-      <RelatedProducts />
     </main>
   );
 };

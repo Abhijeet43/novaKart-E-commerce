@@ -1,36 +1,45 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./ProductDetailsCard.css";
 
 const ProductDetailsCard = ({
-  cardImage,
-  cardAlt,
-  cardCategory,
-  cardTitle,
-  cardDiscount,
-  cardPriceBefore,
-  cardPrice,
-  cardDescription,
+  product: {
+    imageSrc,
+    title,
+    price,
+    discount,
+    categoryName,
+    rating,
+    description,
+    sizes,
+  },
+  categoryId,
 }) => {
+  const priceBefore =
+    Number(price) +
+    +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
   return (
     <section className="product-details-section">
       <div className="product-img">
-        <img src={cardImage} alt={cardAlt} />
+        <img src={imageSrc} alt={title} />
       </div>
       <div className="product-details">
-        <p className="product-section">Home / {cardCategory}</p>
-        <h1 className="product-title">{cardTitle}</h1>
-        <p className="product-price">
-          ₹{cardPrice}{" "}
-          <small className="price-before">₹{cardPriceBefore}</small>
-          <small className="price-discount">{cardDiscount}%OFF</small>
+        <p className="product-section">
+          Home / <Link to={`/categories/${categoryId}`}>{categoryName}</Link>
         </p>
+        <h1 className="product-title">{title}</h1>
+        <p className="product-price">
+          ₹{price} <small className="price-before">₹{priceBefore}</small>
+          <small className="price-discount">{discount}%OFF</small>
+        </p>
+
         <select name="sizes" className="size-select">
           <option>Select Size</option>
-          <option value="xxl">XXL</option>
-          <option value="xl">XL</option>
-          <option value="large">L</option>
-          <option value="medium">M</option>
+          {sizes.map((size) => {
+            return <option value={size}>{size}</option>;
+          })}
         </select>
+
         <input
           type="number"
           name="quantity"
@@ -44,7 +53,7 @@ const ProductDetailsCard = ({
           Product Description <i className="fas fa-indent"></i>
         </h3>
         <br />
-        <p className="product-description">{cardDescription}</p>
+        <p className="product-description">{description}</p>
       </div>
     </section>
   );

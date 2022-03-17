@@ -1,7 +1,7 @@
 .product-details-section {
   margin-top: 2rem;
+  height: 50rem;
   display: flex;
-  align-items: center;
   background-color: var(--lynx-purple-color);
 }
 
@@ -9,8 +9,15 @@
   flex: 1;
 }
 
+.product-img img {
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
 .product-details {
   padding: 2rem;
+  align-self: center;
 }
 
 .product-section {
@@ -73,6 +80,9 @@
 @media (max-width: 540px) {
   .product-details-section {
     flex-direction: column;
+    height: auto;
+    width: 80%;
+    margin: 1rem auto;
   }
 
   .product-details-section {
