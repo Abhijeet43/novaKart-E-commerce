@@ -26,6 +26,7 @@ const Home = () => {
             {featuredCategories.map(({ categoryName, imageSrc, id }) => {
               return (
                 <CategoryCard
+                  key={id}
                   title={categoryName}
                   image={imageSrc}
                   alt={categoryName}
