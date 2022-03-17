@@ -1,0 +1,10 @@
+.category-listing-section {
+  max-width: 1300px;
+  display: flex;
+}
+
+.description {
+  font-size: var(--font-size-3);
+  margin: 4rem;
+  margin-top: 0;
+}
