@@ -7,11 +7,13 @@
 
 /* CATEGORIES */
 .categories {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .categories-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
 }
@@ -63,6 +65,11 @@
 }
 
 /* MEDIA QUERIES */
+@media (max-width: 800px) {
+  .card-container {
+    justify-content: center;
+  }
+}
 
 @media (max-width: 540px) {
   .categories {
