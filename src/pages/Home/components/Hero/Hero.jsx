@@ -13,8 +13,8 @@ const Hero = () => {
         </h1>
         <p className="hero-content">
           Success isn't always about greatness. It's about consistency.
-          Consistent <br />
-          hardwork gains success. Greatness will come.
+          <br />
+          Consistent hardwork gains success. Greatness will come.
         </p>
         <Link to="/products" className="btn btn-primary btn-explore">
           Explore Now <i className="fas fa-arrow-right"></i>
