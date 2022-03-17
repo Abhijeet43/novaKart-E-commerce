@@ -1,6 +1,7 @@
 import React from "react";
 import "../authentication.css";
 import { headerImg } from "../../../assets/index";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -25,9 +26,9 @@ const Login = () => {
               <input type="checkbox" id="checkbox-remember" />
               <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
-            <a href="#" className="form-link">
+            <Link to="/forgotpassword" className="form-link">
               Forgot Password?
-            </a>
+            </Link>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
@@ -35,9 +36,9 @@ const Login = () => {
             </button>
             <p className="register-text">
               Don't have an account?
-              <a href="./signup.html" className="form-link">
-                Sign Up
-              </a>
+              <Link to="/signup" className="form-link">
+                Signup
+              </Link>
             </p>
           </div>
         </form>

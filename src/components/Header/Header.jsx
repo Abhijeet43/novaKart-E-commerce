@@ -1,14 +1,15 @@
 import React from "react";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header>
       <nav className="navbar">
         <div className="nav-brand">
-          <a href="../landing-page/landing-page.html" className="nav-title">
+          <Link className="nav-title" to="/">
             NOVAKART
-          </a>
+          </Link>
         </div>
         <div className="nav-search">
           <button className="search-icon">
@@ -22,30 +23,27 @@ const Header = () => {
         </div>
         <ul className="nav-items">
           <li className="nav-item">
-            <a href="../wishlist/wishlist.html" className="nav-link">
+            <Link className="nav-link" to="/wishlist">
               <i className="fas fa-heart"></i>
               <div className="numeric-badge danger-bg">20</div>
-            </a>
+            </Link>
           </li>
 
           <li className="nav-item">
-            <a href="../cart/cart.html" className="nav-link">
+            <Link to="/cart" className="nav-link">
               <i className="fas fa-shopping-cart"></i>
               <div className="numeric-badge danger-bg">20</div>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a href="#" className="nav-link">
+            <Link to="/profile" className="nav-link">
               <i className="fa-solid fa-user"></i>
-            </a>
+            </Link>
           </li>
           <li className="nav-item">
-            <a
-              href="../../pages/authentication/login.html"
-              className="btn btn-primary"
-            >
+            <Link to="/login" className="btn btn-primary">
               Login
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
