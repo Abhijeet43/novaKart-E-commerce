@@ -18,40 +18,41 @@ const Wishlist = () => {
         </h2>
         <div className="card-container">
           <ProductCard
-            cardImage={productOne}
-            cardAlt={"Red T-Shirt"}
-            cardTitle={"Red T-Shirt"}
-            cardBadge={"New"}
-            cardPrice={"499"}
-            cardPriceBefore={"1299"}
-            cardDiscount={"62"}
+            image={productOne}
+            alt={"Red T-Shirt"}
+            title={"Red T-Shirt"}
+            badge={"New"}
+            price={"499"}
+            priceBefore={"1299"}
+            discount={"62"}
+          />
+
+          <ProductCard
+            image={productThree}
+            alt={"Gray Track"}
+            title={"Gray Track"}
+            badge={"New"}
+            price={"899"}
+            priceBefore={"1299"}
+            discount={"32"}
           />
           <ProductCard
-            cardImage={productThree}
-            cardAlt={"Gray Track"}
-            cardTitle={"Gray Track"}
-            cardBadge={"New"}
-            cardPrice={"899"}
-            cardPriceBefore={"1299"}
-            cardDiscount={"32"}
+            image={productFour}
+            alt={"Blue T-Shirt"}
+            title={"Blue T-Shirt"}
+            badge={"New"}
+            price={"699"}
+            priceBefore={"899"}
+            discount={"42"}
           />
           <ProductCard
-            cardImage={productFour}
-            cardAlt={"Blue T-Shirt"}
-            cardTitle={"Blue T-Shirt"}
-            cardBadge={"New"}
-            cardPrice={"699"}
-            cardPriceBefore={"899"}
-            cardDiscount={"42"}
-          />
-          <ProductCard
-            cardImage={productFive}
-            cardAlt={"White Shoes"}
-            cardTitle={"White Shoes"}
-            cardBadge={"New"}
-            cardPrice={"499"}
-            cardPriceBefore={"1299"}
-            cardDiscount={"62"}
+            image={productFive}
+            alt={"White Shoes"}
+            title={"White Shoes"}
+            badge={"New"}
+            price={"499"}
+            priceBefore={"1299"}
+            discount={"62"}
           />
         </div>
       </section>
