@@ -1,16 +1,23 @@
 import React from "react";
-import "./ProductListing.css";
-import { ProductCard, ProductPagination, Filters } from "../../components/";
-import { useData } from "../../context/data-context";
 
-const ProductListing = () => {
+import "./CategoryListing.css";
+
+import { ProductPagination, ProductCard, Filters } from "../../components";
+import { useData } from "../../context/data-context";
+import { getCategoryName, getCategoryProducts } from "../../functions/category";
+import { useParams } from "react-router-dom";
+
+const CategoryListing = () => {
   const {
     dataState: { products, categories },
   } = useData();
+  const { categoryId } = useParams();
+  const [categoryName, description] = getCategoryName(categories, categoryId);
+  const categoryProducts = getCategoryProducts(products, categoryName);
 
   return (
     <>
-      <main className="product-listing-section">
+      <main className="category-listing-section">
         <Filters />
         <section className="all-products">
           <div className="nav-search">
@@ -23,9 +30,10 @@ const ProductListing = () => {
               placeholder="search items here"
             />
           </div>
-          <h2 className="section-title">All Products</h2>
+          <h2 className="section-title">{categoryName}</h2>
+          <p className="description">{description}</p>
           <div className="card-container">
-            {products.map(
+            {categoryProducts.map(
               ({ id, title, price, discount, imageSrc, badge, inStock }) => {
                 return (
                   <ProductCard
@@ -50,4 +58,4 @@ const ProductListing = () => {
   );
 };
 
-export { ProductListing };
+export { CategoryListing };

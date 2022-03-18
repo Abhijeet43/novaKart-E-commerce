@@ -2,59 +2,43 @@ import React from "react";
 import "./RelatedProducts.css";
 
 import { ProductCard } from "../../../../components/ProductCard/ProductCard";
-import {
-  productOne,
-  productTwo,
-  productThree,
-  productFour,
-} from "../../../../assets/index";
+import { useData } from "../../../../context/data-context";
+import { getRelatedProducts } from "../../../../functions/products";
+import { Link } from "react-router-dom";
 
-const RelatedProducts = () => {
+const RelatedProducts = ({ category, id, categoryId }) => {
+  const {
+    dataState: { products, categories },
+  } = useData();
+
+  const relatedProductsList = getRelatedProducts(products, category, id);
+
   return (
     <section className="related-products">
       <div className="related-products-header">
         <h2 className="related-products-title">Related Products</h2>
-        <a href="#" className="section-link">
+        <Link to={`/categories/${categoryId}`} className="section-link">
           View All
-        </a>
+        </Link>
       </div>
       <div className="card-container">
-        <ProductCard
-          cardImage={productOne}
-          cardAlt={"Red T-Shirt"}
-          cardTitle={"Red T-Shirt"}
-          cardBadge={"New"}
-          cardPrice={"499"}
-          cardPriceBefore={"1299"}
-          cardDiscount={"62"}
-        />
-        <ProductCard
-          cardImage={productTwo}
-          cardAlt={"Black Shoes"}
-          cardTitle={"Black Shoes"}
-          cardBadge={"New"}
-          cardPrice={"799"}
-          cardPriceBefore={"1499"}
-          cardDiscount={"50"}
-        />
-        <ProductCard
-          cardImage={productThree}
-          cardAlt={"Gray Track"}
-          cardTitle={"Gray Track"}
-          cardBadge={"New"}
-          cardPrice={"899"}
-          cardPriceBefore={"1299"}
-          cardDiscount={"32"}
-        />
-        <ProductCard
-          cardImage={productFour}
-          cardAlt={"Blue T-Shirt"}
-          cardTitle={"Blue T-Shirt"}
-          cardBadge={"New"}
-          cardPrice={"699"}
-          cardPriceBefore={"899"}
-          cardDiscount={"42"}
-        />
+        {relatedProductsList.map(
+          ({ id, title, price, discount, imageSrc, badge, inStock }) => {
+            return (
+              <ProductCard
+                key={id}
+                id={id}
+                title={title}
+                alt={title}
+                price={price}
+                discount={discount}
+                image={imageSrc}
+                badge={badge}
+                inStock={inStock}
+              />
+            );
+          }
+        )}
       </div>
     </section>
   );

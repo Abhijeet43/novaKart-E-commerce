@@ -1,4 +1,10 @@
 import { v4 as uuid } from "uuid";
+import {
+  categoryOne,
+  categoryTwo,
+  categoryThree,
+  productNine,
+} from "../../assets";
 
 /**
  * Category Database can be added here.
@@ -8,20 +14,34 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "fiction",
+    categoryName: "Tracks",
     description:
-      "literature in the form of prose, especially novels, that describes imaginary events and people",
+      "Tracks provides the comfort of moving around also helping in uping one's style quotitent",
+    imageSrc: categoryOne,
+    isFeatured: false,
   },
   {
     _id: uuid(),
-    categoryName: "non-fiction",
+    categoryName: "Sneakers",
     description:
-      "Non-fiction is writing that gives information or describes real events, rather than telling a story.",
+      "Stylish and Comfortable Sneakers allows the comfort of moving anywhere around also adding to one's styles",
+    imageSrc: categoryTwo,
+    isFeatured: true,
   },
   {
     _id: uuid(),
-    categoryName: "horror",
+    categoryName: "T-Shirts",
     description:
-      "Meant to cause discomfort and fear for both the character and readers, horror writers often make use of supernatural and paranormal elements in morbid stories that are sometimes a little too realistic.",
+      "T-Shirts gives a funky appeal to individual's style quotitent",
+    imageSrc: categoryThree,
+    isFeatured: true,
+  },
+  {
+    _id: uuid(),
+    categoryName: "Watches",
+    description:
+      "Watches come in handy while helping in keeping track of time.",
+    imageSrc: productNine,
+    isFeatured: true,
   },
 ];

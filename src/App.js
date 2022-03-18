@@ -10,6 +10,8 @@ import {
   ProductDetails,
   Wishlist,
   Cart,
+  Categories,
+  CategoryListing,
 } from "./pages/index";
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<ProductListing />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:categoryId" element={<CategoryListing />} />
       </Routes>
       <Footer />
     </>
