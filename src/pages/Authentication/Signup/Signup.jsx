@@ -17,8 +17,8 @@ const Signup = () => {
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
 
   const [user, setUser] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -68,9 +68,9 @@ const Signup = () => {
           <div className="form-group">
             <input
               type="text"
-              name="fname"
+              name="firstName"
               placeholder="First Name"
-              value={user.fname}
+              value={user.firstName}
               onChange={changeHandler}
               required
             />
@@ -78,9 +78,9 @@ const Signup = () => {
           <div className="form-group">
             <input
               type="text"
-              name="lname"
+              name="lastName"
               placeholder="Last Name"
-              value={user.lname}
+              value={user.lastName}
               onChange={changeHandler}
               required
             />
