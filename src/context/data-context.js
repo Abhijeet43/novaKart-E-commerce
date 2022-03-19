@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import { dataReducer } from "../reducer/dataReducer";
+import { dataReducer } from "../reducer/";
 import { getProducts, getCategories } from "../functions/products";
 
 const DataContext = createContext({
