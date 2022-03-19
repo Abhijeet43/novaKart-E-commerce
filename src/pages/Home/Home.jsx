@@ -1,20 +1,25 @@
 import React from "react";
 import "./Home.css";
 
-import { ProductCard, CategoryCard } from "../../components/index";
-import { useData } from "../../context/data-context";
+import { ProductCard, CategoryCard } from "../../components/";
+import { useData } from "../../context/";
 import { Hero } from "./components/Hero/Hero";
 import { Link } from "react-router-dom";
+import {
+  getFeaturedProducts,
+  getLatestProducts,
+  getFeaturedCategories,
+} from "../../functions";
 
 const Home = () => {
   const {
     dataState: { products, categories },
   } = useData();
-  const latestProducts = products.filter((product) => product.isLatest);
-  const featuredProducts = products.filter((product) => product.isFeatured);
-  const featuredCategories = categories.filter(
-    (category) => category.isFeatured
-  );
+
+  const latestProducts = getLatestProducts(products);
+  const featuredProducts = getFeaturedProducts(products);
+  const featuredCategories = getFeaturedCategories(categories);
+
   return (
     <>
       <Hero />

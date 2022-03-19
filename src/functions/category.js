@@ -16,4 +16,12 @@ const getCategoryId = (categories, categoryName) => {
   return id;
 };
 
-export { getCategoryName, getCategoryProducts, getCategoryId };
+const getFeaturedCategories = (categories) =>
+  categories.filter((category) => category.isFeatured);
+
+export {
+  getCategoryName,
+  getCategoryProducts,
+  getCategoryId,
+  getFeaturedCategories,
+};

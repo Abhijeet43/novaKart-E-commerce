@@ -69,7 +69,6 @@ form {
 }
 
 .err-msg {
-  display: none;
   font-size: var(--font-size-7);
   color: var(--danger-color);
 }
@@ -115,6 +114,12 @@ form {
 .login-text,
 .register-text {
   font-size: var(--font-size-6);
+}
+
+.fa-eye:hover,
+.fa-eye-slash {
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 /* MEDIA QUERIES */

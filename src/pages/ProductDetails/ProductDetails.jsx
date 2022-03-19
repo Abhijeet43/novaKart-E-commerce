@@ -3,9 +3,8 @@ import { ProductDetailsCard } from "./components/ProductDetailsCard/ProductDetai
 import { RelatedProducts } from "./components/RelatedProducts/RelatedProducts";
 import { useParams } from "react-router-dom";
 
-import { useData } from "../../context/data-context";
-import { getCategoryId } from "../../functions/category";
-import { getProduct } from "../../functions/products";
+import { useData } from "../../context/";
+import { getCategoryId, getProduct } from "../../functions/";
 
 const ProductDetails = () => {
   const {
