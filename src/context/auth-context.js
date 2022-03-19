@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import axios from "axios";
-import { authReducer } from "../reducer/authReducer";
+import { authReducer } from "../reducer/";
 
 const AuthContext = createContext({
   authState: {},
@@ -15,11 +15,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      const user = localStorage.getItem("user");
+      const user = JSON.parse(localStorage.getItem("user"));
       const token = localStorage.getItem("token");
       authDispatch({
         type: "INITIAL_CHECK",
-        payload: { user: JSON.parse(user), token },
+        payload: { user, token },
       });
     } catch (error) {
       console.log("Error:", error);
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={(authState, authDispatch)}>
+    <AuthContext.Provider value={{ authState, authDispatch }}>
       {children}
     </AuthContext.Provider>
   );
