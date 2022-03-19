@@ -1,6 +1,6 @@
 import React from "react";
 import "./Wishlist.css";
-import { ProductCard } from "../../components/index";
+import { ProductCard } from "../../components/";
 
 import {
   productOne,

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProductListing.css";
 import { ProductCard, ProductPagination, Filters } from "../../components/";
-import { useData } from "../../context/data-context";
+import { useData } from "../../context/";
 
 const ProductListing = () => {
   const {

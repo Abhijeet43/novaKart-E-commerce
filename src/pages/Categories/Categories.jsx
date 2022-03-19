@@ -1,6 +1,6 @@
 import React from "react";
 import { CategoryCard } from "../../components";
-import { useData } from "../../context/data-context";
+import { useData } from "../../context/";
 
 const Categories = () => {
   const {

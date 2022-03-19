@@ -2,8 +2,8 @@ import React from "react";
 import "./RelatedProducts.css";
 
 import { ProductCard } from "../../../../components/ProductCard/ProductCard";
-import { useData } from "../../../../context/data-context";
-import { getRelatedProducts } from "../../../../functions/products";
+import { useData } from "../../../../context/";
+import { getRelatedProducts } from "../../../../functions/";
 import { Link } from "react-router-dom";
 
 const RelatedProducts = ({ category, id, categoryId }) => {

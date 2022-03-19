@@ -3,8 +3,8 @@ import React from "react";
 import "./CategoryListing.css";
 
 import { ProductPagination, ProductCard, Filters } from "../../components";
-import { useData } from "../../context/data-context";
-import { getCategoryName, getCategoryProducts } from "../../functions/category";
+import { useData } from "../../context/";
+import { getCategoryName, getCategoryProducts } from "../../functions/";
 import { useParams } from "react-router-dom";
 
 const CategoryListing = () => {
