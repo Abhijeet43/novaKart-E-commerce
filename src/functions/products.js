@@ -36,4 +36,17 @@ const getRelatedProducts = (products, category, id) => {
   );
 };
 
-export { getProducts, getCategories, getProduct, getRelatedProducts };
+const getLatestProducts = (products) =>
+  products.filter((product) => product.isLatest);
+
+const getFeaturedProducts = (products) =>
+  products.filter((product) => product.isFeatured);
+
+export {
+  getProducts,
+  getCategories,
+  getProduct,
+  getRelatedProducts,
+  getLatestProducts,
+  getFeaturedProducts,
+};
