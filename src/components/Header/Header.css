@@ -59,6 +59,11 @@
   margin: 0;
 }
 
+.nav-user-name {
+  padding: 0.5rem;
+  font-weight: var(--font-weight-3);
+}
+
 /* BADGES */
 
 .numeric-badge {
