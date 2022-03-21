@@ -1,34 +1,56 @@
 import React from "react";
+import { useAuth, useCart } from "../../../../context/";
+import {
+  removeFromCartHandler,
+  updateCartHandler,
+} from "../../../../functions/";
 import "./CartCard.css";
 
 const CartCard = ({
-  cardImage,
-  cardAlt,
-  cardTitle,
-  cardPrice,
-  cardPriceBefore,
-  cardDiscount,
-  cardSize,
+  product: { _id: id, imageSrc, title, size, price, discount, qty },
 }) => {
+  const {
+    authState: { token },
+  } = useAuth();
+  const { cartDispatch } = useCart();
+
+  const priceBefore =
+    Number(price) +
+    +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
   return (
     <div className="cart-card">
       <div className="cart-card-img">
-        <img src={cardImage} alt={cardAlt} />
+        <img src={imageSrc} alt={title} />
       </div>
       <div className="cart-card-content">
         <div className="cart-card-text">
-          <h2 className="cart-card-title">{cardTitle}</h2>
-          <label htmlFor="quantity-1" className="cart-card-quantity-label">
-            Quantity
-          </label>
-          <input
-            type="number"
-            id="quantity-1"
-            className="cart-card-quantity"
-            value="1"
-          />
+          <h2 className="cart-card-title">{title}</h2>
+
+          <div className="cart-card-quantity">
+            <button
+              className="qty-btn"
+              onClick={() =>
+                qty <= 1
+                  ? removeFromCartHandler(token, id, cartDispatch)
+                  : updateCartHandler(token, id, cartDispatch, "decrement")
+              }
+            >
+              <i
+                className={`fas ${qty === 1 ? "fa-trash-alt" : "fa-minus"}`}
+              ></i>
+            </button>
+            <p className="qty-text">{qty}</p>
+            <button
+              className="qty-btn"
+              onClick={() =>
+                updateCartHandler(token, id, cartDispatch, "increment")
+              }
+            >
+              <i className="fas fa-plus"></i>
+            </button>
+          </div>
           <p className="cart-card-size">
-            Size: <strong>{cardSize}</strong>
+            Size: <strong>{size}</strong>
           </p>
           <div className="cart-card-rating">
             <ul className="stars">
@@ -50,18 +72,21 @@ const CartCard = ({
             </ul>
           </div>
           <p className="cart-card-price">
-            ₹{cardPrice}{" "}
-            <small className="cart-card-price-before">₹{cardPriceBefore}</small>
-            <small className="cart-card-price-discount">
-              {cardDiscount}%OFF
-            </small>
+            ₹{price}{" "}
+            <small className="cart-card-price-before">₹{priceBefore}</small>
+            <small className="cart-card-price-discount">{discount}%OFF</small>
           </p>
         </div>
         <div className="cart-card-action">
           <button className="cart-btn btn-outline-primary">
             Move to Wishlist
           </button>
-          <button className="cart-btn btn-outline-danger">Remove</button>
+          <button
+            onClick={() => removeFromCartHandler(token, id, cartDispatch)}
+            className="cart-btn btn-outline-danger"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </div>

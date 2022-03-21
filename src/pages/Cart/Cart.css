@@ -5,6 +5,14 @@
   padding: 0 1.5rem;
 }
 
+.cart-container {
+  margin: 2rem;
+}
+
+.cart-img {
+  width: 80%;
+}
+
 .cart-title {
   position: relative;
   font-size: var(--font-size-4);
@@ -34,6 +42,13 @@
 
 .cart-container {
   display: flex;
+}
+
+.empty-cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MEDIA QUERIES */
