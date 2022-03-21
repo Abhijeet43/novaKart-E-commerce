@@ -150,7 +150,7 @@ export const products = [
   },
   {
     _id: uuid(),
-    title: "Black and Yellow Watch",
+    title: "Yellow Dial Watch",
     price: "2999",
     discount: "20",
     categoryName: "Watches",
