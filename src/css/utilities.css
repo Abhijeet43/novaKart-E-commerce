@@ -26,3 +26,7 @@
 .danger-bg {
   background-color: var(--danger-color);
 }
+
+.success-bg {
+  background-color: var(--success-color);
+}
