@@ -67,20 +67,30 @@
 /* BADGES */
 
 .numeric-badge {
+  display: none;
   position: absolute;
   color: var(--secondary-color);
   font-size: var(--font-size-8);
   padding: 0.2em;
   border-radius: 50%;
-  width: max-content;
-  top: -0.8em;
+  width: 2rem;
+  top: -1em;
   left: 1em;
+  text-align: center;
+}
+
+.numeric-badge.display {
+  display: block;
 }
 
 /* MEDIA QUERIES */
 @media (max-width: 540px) {
   html {
     font-size: 55%;
+  }
+
+  .nav-user-name {
+    display: none;
   }
 
   .nav-search {

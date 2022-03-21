@@ -1,13 +1,16 @@
 import React from "react";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/auth-context";
+import { useAuth, useCart } from "../../context/";
 
 const Header = () => {
   const {
     authState: { user },
     authDispatch,
   } = useAuth();
+  const {
+    cartState: { cart },
+  } = useCart();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -60,7 +63,13 @@ const Header = () => {
           <li className="nav-item">
             <Link to="/cart" className="nav-link">
               <i className="fas fa-shopping-cart"></i>
-              <div className="numeric-badge danger-bg">20</div>
+              <div
+                className={`numeric-badge danger-bg ${
+                  cart.length > 0 ? "display" : null
+                }`}
+              >
+                {cart.length}
+              </div>
             </Link>
           </li>
           <li className="nav-item">
