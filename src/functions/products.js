@@ -27,7 +27,7 @@ const getCategories = async (dataDispatch) => {
 };
 
 const getProduct = (products, productId) => {
-  return products.find((product) => product.id === productId);
+  return products.find((product) => product._id === productId);
 };
 
 const getRelatedProducts = (products, category, id) => {
