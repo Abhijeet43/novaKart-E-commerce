@@ -136,12 +136,20 @@
   .cart-card {
     flex-direction: column;
     width: 35rem;
-    height: 77rem;
+    height: 80rem;
   }
   .cart-card-img {
     width: 100%;
   }
 
+  .cart-card-quantity {
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .cart-card-size {
+    text-align: center;
+  }
   .cart-card-content {
     grid-template-columns: 1fr;
   }
