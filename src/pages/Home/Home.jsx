@@ -49,23 +49,9 @@ const Home = () => {
         <section className="featured-products">
           <h2 className="section-title">Featured Products</h2>
           <div className="card-container">
-            {featuredProducts.map(
-              ({ id, title, price, discount, imageSrc, badge, inStock }) => {
-                return (
-                  <ProductCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    alt={title}
-                    price={price}
-                    discount={discount}
-                    image={imageSrc}
-                    badge={badge}
-                    inStock={inStock}
-                  />
-                );
-              }
-            )}
+            {featuredProducts.map((product) => {
+              return <ProductCard key={product._id} product={product} />;
+            })}
           </div>
         </section>
 
@@ -73,23 +59,9 @@ const Home = () => {
         <section className="latest-products">
           <h2 className="section-title">Latest Products</h2>
           <div className="card-container">
-            {latestProducts.map(
-              ({ id, title, price, discount, imageSrc, badge, inStock }) => {
-                return (
-                  <ProductCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    alt={title}
-                    price={price}
-                    discount={discount}
-                    image={imageSrc}
-                    badge={badge}
-                    inStock={inStock}
-                  />
-                );
-              }
-            )}
+            {latestProducts.map((product) => {
+              return <ProductCard key={product._id} product={product} />;
+            })}
           </div>
         </section>
       </main>
