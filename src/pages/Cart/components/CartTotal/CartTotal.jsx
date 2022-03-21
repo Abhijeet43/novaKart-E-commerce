@@ -1,7 +1,7 @@
 import React from "react";
 import "./CartTotal.css";
 import { useCart } from "../../../../context/";
-import { getCartTotal } from "../../../../functions/";
+import { getCartTotal, getTotalCartItems } from "../../../../functions/";
 
 const CartTotal = () => {
   const {
@@ -15,7 +15,14 @@ const CartTotal = () => {
       <div className="price-details">
         <div>
           <span className="price-item">
-            Price <span>({cart.length} items)</span>
+            Price{" "}
+            <span>
+              (
+              {`${getTotalCartItems(cart)} ${
+                getTotalCartItems(cart) > 1 ? "Items" : "Item"
+              }`}
+              )
+            </span>
           </span>
           <span className="price-item">Discount</span>
           <span className="price-item">Delivery Charges</span>

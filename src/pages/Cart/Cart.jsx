@@ -4,6 +4,7 @@ import { CartCard } from "./components/CartCard/CartCard";
 import { CartTotal } from "./components/CartTotal/CartTotal";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/";
+import { getTotalCartItems } from "../../functions/";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -15,7 +16,13 @@ const Cart = () => {
       <section className="cart-products">
         <h2 className="cart-title">
           My Cart{" "}
-          <small className="cart-total-items">({cart.length} Items)</small>
+          <small className="cart-total-items">
+            (
+            {`${getTotalCartItems(cart)} ${
+              getTotalCartItems(cart) > 1 ? "Items" : "Item"
+            }`}
+            )
+          </small>
         </h2>
         {cart.length > 0 ? (
           <section className="cart-container">

@@ -67,7 +67,6 @@
 /* BADGES */
 
 .numeric-badge {
-  display: none;
   position: absolute;
   color: var(--secondary-color);
   font-size: var(--font-size-8);
@@ -77,6 +76,10 @@
   top: -1em;
   left: 1em;
   text-align: center;
+}
+
+.numeric-badge.hide {
+  display: none;
 }
 
 .numeric-badge.display {

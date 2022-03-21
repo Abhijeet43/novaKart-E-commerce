@@ -2,14 +2,16 @@ import React from "react";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart } from "../../context/";
+import { getTotalCartItems } from "../../functions/";
 
 const Header = () => {
   const {
-    authState: { user },
+    authState: { user, token },
     authDispatch,
   } = useAuth();
   const {
     cartState: { cart },
+    cartDispatch,
   } = useCart();
   const navigate = useNavigate();
 
@@ -65,10 +67,10 @@ const Header = () => {
               <i className="fas fa-shopping-cart"></i>
               <div
                 className={`numeric-badge danger-bg ${
-                  cart.length > 0 ? "display" : null
+                  token ? (cart.length > 0 ? "display" : "hide") : "hide"
                 }`}
               >
-                {cart.length}
+                {getTotalCartItems(cart)}
               </div>
             </Link>
           </li>
