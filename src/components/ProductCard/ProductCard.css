@@ -11,14 +11,9 @@
   font-size: var(--font-size-7);
 }
 
-.card-icon > svg {
-  height: 2rem;
-  fill: var(--black-color);
-  transition: fill 200ms ease-in-out;
-}
-
-.card-icon:hover svg {
-  fill: var(--danger-color);
+.card-icon {
+  color: var(--danger-color);
+  font-size: var(--font-size-4);
 }
 
 .card-body {
@@ -150,10 +145,6 @@
   .card-badge {
     font-size: var(--font-size-5);
     top: 2.5rem;
-  }
-
-  .card-icon {
-    top: 3rem;
   }
 
   .card-rating {
