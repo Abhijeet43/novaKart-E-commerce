@@ -46,17 +46,7 @@
   cursor: pointer;
 }
 
-.quantity-select {
-  font-size: var(--font-size-6);
-  width: 2.5em;
-  height: 2.5em;
-  padding-left: 0.3em;
-  margin-right: 0.2em;
-  border: 0.1rem solid var(--primary-color);
-}
-
-.size-select:focus,
-.quantity-select:focus {
+.size-select:focus {
   outline: none;
 }
 
@@ -73,6 +63,10 @@
 .product-description {
   font-size: var(--font-size-6);
   color: var(--lynx-gray-color);
+}
+
+.btn.details-btn {
+  margin: 1rem 0;
 }
 
 /* MEDIA QUERIES */

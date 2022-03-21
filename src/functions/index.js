@@ -15,3 +15,12 @@ export {
 } from "./products";
 
 export { signUp, login } from "./auth";
+
+export {
+  loadCart,
+  addToCartHandler,
+  removeFromCartHandler,
+  updateCartHandler,
+  getCartTotal,
+  getTotalCartItems,
+} from "./cart";

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import "./index.css";
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from "react-router-dom";
-import { DataProvider } from "./context/data-context";
-import { AuthProvider } from "./context/auth-context";
+import { DataProvider, AuthProvider, CartProvider } from "./context/";
 
 // Call make Server
 makeServer();
@@ -14,7 +14,9 @@ ReactDOM.render(
     <Router>
       <AuthProvider>
         <DataProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </DataProvider>
       </AuthProvider>
     </Router>

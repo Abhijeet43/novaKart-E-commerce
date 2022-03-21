@@ -33,23 +33,9 @@ const CategoryListing = () => {
           <h2 className="section-title">{categoryName}</h2>
           <p className="description">{description}</p>
           <div className="card-container">
-            {categoryProducts.map(
-              ({ id, title, price, discount, imageSrc, badge, inStock }) => {
-                return (
-                  <ProductCard
-                    key={id}
-                    id={id}
-                    title={title}
-                    alt={title}
-                    price={price}
-                    discount={discount}
-                    image={imageSrc}
-                    badge={badge}
-                    inStock={inStock}
-                  />
-                );
-              }
-            )}
+            {categoryProducts.map((product) => {
+              return <ProductCard key={product._id} product={product} />;
+            })}
           </div>
         </section>
       </main>

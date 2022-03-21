@@ -22,23 +22,9 @@ const RelatedProducts = ({ category, id, categoryId }) => {
         </Link>
       </div>
       <div className="card-container">
-        {relatedProductsList.map(
-          ({ id, title, price, discount, imageSrc, badge, inStock }) => {
-            return (
-              <ProductCard
-                key={id}
-                id={id}
-                title={title}
-                alt={title}
-                price={price}
-                discount={discount}
-                image={imageSrc}
-                badge={badge}
-                inStock={inStock}
-              />
-            );
-          }
-        )}
+        {relatedProductsList.map((product) => {
+          return <ProductCard key={product._id} product={product} />;
+        })}
       </div>
     </section>
   );
