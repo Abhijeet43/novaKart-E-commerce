@@ -62,18 +62,19 @@ const ProductDetailsCard = ({ product, categoryId }) => {
           })}
         </select>
         <button
+          className="btn btn-primary details-btn"
           onClick={() =>
             token
-              ? checkAction(id, cart) === "ADD TO CART"
-                ? addToCartHandler(token, { ...product, size }, cartDispatch)
-                : navigate("/cart")
+              ? addToCartHandler(
+                  token,
+                  { ...product, size },
+                  cartDispatch,
+                  cart
+                )
               : navigate("/login")
           }
-          className={`btn  btn-primary details-btn ${
-            checkAction(id, cart) === "GO TO CART" ? "success-bg" : null
-          }`}
         >
-          {checkAction(id, cart)}
+          Add To Cart
         </button>
         <h3 className="product-description-title">
           Product Description <i className="fas fa-indent"></i>

@@ -93,19 +93,15 @@ const ProductCard = ({ product }) => {
           <span className="card-btn-text">View Item</span>
         </Link>
         <button
+          className="card-btn card-btn-solid"
           onClick={() =>
             token
-              ? checkAction(id, cart) === "ADD TO CART"
-                ? addToCartHandler(token, { ...product, size }, cartDispatch)
-                : navigate("/cart")
+              ? addToCartHandler(token, { ...product, size }, cartDispatch,cart)
               : navigate("/login")
           }
-          className={`card-btn card-btn-solid ${
-            checkAction(id, cart) === "GO TO CART" ? "success-bg" : null
-          }`}
         >
           <i className="fa-solid fa-cart-shopping"></i>
-          <span className="card-btn-text">{checkAction(id, cart)} </span>
+          <span className="card-btn-text">Add To Cart</span>
         </button>
       </div>
     </div>
