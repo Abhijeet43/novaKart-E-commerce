@@ -1,24 +1,44 @@
 import React from "react";
 import "./ProductCard.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { addToCartHandler, checkAction } from "../../functions/";
+import { useAuth, useCart } from "../../context/";
 
-const ProductCard = ({
-  id,
-  image,
-  title,
-  alt,
-  badge,
-  price,
-  discount,
-  inStock,
-}) => {
+const ProductCard = ({ product }) => {
+  const {
+    _id: id,
+    imageSrc: image,
+    title,
+    badge,
+    price,
+    discount,
+    inStock,
+    sizes,
+  } = product;
+
+  const navigate = useNavigate();
+  const size = sizes[0];
+
+  const {
+    authState: { token },
+  } = useAuth();
+  const {
+    cartState: { cart },
+    cartDispatch,
+  } = useCart();
+
   const priceBefore =
     Number(price) +
     +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
   return (
     <div className="card">
+      {inStock ? null : (
+        <div className="overlay">
+          <p className="overlay-text">Out Of Stock</p>
+        </div>
+      )}
       <div className="card-img">
-        <img src={image} alt={alt} />
+        <img src={image} alt={title} />
       </div>
       {badge ? <div className="card-badge">{badge}</div> : ""}
       <div className="card-icon">
@@ -68,10 +88,25 @@ const ProductCard = ({
         </div>
       </div>
       <div className="card-footer">
-        <button className="card-btn">Add to Cart</button>
-        <Link to={`/products/${id}`} className="card-btn">
-          View Item
+        <Link to={`/products/${id}`} className="card-btn card-btn-outline">
+          <i className="fa-solid fa-eye"></i>
+          <span className="card-btn-text">View Item</span>
         </Link>
+        <button
+          onClick={() =>
+            token
+              ? checkAction(id, cart) === "ADD TO CART"
+                ? addToCartHandler(token, { ...product, size }, cartDispatch)
+                : navigate("/cart")
+              : navigate("/login")
+          }
+          className={`card-btn card-btn-solid ${
+            checkAction(id, cart) === "GO TO CART" ? "success-bg" : null
+          }`}
+        >
+          <i className="fa-solid fa-cart-shopping"></i>
+          <span className="card-btn-text">{checkAction(id, cart)} </span>
+        </button>
       </div>
     </div>
   );
