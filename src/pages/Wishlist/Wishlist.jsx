@@ -2,6 +2,8 @@ import React from "react";
 import "./Wishlist.css";
 import { WishlistCard } from "./components/WishlistCard";
 import { useWishlist } from "../../context/";
+import { wishlistImg } from "../../assets/";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const {
@@ -15,10 +17,18 @@ const Wishlist = () => {
           <span className="wishlist-items">({wishlist.length})</span>
         </h2>
         <div className="card-container">
-          {/* <p>Wishlist is currently empty.</p> */}
-          {wishlist.map((product) => {
-            return <WishlistCard key={product.id} product={product} />;
-          })}
+          {wishlist.length > 0 ? (
+            wishlist.map((product) => {
+              return <WishlistCard key={product.id} product={product} />;
+            })
+          ) : (
+            <div className="empty-cart-section">
+              <img className="wishlist-img" src={wishlistImg} />
+              <Link className="btn btn-primary" to="/products">
+                Shop More
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </main>

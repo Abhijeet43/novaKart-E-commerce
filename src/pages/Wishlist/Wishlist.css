@@ -37,3 +37,17 @@
   font-size: var(--font-size-6);
   padding: 1rem 0;
 }
+
+.wishlist-img {
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+.empty-cart-section {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
