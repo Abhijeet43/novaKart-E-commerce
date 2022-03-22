@@ -3,6 +3,7 @@
   height: 50rem;
   display: flex;
   background-color: var(--lynx-purple-color);
+  position: relative;
 }
 
 .product-details-section > * {

@@ -15,6 +15,7 @@ import categoryOne from "./category-1.jpg";
 import categoryTwo from "./category-2.jpg";
 import categoryThree from "./category-3.jpg";
 import galleryOne from "./gallery-1.jpg";
+import wishlistImg from "./empty-wishlist.svg";
 
 export {
   productOne,
@@ -34,4 +35,5 @@ export {
   categoryTwo,
   categoryThree,
   galleryOne,
+  wishlistImg,
 };

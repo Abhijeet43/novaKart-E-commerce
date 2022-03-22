@@ -1,18 +1,25 @@
 import React from "react";
-import { useAuth, useCart } from "../../../../context/";
+import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
   removeFromCartHandler,
   updateCartHandler,
+  moveToWishListHandler,
 } from "../../../../functions/";
 import "./CartCard.css";
 
-const CartCard = ({
-  product: { _id: id, imageSrc, title, size, price, discount, qty },
-}) => {
+const CartCard = ({ product }) => {
+  const { _id: id, imageSrc, title, size, price, discount, qty } = product;
+
   const {
     authState: { token },
   } = useAuth();
+
   const { cartDispatch } = useCart();
+
+  const {
+    wishlistState: { wishlist },
+    wishlistDispatch,
+  } = useWishlist();
 
   const priceBefore =
     Number(price) +
@@ -78,7 +85,18 @@ const CartCard = ({
           </p>
         </div>
         <div className="cart-card-action">
-          <button className="cart-btn btn-outline-primary">
+          <button
+            onClick={() =>
+              moveToWishListHandler(
+                token,
+                product,
+                wishlistDispatch,
+                cartDispatch,
+                wishlist
+              )
+            }
+            className="cart-btn btn-outline-primary"
+          >
             Move to Wishlist
           </button>
           <button

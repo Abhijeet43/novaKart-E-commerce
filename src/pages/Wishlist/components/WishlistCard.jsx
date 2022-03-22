@@ -1,14 +1,14 @@
 import React from "react";
-import "./ProductCard.css";
+import "./WishlistCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  addToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
-} from "../../functions/";
-import { useAuth, useCart, useWishlist } from "../../context/";
+  moveToCartHandler,
+} from "../../../functions/";
+import { useAuth, useCart, useWishlist } from "../../../context/";
 
-const ProductCard = ({ product }) => {
+const WishlistCard = ({ product }) => {
   const {
     _id: id,
     imageSrc: image,
@@ -16,13 +16,10 @@ const ProductCard = ({ product }) => {
     badge,
     price,
     discount,
-    inStock,
-    sizes,
+    size,
   } = product;
 
   const navigate = useNavigate();
-
-  const size = sizes[0];
 
   const {
     authState: { token },
@@ -44,11 +41,6 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="card">
-      {inStock ? null : (
-        <div className="overlay">
-          <p className="overlay-text">Out Of Stock</p>
-        </div>
-      )}
       <div className="card-img">
         <img src={image} alt={title} />
       </div>
@@ -56,27 +48,21 @@ const ProductCard = ({ product }) => {
       <button
         className="card-icon"
         onClick={() =>
-          token
-            ? checkWishlistActionHandler(
-                id,
-                wishlist,
-                token,
-                { ...product, size },
-                wishlistDispatch
-              )
-            : navigate("/login")
+          checkWishlistActionHandler(
+            id,
+            wishlist,
+            token,
+            product,
+            wishlistDispatch
+          )
         }
       >
         <i
-          className={
-            token
-              ? `${
-                  checkWishlistAction(id, wishlist) === "Remove"
-                    ? "fa-solid"
-                    : "fa-regular"
-                } fa-heart`
-              : "fa-regular fa-heart"
-          }
+          className={`${
+            checkWishlistAction(id, wishlist) === "Remove"
+              ? "fa-solid"
+              : "fa-regular"
+          } fa-heart`}
         ></i>
       </button>
       <div className="card-head">
@@ -102,6 +88,9 @@ const ProductCard = ({ product }) => {
             </li>
           </ul>
         </div>
+        <p className="size">
+          Size: <strong>{size}</strong>
+        </p>
         <div className="card-text">
           <p className="card-price">
             ₹{price} <small className="price-before">₹{priceBefore}</small>
@@ -115,24 +104,23 @@ const ProductCard = ({ product }) => {
           <span className="card-btn-text">View Item</span>
         </Link>
         <button
-          className="card-btn card-btn-solid"
           onClick={() =>
-            token
-              ? addToCartHandler(
-                  token,
-                  { ...product, size },
-                  cartDispatch,
-                  cart
-                )
-              : navigate("/login")
+            moveToCartHandler(
+              token,
+              product,
+              cartDispatch,
+              cart,
+              wishlistDispatch
+            )
           }
+          className="card-btn card-btn-solid"
         >
           <i className="fa-solid fa-cart-shopping"></i>
-          <span className="card-btn-text">Add To Cart</span>
+          <span className="card-btn-text">Move To Cart</span>
         </button>
       </div>
     </div>
   );
 };
 
-export { ProductCard };
+export { WishlistCard };
