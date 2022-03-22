@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useCart } from "../../../../context/";
-import { addToCartHandler, checkAction } from "../../../../functions/";
+import { useAuth, useCart, useWishlist } from "../../../../context/";
+import {
+  addToCartHandler,
+  checkWishlistActionHandler,
+  checkWishlistAction,
+  moveToCartHandler,
+  getProduct,
+} from "../../../../functions/";
 import "./ProductDetailsCard.css";
 
 const ProductDetailsCard = ({ product, categoryId }) => {
@@ -13,6 +19,12 @@ const ProductDetailsCard = ({ product, categoryId }) => {
     cartState: { cart },
     cartDispatch,
   } = useCart();
+
+  const {
+    wishlistState: { wishlist },
+    wishlistDispatch,
+  } = useWishlist();
+
   const [size, setSize] = useState(product.sizes[0]);
 
   const navigate = useNavigate();
@@ -32,12 +44,39 @@ const ProductDetailsCard = ({ product, categoryId }) => {
   const priceBefore =
     Number(price) +
     +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
+
   return (
     <section className="product-details-section">
       <div className="product-img">
         <img src={imageSrc} alt={title} />
       </div>
       <div className="product-details">
+        <button
+          className="card-icon"
+          onClick={() =>
+            token
+              ? checkWishlistActionHandler(
+                  id,
+                  wishlist,
+                  token,
+                  { ...product, size },
+                  wishlistDispatch
+                )
+              : navigate("/login")
+          }
+        >
+          <i
+            className={
+              token
+                ? `${
+                    checkWishlistAction(id, wishlist) === "Remove"
+                      ? "fa-solid"
+                      : "fa-regular"
+                  } fa-heart`
+                : "fa-regular fa-heart"
+            }
+          ></i>
+        </button>
         <p className="product-section">
           Home / <Link to={`/categories/${categoryId}`}>{categoryName}</Link>
         </p>
@@ -46,13 +85,14 @@ const ProductDetailsCard = ({ product, categoryId }) => {
           ₹{price} <small className="price-before">₹{priceBefore}</small>
           <small className="price-discount">{discount}%OFF</small>
         </p>
-
         <select
+          defaultValue={
+            wishlist.length > 0 ? getProduct(wishlist, id).size : null
+          }
           name="sizes"
           className="size-select"
           onChange={(e) => setSize(e.target.value)}
         >
-          <option>Select Size</option>
           {sizes.map((size, index) => {
             return (
               <option key={index} value={size}>
@@ -65,16 +105,21 @@ const ProductDetailsCard = ({ product, categoryId }) => {
           className="btn btn-primary details-btn"
           onClick={() =>
             token
-              ? addToCartHandler(
-                  token,
-                  { ...product, size },
-                  cartDispatch,
-                  cart
-                )
+              ? checkWishlistAction(id, wishlist) === "Remove"
+                ? moveToCartHandler(
+                    token,
+                    product,
+                    cartDispatch,
+                    cart,
+                    wishlistDispatch
+                  )
+                : addToCartHandler(token, product, cartDispatch, cart)
               : navigate("/login")
           }
         >
-          Add To Cart
+          {checkWishlistAction(id, wishlist) === "Remove"
+            ? "Move To Cart"
+            : "Add To Cart"}
         </button>
         <h3 className="product-description-title">
           Product Description <i className="fas fa-indent"></i>

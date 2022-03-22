@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useCart } from "../../context/";
+import { useAuth, useCart, useWishlist } from "../../context/";
 import { getTotalCartItems } from "../../functions/";
 
 const Header = () => {
@@ -9,10 +9,16 @@ const Header = () => {
     authState: { user, token },
     authDispatch,
   } = useAuth();
+
   const {
     cartState: { cart },
     cartDispatch,
   } = useCart();
+
+  const {
+    wishlistState: { wishlist },
+  } = useWishlist();
+
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -56,12 +62,17 @@ const Header = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/wishlist">
+            <Link to="/wishlist" className="nav-link">
               <i className="fas fa-heart"></i>
-              <div className="numeric-badge danger-bg">20</div>
+              <div
+                className={`numeric-badge danger-bg ${
+                  token ? (wishlist.length > 0 ? "display" : "hide") : "hide"
+                }`}
+              >
+                {wishlist.length}
+              </div>
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to="/cart" className="nav-link">
               <i className="fas fa-shopping-cart"></i>

@@ -24,3 +24,13 @@ export {
   getCartTotal,
   getTotalCartItems,
 } from "./cart";
+
+export {
+  loadWishlist,
+  addToWishListHandler,
+  removeFromWishlistHandler,
+  checkWishlistAction,
+  checkWishlistActionHandler,
+  moveToCartHandler,
+  moveToWishListHandler,
+} from "./wishlist";

@@ -32,3 +32,8 @@
   width: 8rem;
   transform: translateX(-50%);
 }
+
+.size {
+  font-size: var(--font-size-6);
+  padding: 1rem 0;
+}

@@ -20,7 +20,9 @@ ReactDOM.render(
       <AuthProvider>
         <DataProvider>
           <CartProvider>
-            <App />
+            <WishlistProvider>
+              <App />
+            </WishlistProvider>
           </CartProvider>
         </DataProvider>
       </AuthProvider>
