@@ -70,13 +70,19 @@ const moveToCartHandler = (
   removeFromWishlistHandler(token, product._id, wishlistDispatch);
 };
 
+const getWishlistItem = (wishlist, id) =>
+  wishlist.find((item) => item._id === id);
+
 const moveToWishListHandler = (
   token,
   product,
   wishlistDispatch,
-  cartDispatch
+  cartDispatch,
+  wishlist
 ) => {
-  addToWishListHandler(token, product, wishlistDispatch);
+  const item = getWishlistItem(wishlist, product._id);
+  !item && addToWishListHandler(token, product, wishlistDispatch);
+
   removeFromCartHandler(token, product._id, cartDispatch);
 };
 

@@ -16,7 +16,10 @@ const CartCard = ({ product }) => {
 
   const { cartDispatch } = useCart();
 
-  const { wishlistDispatch } = useWishlist();
+  const {
+    wishlistState: { wishlist },
+    wishlistDispatch,
+  } = useWishlist();
 
   const priceBefore =
     Number(price) +
@@ -88,7 +91,8 @@ const CartCard = ({ product }) => {
                 token,
                 product,
                 wishlistDispatch,
-                cartDispatch
+                cartDispatch,
+                wishlist
               )
             }
             className="cart-btn btn-outline-primary"

@@ -113,7 +113,12 @@ const ProductDetailsCard = ({ product, categoryId }) => {
                     cart,
                     wishlistDispatch
                   )
-                : addToCartHandler(token, product, cartDispatch, cart)
+                : addToCartHandler(
+                    token,
+                    { ...product, size },
+                    cartDispatch,
+                    cart
+                  )
               : navigate("/login")
           }
         >
