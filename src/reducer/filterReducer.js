@@ -14,7 +14,7 @@ const filterReducer = (state, action) => {
         };
       }
       const filterCategories = state.category.filter(
-        (item) => item !== action.payload.categoryType
+        (product) => product !== action.payload.categoryType
       );
       return { ...state, category: filterCategories };
     case "RESET":
