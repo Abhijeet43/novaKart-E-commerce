@@ -1,14 +1,27 @@
 import React from "react";
 import "./Filters.css";
+import { useFilter, useData } from "../../context/";
 
 const Filters = () => {
+  const {
+    filterState: { sortBy, category: categoryState },
+    filterDispatch,
+  } = useFilter();
+
+  const {
+    dataState: { categories },
+  } = useData();
+
   return (
     <aside className="aside">
       <div className="aside-heading">
         <h2 className="aside-title">Filters</h2>
-        <a href="#" className="aside-clear">
+        <button
+          onClick={() => filterDispatch({ type: "CLEAR" })}
+          className="aside-clear"
+        >
           Clear
-        </a>
+        </button>
       </div>
       <div className="filter-container">
         <h3 className="filter-title price">Price</h3>
@@ -26,44 +39,52 @@ const Filters = () => {
       <div className="filter-container">
         <h3 className="filter-title">Sort By</h3>
         <div className="filter-type">
-          <input type="radio" id="ltoh" name="sort" />
+          <input
+            type="radio"
+            id="ltoh"
+            name="sort"
+            onChange={() =>
+              filterDispatch({ type: "SORT_BY", payload: "LOW_TO_HIGH" })
+            }
+            checked={sortBy === "LOW_TO_HIGH"}
+          />
           <label htmlFor="ltoh">Low to High</label>
         </div>
         <div className="filter-type">
-          <input type="radio" id="htol" name="sort" />
+          <input
+            type="radio"
+            id="htol"
+            name="sort"
+            onChange={() =>
+              filterDispatch({ type: "SORT_BY", payload: "HIGH_TO_LOW" })
+            }
+            checked={sortBy === "HIGH_TO_LOW"}
+          />
           <label htmlFor="htol">High to Low</label>
-        </div>
-        <div className="filter-type">
-          <input type="radio" id="ntool" name="sort" />
-          <label htmlFor="ntool">New to Old</label>
-        </div>
-        <div className="filter-type">
-          <input type="radio" id="olton" name="sort" />
-          <label htmlFor="olton">Old to New</label>
         </div>
       </div>
       <div className="filter-container">
         <h3 className="filter-title">Category</h3>
-        <div className="filter-type">
-          <input type="checkbox" id="tshirts" />
-          <label htmlFor="tshirts">T-Shirts</label>
-        </div>
-        <div className="filter-type">
-          <input type="checkbox" id="denims" />
-          <label htmlFor="denims">Denims</label>
-        </div>
-        <div className="filter-type">
-          <input type="checkbox" id="tracks" />
-          <label htmlFor="tracks">Tracks</label>
-        </div>
-        <div className="filter-type">
-          <input type="checkbox" id="watches" />
-          <label htmlFor="watches">Watches</label>
-        </div>
-        <div className="filter-type">
-          <input type="checkbox" id="sneakers" />
-          <label htmlFor="sneakers">Sneakers</label>
-        </div>
+
+        {categories.map((category) => {
+          return (
+            <div className="filter-type" key={category.id}>
+              <input
+                type="checkbox"
+                id={category.id}
+                name="categories"
+                checked={categoryState.includes(category.categoryName)}
+                onChange={() =>
+                  filterDispatch({
+                    type: "CATEGORY",
+                    payload: { categoryType: category.categoryName },
+                  })
+                }
+              />
+              <label htmlFor={category.id}>{category.categoryName}</label>
+            </div>
+          );
+        })}
       </div>
       <div className="filter-container">
         <h3 className="filter-title">Rating</h3>

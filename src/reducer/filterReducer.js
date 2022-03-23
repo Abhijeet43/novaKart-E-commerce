@@ -17,7 +17,7 @@ const filterReducer = (state, action) => {
         (product) => product !== action.payload.categoryType
       );
       return { ...state, category: filterCategories };
-    case "RESET":
+    case "CLEAR":
       return {
         sortBy: null,
         category: [],

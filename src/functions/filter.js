@@ -6,6 +6,7 @@ const sortData = (data, sortBy) => {
   if (sortBy === "LOW_TO_HIGH") {
     return [...data].sort((a, b) => a.price - b.price);
   }
+  return data;
 };
 
 const ratingData = (data, rating) => {
@@ -20,9 +21,9 @@ const filterPriceData = (data, maxPriceRange) => {
   return data.filter((product) => product.price < maxPriceRange);
 };
 
-const categoryData = (data, { category }) => {
+const categoryData = (data, category) => {
   const categoryFilteredData = data.filter((product) =>
-    category.includes(product.category)
+    category.includes(product.categoryName)
   );
   if (categoryFilteredData.length > 0) {
     return categoryFilteredData;
