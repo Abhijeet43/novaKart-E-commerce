@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductListing.css";
 import { ProductCard, ProductPagination, Filters } from "../../components/";
 import { useData, useFilter } from "../../context/";
@@ -11,6 +11,7 @@ import {
 } from "../../functions/";
 
 const ProductListing = () => {
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const {
     dataState: { products, categories },
   } = useData();
@@ -25,6 +26,8 @@ const ProductListing = () => {
     },
   } = useFilter();
 
+  const mobileFilterOpenHandler = () => setMobileFilterOpen(true);
+
   const categorizedData = categoryData(products, category);
   const ratedData = ratingData(categorizedData, rating);
   const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
@@ -34,7 +37,10 @@ const ProductListing = () => {
   return (
     <>
       <main className="product-listing-section">
-        <Filters />
+        <Filters
+          mobileFilterOpen={mobileFilterOpen}
+          setMobileFilterOpen={setMobileFilterOpen}
+        />
         <section className="all-products">
           <div className="nav-search">
             <button className="search-icon">
@@ -56,8 +62,14 @@ const ProductListing = () => {
               <h1>No Data to show</h1>
             )}
           </div>
+          <div className="filter-btn-container">
+            <button onClick={mobileFilterOpenHandler} className="filter-btn">
+              Filter
+            </button>
+          </div>
         </section>
       </main>
+      {console.log(mobileFilterOpen)}
       <ProductPagination />
     </>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import "./Filters.css";
 import { useFilter, useData } from "../../context/";
 
-const Filters = () => {
+const Filters = ({ mobileFilterOpen, setMobileFilterOpen }) => {
   const {
     filterState: {
       sortBy,
@@ -18,15 +18,22 @@ const Filters = () => {
     dataState: { categories },
   } = useData();
 
+  const mobileFilterClose = () => setMobileFilterOpen(false);
+
   return (
-    <aside className="aside">
-      <div className="aside-heading">
-        <h2 className="aside-title">Filters</h2>
+    <section
+      className={mobileFilterOpen ? "filter-section active" : "filter-section"}
+    >
+      <div className="filter-heading">
+        <h2 className="filter-title">Filters</h2>
         <button
           onClick={() => filterDispatch({ type: "CLEAR" })}
-          className="aside-clear"
+          className="filter-clear"
         >
           Clear
+        </button>
+        <button onClick={mobileFilterClose} className="cross">
+          <i className="fa-solid fa-xmark"></i>
         </button>
       </div>
       <div className="filter-container">
@@ -167,7 +174,7 @@ const Filters = () => {
           <label htmlFor="only-in-stock">Only In Stock</label>
         </div>
       </div>
-    </aside>
+    </section>
   );
 };
 
