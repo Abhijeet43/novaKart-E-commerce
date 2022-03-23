@@ -88,11 +88,11 @@ const ProductCard = ({ product }) => {
           <ul className="stars">
             {[...Array(5)].map((_, index) => {
               return rating > index ? (
-                <li className="star star-filled">
+                <li key={index} className="star star-filled">
                   <i className="fas fa-star"></i>
                 </li>
               ) : (
-                <li className="star">
+                <li key={index} className="star">
                   <i className="fas fa-star"></i>
                 </li>
               );

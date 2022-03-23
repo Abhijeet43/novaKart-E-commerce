@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const RelatedProducts = ({ category, id, categoryId }) => {
   const {
-    dataState: { products, categories },
+    dataState: { products },
   } = useData();
 
   const relatedProductsList = getRelatedProducts(products, category, id);

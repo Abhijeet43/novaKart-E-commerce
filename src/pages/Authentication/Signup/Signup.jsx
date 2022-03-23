@@ -11,8 +11,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const { authDispatch } = useAuth();
 
-  const [passwordMatch, setPasswordMatch] = useState(true);
-
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
 
@@ -36,7 +34,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       if (user.password !== user.confirmPassword) {
-        setPasswordMatch(false);
+        alert("Password and Confirm Password donot match");
         return;
       }
       const response = await signUp(user);

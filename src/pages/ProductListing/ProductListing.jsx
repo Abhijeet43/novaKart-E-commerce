@@ -13,7 +13,7 @@ import {
 const ProductListing = () => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const {
-    dataState: { products, categories },
+    dataState: { products },
   } = useData();
 
   const {
@@ -69,7 +69,6 @@ const ProductListing = () => {
           </div>
         </section>
       </main>
-      {console.log(mobileFilterOpen)}
       <ProductPagination />
     </>
   );
