@@ -23,7 +23,11 @@ const Wishlist = () => {
             })
           ) : (
             <div className="empty-cart-section">
-              <img className="wishlist-img" src={wishlistImg} />
+              <img
+                className="wishlist-img"
+                src={wishlistImg}
+                alt="empty-wishlist"
+              />
               <Link className="btn btn-primary" to="/products">
                 Shop More
               </Link>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
@@ -101,6 +101,21 @@ const ProductDetailsCard = ({ product, categoryId }) => {
             );
           })}
         </select>
+        <div className="card-rating">
+          <ul className="stars">
+            {[...Array(5)].map((_, index) => {
+              return rating > index ? (
+                <li key={index} className="star star-filled">
+                  <i className="fas fa-star"></i>
+                </li>
+              ) : (
+                <li key={index} className="star">
+                  <i className="fas fa-star"></i>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
         <button
           className="btn btn-primary details-btn"
           onClick={() =>

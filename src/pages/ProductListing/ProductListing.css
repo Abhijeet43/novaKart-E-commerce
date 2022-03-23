@@ -13,8 +13,34 @@
   display: none;
 }
 
+/* FILTER BTN CONTAINER */
+.filter-btn-container {
+  display: none;
+  text-align: center;
+  position: sticky;
+  width: 100%;
+  bottom: 0;
+  background: var(--secondary-color);
+}
+
+.filter-btn {
+  display: inline-block;
+  padding: 1rem;
+  font-size: var(--font-size-4);
+  width: 100%;
+}
+
+.fitler-btn:hover {
+  color: var(--primary-color);
+}
+
+/* MEDIA QUERIES */
 @media (max-width: 540px) {
   .all-products > .nav-search {
+    display: block;
+  }
+
+  .filter-btn-container {
     display: block;
   }
 }

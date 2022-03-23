@@ -1,4 +1,4 @@
-.aside {
+.filter-section {
   position: sticky;
   top: 0;
   height: 100%;
@@ -8,26 +8,26 @@
   padding: 2rem;
 }
 
-.aside-heading {
+.filter-heading {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 1rem;
 }
 
-.aside-title,
-.aside-clear {
+.filter-title,
+.filter-clear {
   font-size: var(--font-size-4);
 }
 
-.aside-title {
+.filter-title {
   color: var(--lynx-gray-color);
 }
 
-.aside-clear {
+.filter-clear {
   color: var(--primary-color);
 }
 
-.aside-clear:hover {
+.filter-clear:hover {
   text-decoration: underline;
 }
 
@@ -57,6 +57,12 @@
   margin-right: 0.5rem;
 }
 
+label,
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
 /* SLIDER */
 .range {
   position: relative;
@@ -64,64 +70,26 @@
   width: 28rem;
   background: var(--secondary-color);
   border-radius: 0.35rem;
-  padding: 0 3.8rem 0 4rem;
+  padding: 0 5rem 0 2rem;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
 }
-.sliderValue {
-  position: relative;
-  width: 100%;
-}
-.slider-points {
-  width: 100%;
-  position: absolute;
-  text-align: center;
-  height: 3.5rem;
-  width: 3.5rem;
-  transform: translateX(-30%) scale(0);
-  font-size: var(--font-size-6);
-  top: -3rem;
-  left: 0;
-  line-height: 4rem;
-  z-index: 2;
-  color: var(--secondary-color);
-  transform-origin: bottom;
-  transition: transform 0.3s ease-in-out;
-}
-.slider-points.show {
-  transform: translateX(-50%) scale(1);
-}
-.slider-points:after {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 100%;
-  background: var(--primary-color);
-  border: 0.2rem solid var(--secondary-color);
-  z-index: -1;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  border-bottom-left-radius: 50%;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-}
+
 .field {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  position: relative;
 }
 .field .value {
-  position: absolute;
   font-size: var(--font-size-7);
   color: var(--primary-color);
   font-weight: var(--font-weight-2);
 }
 .field .value.left {
-  left: -3rem;
+  left: -2rem;
 }
 .field .value.right {
-  right: -3.5rem;
+  right: -4.5rem;
 }
 .range input {
   -webkit-appearance: none;
@@ -143,8 +111,41 @@
   cursor: pointer;
 }
 
+.cross {
+  display: none;
+  font-size: var(--font-size-4);
+}
+
 @media (max-width: 540px) {
-  .aside {
-    display: none;
+  .filter-section {
+    padding-top: 0;
+    position: fixed;
+    z-index: 999;
+    background: var(--secondary-color);
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    font-size: var(--font-size-6);
+  }
+
+  .filter-section.active {
+    transform: translateY(0);
+  }
+
+  .filter-container {
+    margin: 0;
+  }
+
+  .filter-title.price {
+    margin-bottom: 0.5rem;
+  }
+
+  .filter .cross {
+    display: inline-block;
+    font-size: var(--font-size-3);
+  }
+
+  .cross {
+    display: inline-block;
   }
 }

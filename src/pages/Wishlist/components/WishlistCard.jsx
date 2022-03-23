@@ -1,6 +1,6 @@
 import React from "react";
 import "./WishlistCard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   checkWishlistActionHandler,
   checkWishlistAction,
@@ -18,8 +18,6 @@ const WishlistCard = ({ product }) => {
     discount,
     size,
   } = product;
-
-  const navigate = useNavigate();
 
   const {
     authState: { token },

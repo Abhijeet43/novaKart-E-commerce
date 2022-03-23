@@ -34,3 +34,11 @@ export {
   moveToCartHandler,
   moveToWishListHandler,
 } from "./wishlist";
+
+export {
+  sortData,
+  ratingData,
+  getOutOfStockData,
+  filterPriceData,
+  categoryData,
+} from "./filter";
