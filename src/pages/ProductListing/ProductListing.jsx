@@ -20,7 +20,8 @@ const ProductListing = () => {
   } = useFilter();
 
   const categorizedData = categoryData(products, category);
-  const sortedData = sortData(categorizedData, sortBy);
+  const ratedData = ratingData(categorizedData, rating);
+  const sortedData = sortData(ratedData, sortBy);
 
   return (
     <>

@@ -10,7 +10,9 @@ const sortData = (data, sortBy) => {
 };
 
 const ratingData = (data, rating) => {
-  return data.filter((product) => product.rating === rating);
+  return rating
+    ? data.filter((product) => Number(product.rating) >= Number(rating))
+    : data;
 };
 
 const getOutOfStockData = (data, includeOutofStock) => {

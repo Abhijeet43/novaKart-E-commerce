@@ -14,6 +14,7 @@ const ProductCard = ({ product }) => {
     imageSrc: image,
     title,
     badge,
+    rating,
     price,
     discount,
     inStock,
@@ -85,21 +86,17 @@ const ProductCard = ({ product }) => {
       <div className="card-body">
         <div className="card-rating">
           <ul className="stars">
-            <li className="star star-filled">
-              <i className="fas fa-star"></i>
-            </li>
-            <li className="star star-filled">
-              <i className="fas fa-star"></i>
-            </li>
-            <li className="star star-filled">
-              <i className="fas fa-star"></i>
-            </li>
-            <li className="star">
-              <i className="fas fa-star"></i>
-            </li>
-            <li className="star">
-              <i className="fas fa-star"></i>
-            </li>
+            {[...Array(5)].map((_, index) => {
+              return rating > index ? (
+                <li className="star star-filled">
+                  <i className="fas fa-star"></i>
+                </li>
+              ) : (
+                <li className="star">
+                  <i className="fas fa-star"></i>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="card-text">

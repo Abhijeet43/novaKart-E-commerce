@@ -72,7 +72,7 @@ const Filters = () => {
               <input
                 type="checkbox"
                 id={category.id}
-                name="categories"
+                name={category.categoryName}
                 checked={categoryState.includes(category.categoryName)}
                 onChange={() =>
                   filterDispatch({
@@ -88,20 +88,53 @@ const Filters = () => {
       </div>
       <div className="filter-container">
         <h3 className="filter-title">Rating</h3>
+        {}
         <div className="filter-type">
-          <input type="radio" name="rating" id="4above" />
+          <input
+            type="radio"
+            name="rating"
+            id="4above"
+            value="4"
+            onChange={(e) =>
+              filterDispatch({ type: "RATING", payload: e.target.value })
+            }
+          />
           <label htmlFor="4above">4 stars & above</label>
         </div>
         <div className="filter-type">
-          <input type="radio" name="rating" id="3above" />
+          <input
+            type="radio"
+            name="rating"
+            id="3above"
+            value="3"
+            onChange={(e) =>
+              filterDispatch({ type: "RATING", payload: e.target.value })
+            }
+          />
           <label htmlFor="3above">3 stars & above</label>
         </div>
         <div className="filter-type">
-          <input type="radio" name="rating" id="2above" />
+          <input
+            type="radio"
+            name="rating"
+            id="2above"
+            value="2"
+            onChange={(e) =>
+              filterDispatch({ type: "RATING", payload: e.target.value })
+            }
+          />
           <label htmlFor="2above">2 stars & above</label>
         </div>
         <div className="filter-type">
-          <input type="radio" name="rating" id="1above" />
+          <input
+            type="radio"
+            name="rating"
+            id="1above"
+            value="1"
+            onChange={(e) =>
+              filterDispatch({ type: "RATING", payload: e.target.value })
+            }
+          />
           <label htmlFor="1above">1 stars & above</label>
         </div>
       </div>
