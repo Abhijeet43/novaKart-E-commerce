@@ -57,6 +57,12 @@
   margin-right: 0.5rem;
 }
 
+label,
+input[type="radio"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
 /* SLIDER */
 .range {
   position: relative;

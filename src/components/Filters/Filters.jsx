@@ -2,7 +2,7 @@ import React from "react";
 import "./Filters.css";
 import { useFilter, useData } from "../../context/";
 
-const Filters = ({ mobileFilterOpen, setMobileFilterOpen }) => {
+const Filters = ({ mobileFilterOpen, setMobileFilterOpen, categoryCheck }) => {
   const {
     filterState: {
       sortBy,
@@ -82,29 +82,32 @@ const Filters = ({ mobileFilterOpen, setMobileFilterOpen }) => {
           <label htmlFor="htol">High to Low</label>
         </div>
       </div>
-      <div className="filter-container">
-        <h3 className="filter-title">Category</h3>
+      {!categoryCheck ? (
+        <div className="filter-container">
+          <h3 className="filter-title">Category</h3>
 
-        {categories.map((category) => {
-          return (
-            <div className="filter-type" key={category.id}>
-              <input
-                type="checkbox"
-                id={category.id}
-                name={category.categoryName}
-                checked={categoryState.includes(category.categoryName)}
-                onChange={() =>
-                  filterDispatch({
-                    type: "CATEGORY",
-                    payload: { categoryType: category.categoryName },
-                  })
-                }
-              />
-              <label htmlFor={category.id}>{category.categoryName}</label>
-            </div>
-          );
-        })}
-      </div>
+          {categories.map((category) => {
+            return (
+              <div className="filter-type" key={category.id}>
+                <input
+                  type="checkbox"
+                  id={category.id}
+                  name={category.categoryName}
+                  checked={categoryState.includes(category.categoryName)}
+                  onChange={() =>
+                    filterDispatch({
+                      type: "CATEGORY",
+                      payload: { categoryType: category.categoryName },
+                    })
+                  }
+                />
+                <label htmlFor={category.id}>{category.categoryName}</label>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+
       <div className="filter-container">
         <h3 className="filter-title">Rating</h3>
         {}
@@ -163,7 +166,6 @@ const Filters = ({ mobileFilterOpen, setMobileFilterOpen }) => {
       </div>
       <div className="filter-container">
         <h3 className="filter-title">Other Filters</h3>
-
         <div className="filter-type">
           <input
             type="checkbox"

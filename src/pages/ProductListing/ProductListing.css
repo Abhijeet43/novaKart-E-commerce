@@ -13,6 +13,7 @@
   display: none;
 }
 
+/* FILTER BTN CONTAINER */
 .filter-btn-container {
   display: none;
   text-align: center;
@@ -33,6 +34,7 @@
   color: var(--primary-color);
 }
 
+/* MEDIA QUERIES */
 @media (max-width: 540px) {
   .all-products > .nav-search {
     display: block;
