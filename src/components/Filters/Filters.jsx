@@ -4,7 +4,7 @@ import { useFilter, useData } from "../../context/";
 
 const Filters = () => {
   const {
-    filterState: { sortBy, category: categoryState },
+    filterState: { sortBy, category: categoryState, rating },
     filterDispatch,
   } = useFilter();
 
@@ -93,49 +93,53 @@ const Filters = () => {
           <input
             type="radio"
             name="rating"
-            id="4above"
+            id="four-star"
             value="4"
+            checked={rating === "4"}
             onChange={(e) =>
               filterDispatch({ type: "RATING", payload: e.target.value })
             }
           />
-          <label htmlFor="4above">4 stars & above</label>
+          <label htmlFor="four-star">4 stars & above</label>
         </div>
         <div className="filter-type">
           <input
             type="radio"
             name="rating"
-            id="3above"
+            id="three-star"
             value="3"
+            checked={rating === "3"}
             onChange={(e) =>
               filterDispatch({ type: "RATING", payload: e.target.value })
             }
           />
-          <label htmlFor="3above">3 stars & above</label>
+          <label htmlFor="three-star">3 stars & above</label>
         </div>
         <div className="filter-type">
           <input
             type="radio"
             name="rating"
-            id="2above"
+            id="two-star"
             value="2"
+            checked={rating === "2"}
             onChange={(e) =>
               filterDispatch({ type: "RATING", payload: e.target.value })
             }
           />
-          <label htmlFor="2above">2 stars & above</label>
+          <label htmlFor="two-star">2 stars & above</label>
         </div>
         <div className="filter-type">
           <input
             type="radio"
             name="rating"
-            id="1above"
+            id="one-star"
             value="1"
+            checked={rating === "1"}
             onChange={(e) =>
               filterDispatch({ type: "RATING", payload: e.target.value })
             }
           />
-          <label htmlFor="1above">1 stars & above</label>
+          <label htmlFor="one-star">1 stars & above</label>
         </div>
       </div>
     </aside>
