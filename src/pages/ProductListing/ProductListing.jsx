@@ -16,12 +16,20 @@ const ProductListing = () => {
   } = useData();
 
   const {
-    filterState: { sortBy, category, rating, includeOutOfStock, maxPriceRange },
+    filterState: {
+      sortBy,
+      category,
+      rating,
+      includeOutOfStock,
+      priceRangeValue,
+    },
   } = useFilter();
 
   const categorizedData = categoryData(products, category);
   const ratedData = ratingData(categorizedData, rating);
-  const sortedData = sortData(ratedData, sortBy);
+  const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
+  const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
+  const sortedData = sortData(filteredData, sortBy);
 
   return (
     <>

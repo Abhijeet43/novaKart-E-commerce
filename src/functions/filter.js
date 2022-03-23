@@ -19,8 +19,10 @@ const getOutOfStockData = (data, includeOutofStock) => {
   return includeOutofStock ? data : data.filter((product) => product.inStock);
 };
 
-const filterPriceData = (data, maxPriceRange) => {
-  return data.filter((product) => product.price < maxPriceRange);
+const filterPriceData = (data, priceRangeValue) => {
+  return data.filter(
+    (product) => Number(product.price) <= Number(priceRangeValue)
+  );
 };
 
 const categoryData = (data, category) => {

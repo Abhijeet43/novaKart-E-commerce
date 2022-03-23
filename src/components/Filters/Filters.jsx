@@ -4,7 +4,13 @@ import { useFilter, useData } from "../../context/";
 
 const Filters = () => {
   const {
-    filterState: { sortBy, category: categoryState, rating },
+    filterState: {
+      sortBy,
+      category: categoryState,
+      rating,
+      priceRangeValue,
+      includeOutOfStock,
+    },
     filterDispatch,
   } = useFilter();
 
@@ -26,13 +32,19 @@ const Filters = () => {
       <div className="filter-container">
         <h3 className="filter-title price">Price</h3>
         <div className="range">
-          <div className="sliderValue">
-            <span className="slider-points">100</span>
-          </div>
           <div className="field">
-            <div className="value left">₹100</div>
-            <input type="range" min="100" max="2000" value="100" steps="1" />
-            <div className="value right">₹2000</div>
+            <div className="value left">₹0</div>
+            <input
+              type="range"
+              id="range-slider"
+              min="0"
+              max="10000"
+              value={priceRangeValue}
+              onChange={(e) =>
+                filterDispatch({ type: "RANGE", payload: e.target.value })
+              }
+            />
+            <div className="value right">₹{priceRangeValue}</div>
           </div>
         </div>
       </div>
@@ -140,6 +152,19 @@ const Filters = () => {
             }
           />
           <label htmlFor="one-star">1 stars & above</label>
+        </div>
+      </div>
+      <div className="filter-container">
+        <h3 className="filter-title">Other Filters</h3>
+
+        <div className="filter-type">
+          <input
+            type="checkbox"
+            id="only-in-stock"
+            checked={!includeOutOfStock}
+            onChange={() => filterDispatch({ type: "REMOVE_OUT_OF_STOCK" })}
+          />
+          <label htmlFor="only-in-stock">Only In Stock</label>
         </div>
       </div>
     </aside>

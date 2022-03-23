@@ -4,8 +4,10 @@ const filterReducer = (state, action) => {
       return { ...state, sortBy: action.payload };
     case "RATING":
       return { ...state, rating: action.payload };
-    case "INCLUDE_OUT_OF_STOCK":
+    case "REMOVE_OUT_OF_STOCK":
       return { ...state, includeOutOfStock: !state.includeOutOfStock };
+    case "RANGE":
+      return { ...state, priceRangeValue: action.payload };
     case "CATEGORY":
       if (!state.category.includes(action.payload.categoryType)) {
         return {
@@ -23,7 +25,7 @@ const filterReducer = (state, action) => {
         category: [],
         rating: null,
         includeOutOfStock: true,
-        maxPriceRange: 10000,
+        priceRangeValue: 10000,
       };
     default:
       return state;

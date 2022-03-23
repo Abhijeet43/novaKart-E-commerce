@@ -9,7 +9,7 @@ const FilterProvider = ({ children }) => {
     category: [],
     rating: null,
     includeOutOfStock: true,
-    maxPriceRange: 10000,
+    priceRangeValue: 10000,
   });
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>

@@ -64,64 +64,26 @@
   width: 28rem;
   background: var(--secondary-color);
   border-radius: 0.35rem;
-  padding: 0 3.8rem 0 4rem;
+  padding: 0 5rem 0 2rem;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.3);
 }
-.sliderValue {
-  position: relative;
-  width: 100%;
-}
-.slider-points {
-  width: 100%;
-  position: absolute;
-  text-align: center;
-  height: 3.5rem;
-  width: 3.5rem;
-  transform: translateX(-30%) scale(0);
-  font-size: var(--font-size-6);
-  top: -3rem;
-  left: 0;
-  line-height: 4rem;
-  z-index: 2;
-  color: var(--secondary-color);
-  transform-origin: bottom;
-  transition: transform 0.3s ease-in-out;
-}
-.slider-points.show {
-  transform: translateX(-50%) scale(1);
-}
-.slider-points:after {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 100%;
-  background: var(--primary-color);
-  border: 0.2rem solid var(--secondary-color);
-  z-index: -1;
-  left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  border-bottom-left-radius: 50%;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
-}
+
 .field {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  position: relative;
 }
 .field .value {
-  position: absolute;
   font-size: var(--font-size-7);
   color: var(--primary-color);
   font-weight: var(--font-weight-2);
 }
 .field .value.left {
-  left: -3rem;
+  left: -2rem;
 }
 .field .value.right {
-  right: -3.5rem;
+  right: -4.5rem;
 }
 .range input {
   -webkit-appearance: none;
