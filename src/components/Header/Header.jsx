@@ -1,13 +1,12 @@
 import React from "react";
 import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../context/";
 import { getTotalCartItems } from "../../functions/";
 
 const Header = () => {
   const {
     authState: { user, token },
-    authDispatch,
   } = useAuth();
 
   const {
@@ -18,19 +17,14 @@ const Header = () => {
     wishlistState: { wishlist },
   } = useWishlist();
 
+  const location = useLocation();
+
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    navigate("/");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    authDispatch({ type: "LOGOUT" });
-  };
-
-  const checkStatus = (user) => (user ? "LOGOUT" : "LOGIN");
+  const checkStatus = (user) => (user ? `Hi, ${user.firstName}` : "LOGIN");
 
   const userHandler = async (type) => {
-    type === "LOGIN" ? navigate("/login") : logoutHandler();
+    type === "LOGIN" ? navigate("/login") : navigate("/profile");
   };
 
   return (
@@ -41,28 +35,23 @@ const Header = () => {
             NOVAKART
           </Link>
         </div>
-        <div className="nav-search">
-          <button className="search-icon">
-            <i className="fas fa-search"></i>
-          </button>
-          <input
-            type="search"
-            className="nav-search"
-            placeholder="search items here"
-          />
-        </div>
+        {location.pathname === "/products" && (
+          <div className="nav-search">
+            <button className="search-icon">
+              <i className="fas fa-search"></i>
+            </button>
+            <input
+              type="search"
+              className="nav-search"
+              placeholder="search items here"
+            />
+          </div>
+        )}
+
         <ul className="nav-items">
           <li className="nav-item">
-            <Link to="/profile" className="nav-link">
-              <span className="nav-user-name">
-                {user ? `Hi, ${user.firstName}` : null}
-              </span>
-              <i className="fa-solid fa-user"></i>
-            </Link>
-          </li>
-          <li className="nav-item">
             <Link to="/wishlist" className="nav-link">
-              <i className="fas fa-heart"></i>
+              <i className="fas fa-heart nav-icon"></i>
               <div
                 className={`numeric-badge danger-bg ${
                   token ? (wishlist.length > 0 ? "display" : "hide") : "hide"
@@ -74,7 +63,7 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <Link to="/cart" className="nav-link">
-              <i className="fas fa-shopping-cart"></i>
+              <i className="fas fa-shopping-cart nav-icon"></i>
               <div
                 className={`numeric-badge danger-bg ${
                   token ? (cart.length > 0 ? "display" : "hide") : "hide"
@@ -86,10 +75,11 @@ const Header = () => {
           </li>
           <li className="nav-item">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary btn-nav"
               onClick={() => userHandler(checkStatus(user))}
             >
-              {checkStatus(user)}
+              <i className="fa-solid fa-user user-icon"></i>
+              <span>{checkStatus(user)}</span>
             </button>
           </li>
         </ul>
