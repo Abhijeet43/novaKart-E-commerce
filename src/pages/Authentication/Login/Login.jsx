@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "../authentication.css";
 import { headerImg } from "../../../assets/index";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/";
+import { useAuth, useLoader } from "../../../context/";
 import { login } from "../../../functions/";
 import { useToggle } from "../../../hooks/useToggle";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { authDispatch } = useAuth();
+
+  const { setLoader } = useLoader();
+
   const navigate = useNavigate();
 
   const [showPass, setShowPass] = useToggle(false);
@@ -38,6 +42,7 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoader(true);
       const response = await login(user);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.encodedToken);
@@ -49,21 +54,14 @@ const Login = () => {
             user: response.data.foundUser,
           },
         });
-        navigate("/");
-      }
-
-      if (response.status === 404) {
-        throw new Error(
-          "The email entered is not Registered. Please Enter a valid Email"
-        );
-      } else if (response.status === 401) {
-        throw new Error("Incorrect Password! Please try again.");
-      } else if (response.status === 500) {
-        throw new Error("Internal Server Error");
+        toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
+        setLoader(false);
+        navigate(-1);
+      } else {
+        throw new Error("Something went wrong! Please try again later");
       }
     } catch (error) {
-      console.log(error);
-      alert(error);
+      toast.error(error.response.data.errors[0]);
     }
   };
 

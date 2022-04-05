@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import "../authentication.css";
 import { headerImg } from "../../../assets/index";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../context/";
+import { useAuth, useLoader } from "../../../context/";
 import { signUp } from "../../../functions/";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../../hooks/useToggle";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
+
   const { authDispatch } = useAuth();
+
+  const { setLoader } = useLoader();
 
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
@@ -34,9 +38,10 @@ const Signup = () => {
     e.preventDefault();
     try {
       if (user.password !== user.confirmPassword) {
-        alert("Password and Confirm Password donot match");
+        toast.error("Password and Confirm Password donot match");
         return;
       }
+      setLoader(true);
       const response = await signUp(user);
       if (response.status === 201) {
         authDispatch({
@@ -48,10 +53,14 @@ const Signup = () => {
         });
         localStorage.setItem("token", response.data.encodedToken);
         localStorage.setItem("user", JSON.stringify(response.data.createdUser));
+        toast.success("Signup Success!!");
+        setLoader(false);
         navigate("/");
+      } else {
+        throw new Error("Something went wrong! Please try again later");
       }
     } catch (error) {
-      console.log("Error", error);
+      toast.error(error.response.data.errors[0]);
     }
   };
 

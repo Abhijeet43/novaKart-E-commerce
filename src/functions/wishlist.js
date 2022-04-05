@@ -1,5 +1,6 @@
 import axios from "axios";
 import { addToCartHandler, removeFromCartHandler } from "./cart";
+import { toast } from "react-toastify";
 
 const loadWishlist = (token) =>
   axios.get("/api/user/wishlist", { headers: { authorization: token } });
@@ -16,11 +17,12 @@ const addToWishListHandler = async (token, product, wishlistDispatch) => {
         type: "ADD_TO_WISHLIST",
         payload: response.data.wishlist,
       });
+      toast.info(`${product.title} added to wishlist`);
     } else {
       throw new Error("Something Went Wrong...Try Again Later");
     }
   } catch (error) {
-    alert(error);
+    toast.error(error.response.data.errors[0]);
   }
 };
 
@@ -38,7 +40,7 @@ const removeFromWishlistHandler = async (token, id, wishlistDispatch) => {
       throw new Error("Something Went Wrong.... Try Later");
     }
   } catch (error) {
-    alert(error);
+    toast.error(error.response.data.errors[0]);
   }
 };
 

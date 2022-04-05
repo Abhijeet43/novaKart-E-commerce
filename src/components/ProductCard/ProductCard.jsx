@@ -6,7 +6,9 @@ import {
   checkWishlistActionHandler,
   checkWishlistAction,
 } from "../../functions/";
+
 import { useAuth, useCart, useWishlist } from "../../context/";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
   const {
@@ -42,6 +44,15 @@ const ProductCard = ({ product }) => {
   const priceBefore =
     Number(price) +
     +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
+
+  const callAddToCartHandler = () => {
+    if (token) {
+      addToCartHandler(token, { ...product, size }, cartDispatch, cart);
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
 
   return (
     <div className="card">
@@ -113,16 +124,7 @@ const ProductCard = ({ product }) => {
         </Link>
         <button
           className="card-btn card-btn-solid"
-          onClick={() =>
-            token
-              ? addToCartHandler(
-                  token,
-                  { ...product, size },
-                  cartDispatch,
-                  cart
-                )
-              : navigate("/login")
-          }
+          onClick={callAddToCartHandler}
         >
           <i className="fa-solid fa-cart-shopping"></i>
           <span className="card-btn-text">Add To Cart</span>

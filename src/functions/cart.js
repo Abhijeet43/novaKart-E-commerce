@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const loadCart = async (token) =>
   axios.get("/api/user/cart", { headers: { authorization: token } });
@@ -18,11 +19,12 @@ const addToCartHandler = async (token, product, cartDispatch, cart) => {
       );
       if (response.status === 201) {
         cartDispatch({ type: "ADD_TO_CART", payload: response.data.cart });
+        toast.info(`${product.title} added to cart`);
       } else {
         throw new Error("Something Went Wrong.... Try Later");
       }
     } catch (error) {
-      alert(error);
+      toast.error(error.response.data.errors[0]);
     }
   }
 };
@@ -40,7 +42,7 @@ const updateCartHandler = async (token, id, cartDispatch, action) => {
       throw new Error("Something Went Wrong.... Try Later");
     }
   } catch (error) {
-    alert(error);
+    toast.error(error.response.data.errors[0]);
   }
 };
 
@@ -55,7 +57,7 @@ const removeFromCartHandler = async (token, id, cartDispatch) => {
       throw new Error("Something Went Wrong.... Try Later");
     }
   } catch (error) {
-    alert(error);
+    toast.error(error.response.data.errors[0]);
   }
 };
 
