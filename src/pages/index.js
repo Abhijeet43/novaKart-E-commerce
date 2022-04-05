@@ -1,5 +1,6 @@
 export { Home } from "./Home/Home";
 export { Login } from "./Authentication/Login/Login";
+export { Profile } from "./Profile/Profile";
 export { Signup } from "./Authentication/Signup/Signup";
 export { ProductListing } from "./ProductListing/ProductListing";
 export { Cart } from "./Cart/Cart";

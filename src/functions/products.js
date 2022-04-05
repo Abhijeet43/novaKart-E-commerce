@@ -1,25 +1,31 @@
 import axios from "axios";
 
-const getProducts = async (dataDispatch) => {
+const getProducts = async (dataDispatch, setLoader) => {
   try {
+    setLoader(true);
     const response = await axios.get("/api/products");
     dataDispatch({
       type: "LOAD_INITIAL_DATA",
       payload: response.data.products,
     });
+    setLoader(false);
   } catch (error) {
     console.log("Error:", error);
   }
   return dataDispatch;
 };
 
-const getCategories = async (dataDispatch) => {
+const getCategories = async (dataDispatch, setLoader) => {
   try {
+    setLoader(true);
     const response = await axios.get("/api/categories");
     dataDispatch({
       type: "LOAD_CATEGORIES",
       payload: response.data.categories,
     });
+    const categories = response.data.categories;
+    setLoader(false);
+    return categories;
   } catch (error) {
     console.log("Error:", error);
   }

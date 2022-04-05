@@ -1,7 +1,9 @@
 import React from "react";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Header, Footer } from "./components/index";
+import { ToastContainer } from "react-toastify";
+import { Header, Footer, Loader } from "./components/";
 import {
   Home,
   Login,
@@ -12,16 +14,37 @@ import {
   Cart,
   Categories,
   CategoryListing,
-} from "./pages/index";
-import { useAuth } from "./context/auth-context";
+  Profile,
+} from "./pages/";
+import { useAuth, useLoader } from "./context/";
 
 function App() {
   const {
     authState: { user },
   } = useAuth();
+
+  const { loader } = useLoader();
+
   return (
     <>
+      {loader ? <Loader /> : null}
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="colored"
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        className="toast-text"
+      />
+
       <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -39,6 +62,10 @@ function App() {
         <Route
           path="/cart"
           element={user ? <Cart /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={user ? <Profile /> : <Navigate replace to="/login" />}
         />
         <Route path="/products" element={<ProductListing />} />
         <Route path="/products/:productId" element={<ProductDetails />} />

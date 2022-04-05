@@ -64,6 +64,19 @@
   font-weight: var(--font-weight-3);
 }
 
+.btn-nav {
+  display: flex;
+  white-space: nowrap;
+}
+
+.nav-icon {
+  margin-top: 0.8rem;
+}
+
+.user-icon {
+  margin-right: 1rem;
+}
+
 /* BADGES */
 
 .numeric-badge {
