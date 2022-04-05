@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import { dataReducer } from "../reducer/";
-import { getProducts, getCategories } from "../functions/products";
+import { dataReducer } from "../reducer";
+import { getProducts, getCategories } from "../functions";
+import { useLoader } from "./";
 
 const DataContext = createContext({
   dataState: [],
@@ -14,10 +15,11 @@ const initialState = {
 
 const DataProvider = ({ children }) => {
   const [dataState, dataDispatch] = useReducer(dataReducer, initialState);
+  const { setLoader } = useLoader();
 
   useEffect(() => {
-    getProducts(dataDispatch);
-    getCategories(dataDispatch);
+    getProducts(dataDispatch, setLoader);
+    getCategories(dataDispatch, setLoader);
   }, []);
 
   return (
