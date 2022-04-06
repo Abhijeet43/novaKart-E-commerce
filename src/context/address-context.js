@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { createContext, useContext, useReducer } from "react";
 import { addressReducer } from "../reducer/";
 
