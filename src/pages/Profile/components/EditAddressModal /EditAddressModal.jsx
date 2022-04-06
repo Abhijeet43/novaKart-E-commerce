@@ -12,16 +12,6 @@ const EditAddressModal = ({ updateModal, setUpdateModal, address }) => {
 
   const [editedAddress, setEditedAddress] = useState(address);
 
-  const initialAddressState = {
-    name: "",
-    building: "",
-    area: "",
-    city: "",
-    state: "",
-    pincode: "",
-    mobile: "",
-  };
-
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setEditedAddress({
