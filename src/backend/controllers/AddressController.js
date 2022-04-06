@@ -169,6 +169,7 @@ export const updateAddressHandler = function (schema, request) {
       if (address._id === addressId) {
         address.name = name;
         address.building = building;
+        address.area = area;
         address.city = city;
         address.state = state;
         address.pincode = pincode;
