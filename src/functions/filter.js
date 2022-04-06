@@ -35,10 +35,20 @@ const categoryData = (data, category) => {
   return data;
 };
 
+const searchData = (products, searchQuery) => {
+  if (searchQuery === "") {
+    return products;
+  }
+  return products.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+};
+
 export {
   sortData,
   ratingData,
   getOutOfStockData,
   filterPriceData,
   categoryData,
+  searchData,
 };

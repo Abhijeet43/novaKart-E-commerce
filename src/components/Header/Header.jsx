@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth, useCart, useWishlist } from "../../context/";
+import { useAuth, useCart, useWishlist, useFilter } from "../../context/";
 import { getTotalCartItems } from "../../functions/";
 
 const Header = () => {
@@ -16,6 +16,11 @@ const Header = () => {
   const {
     wishlistState: { wishlist },
   } = useWishlist();
+
+  const {
+    filterState: { search },
+    filterDispatch,
+  } = useFilter();
 
   const location = useLocation();
 
@@ -44,6 +49,13 @@ const Header = () => {
               type="search"
               className="nav-search"
               placeholder="search items here"
+              value={search}
+              onChange={(e) =>
+                filterDispatch({
+                  type: "SEARCH",
+                  payload: { search: e.target.value },
+                })
+              }
             />
           </div>
         )}

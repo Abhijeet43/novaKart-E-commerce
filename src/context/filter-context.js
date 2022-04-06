@@ -10,6 +10,7 @@ const FilterProvider = ({ children }) => {
     rating: null,
     includeOutOfStock: true,
     priceRangeValue: 10000,
+    search: "",
   });
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>
