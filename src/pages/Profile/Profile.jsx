@@ -1,30 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Profile.css";
-import { useLoader, useAuth } from "../../context/";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate, NavLink, Outlet } from "react-router-dom";
 
 const Profile = () => {
-  const { authDispatch } = useAuth();
-  const { setLoader } = useLoader();
-
   const navigate = useNavigate();
 
-  const logoutHandler = () => {
-    setLoader(true);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    authDispatch({ type: "LOGOUT" });
-    toast.success("Logged Out Succesfully!!");
-    navigate("/");
-    setTimeout(() => setLoader(false), 800);
-  };
+  useEffect(() => {
+    navigate("/profile/profileDetails");
+  }, []);
 
   return (
     <main className="profile-section">
-      <button onClick={logoutHandler} className="btn btn-primary">
-        Logout
-      </button>
+      <div className="tabs">
+        <NavLink to="/profile/profileDetails" className="tab-btn">
+          Profile
+        </NavLink>
+        <NavLink to="/profile/address" className="tab-btn">
+          My Addresses
+        </NavLink>
+        <NavLink to="/profile/settings" className="tab-btn">
+          Settings
+        </NavLink>
+      </div>
+      <div className="output-container">
+        <Outlet />
+      </div>
     </main>
   );
 };

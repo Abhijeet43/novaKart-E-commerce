@@ -1,4 +1,46 @@
 .profile-section {
   max-width: 1300px;
   display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-btn {
+  padding: 0.8rem;
+  margin: 0 0.5rem;
+  font-size: var(--font-size-5);
+  border-radius: 2rem;
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.tab-btn:hover {
+  transform: scale(1.1);
+}
+.output-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.active,
+.tab-btn:hover {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .tabs {
+    padding: 0;
+    width: 100%;
+  }
 }

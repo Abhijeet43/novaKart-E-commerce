@@ -15,7 +15,9 @@ import {
   Categories,
   CategoryListing,
   Profile,
+  Logout,
 } from "./pages/";
+import { Address, ProfileDetails } from "./pages/Profile/components/";
 import { useAuth, useLoader } from "./context/";
 
 function App() {
@@ -66,7 +68,11 @@ function App() {
         <Route
           path="/profile"
           element={user ? <Profile /> : <Navigate replace to="/login" />}
-        />
+        >
+          <Route path="profiledetails" element={<ProfileDetails />} />
+          <Route path="address" element={<Address />} />
+          <Route path="settings" element={<Logout />} />
+        </Route>
         <Route path="/products" element={<ProductListing />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/categories" element={<Categories />} />
