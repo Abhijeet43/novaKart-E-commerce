@@ -4,7 +4,13 @@ import { toast } from "react-toastify";
 const loadCart = async (token) =>
   axios.get("/api/user/cart", { headers: { authorization: token } });
 
-const addToCartHandler = async (token, product, cartDispatch, cart) => {
+const addToCartHandler = async (
+  token,
+  product,
+  cartDispatch,
+  cart,
+  setProcessing
+) => {
   const prod = cart.find(
     (item) => item.id === product.id && item.size === product.size
   );
@@ -12,6 +18,7 @@ const addToCartHandler = async (token, product, cartDispatch, cart) => {
     updateCartHandler(token, product._id, cartDispatch, "increment");
   } else {
     try {
+      setProcessing(true);
       const response = await axios.post(
         "/api/user/cart",
         { product },
@@ -25,6 +32,8 @@ const addToCartHandler = async (token, product, cartDispatch, cart) => {
       }
     } catch (error) {
       toast.error(error.response.data.errors[0]);
+    } finally {
+      setProcessing(false);
     }
   }
 };
@@ -95,6 +104,30 @@ const getCartTotal = (products) => {
 const getTotalCartItems = (cart) =>
   cart.reduce((acc, item) => (acc += item.qty), 0);
 
+const checkItemInCart = (cart, id) =>
+  cart.some((product) => product._id === id);
+
+const callAddToCartHandler = (token,
+    product,
+    cartDispatch,
+    cart,
+    setProcessing,
+    navigate,
+    toast) => {
+  if (token) {
+    addToCartHandler(
+      token,
+      product,
+      cartDispatch,
+      cart,
+      setProcessing
+    );
+  } else {
+    navigate("/login");
+    toast.warning("You are not logged in");
+  }
+};
+
 export {
   loadCart,
   addToCartHandler,
@@ -102,4 +135,6 @@ export {
   removeFromCartHandler,
   getCartTotal,
   getTotalCartItems,
+  checkItemInCart,
+  addToCartHandler
 };

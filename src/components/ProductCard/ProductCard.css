@@ -92,6 +92,11 @@
   margin-left: 0.8rem;
 }
 
+.card-btn-green {
+  background: var(--success-color);
+  color: var(--secondary-color);
+}
+
 /* OVERLAY */
 
 .overlay {

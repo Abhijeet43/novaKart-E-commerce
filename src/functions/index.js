@@ -23,6 +23,8 @@ export {
   updateCartHandler,
   getCartTotal,
   getTotalCartItems,
+  checkItemInCart,
+  addToCartHandler,
 } from "./cart";
 
 export {

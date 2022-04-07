@@ -5,8 +5,14 @@ import { toast } from "react-toastify";
 const loadWishlist = (token) =>
   axios.get("/api/user/wishlist", { headers: { authorization: token } });
 
-const addToWishListHandler = async (token, product, wishlistDispatch) => {
+const addToWishListHandler = async (
+  token,
+  product,
+  wishlistDispatch,
+  setWishlistDisable
+) => {
   try {
+    setWishlistDisable(true);
     const response = await axios.post(
       "/api/user/wishlist",
       { product },
@@ -23,6 +29,8 @@ const addToWishListHandler = async (token, product, wishlistDispatch) => {
     }
   } catch (error) {
     toast.error(error.response.data.errors[0]);
+  } finally {
+    setWishlistDisable(false);
   }
 };
 
@@ -54,10 +62,11 @@ const checkWishlistActionHandler = (
   wishlist,
   token,
   product,
-  wishlistDispatch
+  wishlistDispatch,
+  setWishlistDisable
 ) => {
   return checkWishlistAction(id, wishlist, product, token) === "Add"
-    ? addToWishListHandler(token, product, wishlistDispatch)
+    ? addToWishListHandler(token, product, wishlistDispatch, setWishlistDisable)
     : removeFromWishlistHandler(token, id, wishlistDispatch);
 };
 
