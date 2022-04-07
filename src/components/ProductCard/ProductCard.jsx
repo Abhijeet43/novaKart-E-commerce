@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  addToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
+  checkItemInCart,
+  callAddToCartHandler,
 } from "../../functions/";
 
 import { useAuth, useCart, useWishlist } from "../../context/";
 import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
+  const [processing, setProcessing] = useState(false);
+
+  const [wishlistDisable, setWishlistDisable] = useState(false);
+
   const {
     _id: id,
     imageSrc: image,
@@ -45,15 +50,6 @@ const ProductCard = ({ product }) => {
     Number(price) +
     +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
 
-  const callAddToCartHandler = () => {
-    if (token) {
-      addToCartHandler(token, { ...product, size }, cartDispatch, cart);
-    } else {
-      navigate("/login");
-      toast.warning("You are not logged in");
-    }
-  };
-
   return (
     <div className="card">
       {inStock ? null : (
@@ -67,6 +63,7 @@ const ProductCard = ({ product }) => {
       {badge ? <div className="card-badge">{badge}</div> : ""}
       <button
         className="card-icon"
+        disabled={wishlistDisable}
         onClick={() =>
           token
             ? checkWishlistActionHandler(
@@ -74,7 +71,8 @@ const ProductCard = ({ product }) => {
                 wishlist,
                 token,
                 { ...product, size },
-                wishlistDispatch
+                wishlistDispatch,
+                setWishlistDisable
               )
             : navigate("/login")
         }
@@ -122,13 +120,39 @@ const ProductCard = ({ product }) => {
           <i className="fa-solid fa-eye"></i>
           <span className="card-btn-text">View Item</span>
         </Link>
-        <button
-          className="card-btn card-btn-solid"
-          onClick={callAddToCartHandler}
-        >
-          <i className="fa-solid fa-cart-shopping"></i>
-          <span className="card-btn-text">Add To Cart</span>
-        </button>
+        {checkItemInCart(cart, id) ? (
+          <button
+            className="card-btn card-btn-green"
+            onClick={() => navigate("/cart")}
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+            <span className="card-btn-text">Go To Cart</span>
+          </button>
+        ) : (
+          <button
+            className="card-btn card-btn-solid"
+            onClick={() =>
+              callAddToCartHandler(
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                navigate,
+                toast
+              )
+            }
+            disabled={processing}
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+            <span className="card-btn-text">Add To Cart</span>
+          </button>
+        )}
       </div>
     </div>
   );

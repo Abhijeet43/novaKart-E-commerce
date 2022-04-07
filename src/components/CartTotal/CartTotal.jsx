@@ -1,7 +1,8 @@
 import React from "react";
 import "./CartTotal.css";
-import { useCart } from "../../../../context/";
-import { getCartTotal, getTotalCartItems } from "../../../../functions/";
+import { useCart } from "../../context";
+import { getCartTotal, getTotalCartItems } from "../../functions";
+import { Link } from "react-router-dom";
 
 const CartTotal = () => {
   const {
@@ -41,7 +42,10 @@ const CartTotal = () => {
           </span>
         </div>
       </div>
-      <button className="cart-btn cart-btn-order">Place Order</button>
+
+      <Link to="/checkout" className="cart-btn-order">
+        Check Out
+      </Link>
     </section>
   );
 };

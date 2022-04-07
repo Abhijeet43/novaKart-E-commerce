@@ -1,7 +1,7 @@
 import React from "react";
 import "./AddressCard.css";
-import { deleteAddress } from "../../../../functions/";
-import { useAuth, useAddress } from "../../../../context/";
+import { deleteAddress } from "../../../../functions";
+import { useAuth, useAddress } from "../../../../context";
 import { EditAddressModal } from "../EditAddressModal /EditAddressModal";
 import { useToggle } from "../../../../hooks/useToggle";
 

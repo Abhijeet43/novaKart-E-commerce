@@ -16,6 +16,8 @@ import {
   CategoryListing,
   Profile,
   Logout,
+  Checkout,
+  Error404,
 } from "./pages/";
 import { Address, ProfileDetails } from "./pages/Profile/components/";
 import { useAuth, useLoader } from "./context/";
@@ -77,6 +79,11 @@ function App() {
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/categories/:categoryId" element={<CategoryListing />} />
+        <Route path="*" element={<Error404 />} />
+        <Route
+          path="/checkout"
+          element={user ? <Checkout /> : <Navigate replace to="/login" />}
+        />
       </Routes>
       <Footer />
     </>

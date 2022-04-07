@@ -1,7 +1,7 @@
 import React from "react";
 import "./Cart.css";
 import { CartCard } from "./components/CartCard/CartCard";
-import { CartTotal } from "./components/CartTotal/CartTotal";
+import { CartTotal } from "../../components/";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/";
 import { getTotalCartItems } from "../../functions/";

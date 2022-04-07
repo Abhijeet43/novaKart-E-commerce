@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
-  addToCartHandler,
+  callAddToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
-  moveToCartHandler,
   getProduct,
+  checkItemInCart,
 } from "../../../../functions/";
 import "./ProductDetailsCard.css";
 
@@ -14,6 +15,10 @@ const ProductDetailsCard = ({ product, categoryId }) => {
   const {
     authState: { token },
   } = useAuth();
+
+  const [processing, setProcessing] = useState(false);
+
+  const [wishlistDisable, setWishlistDisable] = useState(false);
 
   const {
     cartState: { cart },
@@ -52,6 +57,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
       </div>
       <div className="product-details">
         <button
+          disabled={wishlistDisable}
           className="card-icon"
           onClick={() =>
             token
@@ -60,7 +66,8 @@ const ProductDetailsCard = ({ product, categoryId }) => {
                   wishlist,
                   token,
                   { ...product, size },
-                  wishlistDispatch
+                  wishlistDispatch,
+                  setWishlistDisable
                 )
               : navigate("/login")
           }
@@ -116,31 +123,39 @@ const ProductDetailsCard = ({ product, categoryId }) => {
             })}
           </ul>
         </div>
-        <button
-          className="btn btn-primary details-btn"
-          onClick={() =>
-            token
-              ? checkWishlistAction(id, wishlist) === "Remove"
-                ? moveToCartHandler(
-                    token,
-                    product,
-                    cartDispatch,
-                    cart,
-                    wishlistDispatch
-                  )
-                : addToCartHandler(
-                    token,
-                    { ...product, size },
-                    cartDispatch,
-                    cart
-                  )
-              : navigate("/login")
-          }
-        >
-          {checkWishlistAction(id, wishlist) === "Remove"
-            ? "Move To Cart"
-            : "Add To Cart"}
-        </button>
+        {checkItemInCart(cart, id) ? (
+          <button
+            className="card-btn card-btn-green"
+            onClick={() => navigate("/cart")}
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+            <span className="card-btn-text">Go To Cart</span>
+          </button>
+        ) : (
+          <button
+            className="card-btn card-btn-solid"
+            onClick={() =>
+              callAddToCartHandler(
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                navigate,
+                toast
+              )
+            }
+            disabled={processing}
+          >
+            <i className="fa-solid fa-cart-shopping"></i>
+            <span className="card-btn-text">Add To Cart</span>
+          </button>
+        )}
         <h3 className="product-description-title">
           Product Description <i className="fas fa-indent"></i>
         </h3>

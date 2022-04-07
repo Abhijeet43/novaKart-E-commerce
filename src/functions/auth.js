@@ -9,10 +9,18 @@ const login = (user) => {
   return axios.post("/api/auth/login", user);
 };
 
-const logout = (setLoader, authDispatch, navigate) => {
+const logout = (
+  setLoader,
+  authDispatch,
+  navigate,
+  cartDispatch,
+  wishlistDispatch
+) => {
   setLoader(true);
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  cartDispatch({ type: "EMPTY_CART" });
+  wishlistDispatch({ type: "EMPTY_WISHLIST" });
   authDispatch({ type: "LOGOUT" });
   toast.success("Logged Out Succesfully!!");
   navigate("/");
