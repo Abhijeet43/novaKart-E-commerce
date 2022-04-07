@@ -9,3 +9,4 @@ export { Wishlist } from "./Wishlist/Wishlist";
 export { ProductDetails } from "./ProductDetails/ProductDetails";
 export { Categories } from "./Categories/Categories";
 export { CategoryListing } from "./CategoryListing/CategoryListing";
+export { Checkout } from "./Checkout/Checkout";

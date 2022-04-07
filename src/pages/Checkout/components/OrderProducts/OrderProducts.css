@@ -1,0 +1,23 @@
+.order-product {
+  background: var(--secondary-color);
+  margin: 1rem 0;
+  width: 50%;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: var(--font-size-5);
+  margin-top: 1rem;
+  border-radius: 2rem;
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .order-product {
+    width: 90%;
+  }
+}

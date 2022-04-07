@@ -1,0 +1,21 @@
+.bill-details {
+  padding: 1rem;
+  width: 50%;
+  margin: 0 auto;
+  background: var(--secondary-color);
+  margin-top: 1rem;
+  border-radius: 2rem;
+}
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .bill-details {
+    width: 90%;
+  }
+}

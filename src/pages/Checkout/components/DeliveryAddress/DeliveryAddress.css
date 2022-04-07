@@ -1,0 +1,20 @@
+.delivery-address {
+  padding: 1rem;
+  background: var(--secondary-color);
+  font-size: var(--font-size-6);
+  width: 50%;
+  margin: 1rem auto;
+  border-radius: 2rem;
+}
+
+.selected-address-title {
+  margin: 1rem 0;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .delivery-address {
+    width: 90%;
+  }
+}
