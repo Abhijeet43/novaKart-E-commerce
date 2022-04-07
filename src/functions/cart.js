@@ -46,13 +46,15 @@ const updateCartHandler = async (token, id, cartDispatch, action) => {
   }
 };
 
-const removeFromCartHandler = async (token, id, cartDispatch) => {
+const removeFromCartHandler = async (token, id, cartDispatch, from = "") => {
   try {
     const response = await axios.delete(`/api/user/cart/${id}`, {
       headers: { authorization: token },
     });
     if (response.status === 200) {
       cartDispatch({ type: "REMOVE_FROM_CART", payload: response.data.cart });
+      console.log("id", id);
+      !from && toast.info("Items removed from cart");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }

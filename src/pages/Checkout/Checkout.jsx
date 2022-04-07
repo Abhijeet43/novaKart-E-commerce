@@ -1,17 +1,32 @@
 import React, { useState } from "react";
-import { useCart, useAddress } from "../../context/";
+// import Razorpay from "razorpay";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useCart, useAddress, useAuth } from "../../context/";
 import "./Checkout.css";
-import { getCartTotal, getTotalCartItems } from "../../functions/";
+import {
+  getCartTotal,
+  getTotalCartItems,
+  removeFromCartHandler,
+} from "../../functions/";
 import { CheckoutAddressCard } from "./components/CheckoutAddressCard/CheckoutAddressCard";
 import { OrderProducts } from "./components/OrderProducts/OrderProducts";
 import { BillDetails } from "./components/BillDetails/BillDetails";
 import { DeliveryAddress } from "./components/DeliveryAddress/DeliveryAddress";
 import { Link } from "react-router-dom";
+import { brandLogo } from "../../assets/";
 
 const Checkout = () => {
   const {
     cartState: { cart },
+    cartDispatch,
   } = useCart();
+
+  const {
+    authState: { user, token },
+  } = useAuth();
+
+  const navigate = useNavigate();
 
   const [selectedAddress, setSelectedAddress] = useState("");
 
@@ -20,7 +35,60 @@ const Checkout = () => {
   } = useAddress();
 
   const { totalPrice, totalDiscount } = getCartTotal(cart);
+  const amountToBePayed = totalPrice - totalDiscount;
   const cartItems = getTotalCartItems(cart);
+
+  const loadSdk = async () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  const placeOrder = async () => {
+    const response = await loadSdk();
+    if (response) {
+      const options = {
+        key: "rzp_test_IAgo0oFjYu4OeQ",
+        key_id: "rzp_test_IAgo0oFjYu4OeQ",
+        key_secret: "DWbXpkhFJyuIUzGlsui36zP4",
+        amount: amountToBePayed * 100,
+        currency: "INR",
+        name: "Nova Kart",
+        description: "Thank you for shopping with us",
+        image: brandLogo,
+        callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+        prefill: {
+          name: user.firstName,
+          email: user.email,
+          contact: "8883452314",
+        },
+        notes: { address: "Razorpay Corporate Office" },
+        theme: { color: "#7d4cc8" },
+        handler: function (response) {
+          cart.map((item) =>
+            removeFromCartHandler(token, item._id, cartDispatch, "empty")
+          );
+          navigate("/products");
+          toast.success("Order Placed Successfully");
+        },
+      };
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+      rzp1.on("payment.failed", function (response) {
+        toast.error("Something went wrong", response.error.code);
+      });
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <>
@@ -67,12 +135,14 @@ const Checkout = () => {
               <BillDetails
                 totalPrice={totalPrice}
                 totalDiscount={totalDiscount}
+                amountToBePayed={amountToBePayed}
                 cartItems={cartItems}
               />
               <DeliveryAddress address={selectedAddress} />
               <button
                 className="btn btn-primary"
                 disabled={selectedAddress ? false : true}
+                onClick={placeOrder}
               >
                 Place Order
               </button>

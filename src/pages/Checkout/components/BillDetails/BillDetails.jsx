@@ -1,7 +1,12 @@
 import React from "react";
 import "./BillDetails.css";
 
-const BillDetails = ({ totalPrice, totalDiscount, cartItems }) => {
+const BillDetails = ({
+  totalPrice,
+  totalDiscount,
+  cartItems,
+  amountToBePayed,
+}) => {
   return (
     <div className="bill-details">
       <ul className="bill-items">
@@ -23,7 +28,7 @@ const BillDetails = ({ totalPrice, totalDiscount, cartItems }) => {
         </li>
         <li className="bill-item">
           <span>Total Amount Payable</span>
-          <span>₹{totalPrice - totalDiscount}</span>
+          <span>₹{amountToBePayed}</span>
         </li>
       </ul>
     </div>
