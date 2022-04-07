@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./ProductCard.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  callAddToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
   checkItemInCart,
+  callAddToCartHandler,
 } from "../../functions/";
 
 import { useAuth, useCart, useWishlist } from "../../context/";
@@ -49,16 +49,6 @@ const ProductCard = ({ product }) => {
   const priceBefore =
     Number(price) +
     +Math.round(Number.parseFloat(price * (discount / 100)).toFixed(2));
-
-  callAddToCartHandler(
-    token,
-    { ...product, size },
-    cartDispatch,
-    cart,
-    setProcessing,
-    navigate,
-    toast
-  );
 
   return (
     <div className="card">
@@ -141,7 +131,22 @@ const ProductCard = ({ product }) => {
         ) : (
           <button
             className="card-btn card-btn-solid"
-            onClick={callAddToCartHandler}
+            onClick={() =>
+              callAddToCartHandler(
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                navigate,
+                toast
+              )
+            }
             disabled={processing}
           >
             <i className="fa-solid fa-cart-shopping"></i>

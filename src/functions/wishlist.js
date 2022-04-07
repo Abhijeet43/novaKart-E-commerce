@@ -5,6 +5,30 @@ import { toast } from "react-toastify";
 const loadWishlist = (token) =>
   axios.get("/api/user/wishlist", { headers: { authorization: token } });
 
+const getWishlistItemsHandler = async (
+  token,
+  wishlistDispatch,
+  setWishlistLoader
+) => {
+  if (token) {
+    try {
+      setWishlistLoader(true);
+      const response = await loadWishlist(token);
+      if (response.status === 200) {
+        wishlistDispatch({
+          type: "LOAD_WISHLIST",
+          payload: response.data.wishlist,
+        });
+        setWishlistLoader(false);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
 const addToWishListHandler = async (
   token,
   product,
@@ -99,6 +123,7 @@ const moveToWishListHandler = (
 
 export {
   loadWishlist,
+  getWishlistItemsHandler,
   addToWishListHandler,
   removeFromWishlistHandler,
   checkWishlistAction,

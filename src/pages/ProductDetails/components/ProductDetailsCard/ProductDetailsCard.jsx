@@ -34,16 +34,6 @@ const ProductDetailsCard = ({ product, categoryId }) => {
 
   const navigate = useNavigate();
 
-  callAddToCartHandler(
-    token,
-    { ...product, size },
-    cartDispatch,
-    cart,
-    setProcessing,
-    navigate,
-    toast
-  );
-
   const {
     _id: id,
     imageSrc,
@@ -67,8 +57,8 @@ const ProductDetailsCard = ({ product, categoryId }) => {
       </div>
       <div className="product-details">
         <button
-          className="card-icon"
           disabled={wishlistDisable}
+          className="card-icon"
           onClick={() =>
             token
               ? checkWishlistActionHandler(
@@ -144,7 +134,22 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         ) : (
           <button
             className="card-btn card-btn-solid"
-            onClick={callAddToCartHandler}
+            onClick={() =>
+              callAddToCartHandler(
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                token,
+                { ...product, size },
+                cartDispatch,
+                cart,
+                setProcessing,
+                navigate,
+                toast
+              )
+            }
             disabled={processing}
           >
             <i className="fa-solid fa-cart-shopping"></i>

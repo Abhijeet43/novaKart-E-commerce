@@ -4,6 +4,23 @@ import { toast } from "react-toastify";
 const loadCart = async (token) =>
   axios.get("/api/user/cart", { headers: { authorization: token } });
 
+const getCartItemsHandler = async (token, cartDispatch, setCartLoader) => {
+  if (token) {
+    try {
+      setCartLoader(true);
+      const response = await loadCart(token);
+      if (response.status === 200) {
+        cartDispatch({ type: "LOAD_CART", payload: response.data.cart });
+        setCartLoader(false);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
 const addToCartHandler = async (
   token,
   product,
@@ -107,21 +124,16 @@ const getTotalCartItems = (cart) =>
 const checkItemInCart = (cart, id) =>
   cart.some((product) => product._id === id);
 
-const callAddToCartHandler = (token,
-    product,
-    cartDispatch,
-    cart,
-    setProcessing,
-    navigate,
-    toast) => {
+const callAddToCartHandler = (
+  token,
+  product,
+  cartDispatch,
+  cart,
+  setProcessing,
+  navigate,toast
+) => {
   if (token) {
-    addToCartHandler(
-      token,
-      product,
-      cartDispatch,
-      cart,
-      setProcessing
-    );
+    addToCartHandler(token, product, cartDispatch, cart, setProcessing);
   } else {
     navigate("/login");
     toast.warning("You are not logged in");
@@ -130,11 +142,12 @@ const callAddToCartHandler = (token,
 
 export {
   loadCart,
+  getCartItemsHandler,
   addToCartHandler,
   updateCartHandler,
   removeFromCartHandler,
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
-  addToCartHandler
+  callAddToCartHandler,
 };
