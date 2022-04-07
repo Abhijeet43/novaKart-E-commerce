@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import "../authentication.css";
 import { headerImg } from "../../../assets/index";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth, useLoader } from "../../../context/";
-import { login } from "../../../functions/";
+import { useAuth, useLoader, useCart, useWishlist } from "../../../context/";
+import {
+  login,
+  getCartItemsHandler,
+  getWishlistItemsHandler,
+} from "../../../functions/";
 import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const { authDispatch } = useAuth();
+
+  const { cartDispatch } = useCart();
+
+  const { wishlistDispatch } = useWishlist();
 
   const { setLoader } = useLoader();
 
@@ -47,6 +55,8 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.encodedToken);
         localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+        getWishlistItemsHandler(response.data.encodedToken, wishlistDispatch);
+        getCartItemsHandler(response.data.encodedToken, cartDispatch);
         authDispatch({
           type: "LOGIN",
           payload: {

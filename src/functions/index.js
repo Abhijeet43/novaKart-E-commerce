@@ -18,17 +18,19 @@ export { signUp, login, logout } from "./auth";
 
 export {
   loadCart,
+  getCartItemsHandler,
   addToCartHandler,
-  removeFromCartHandler,
   updateCartHandler,
+  removeFromCartHandler,
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
-  addToCartHandler,
+  callAddToCartHandler,
 } from "./cart";
 
 export {
   loadWishlist,
+  getWishlistItemsHandler,
   addToWishListHandler,
   removeFromWishlistHandler,
   checkWishlistAction,
