@@ -21,7 +21,7 @@ const Hero = () => {
         </Link>
       </div>
       <div className="hero-img">
-        <img src={headerImg} alt="hero-img" />
+        <img src={headerImg} alt="hero-img" loading="lazy" />
       </div>
     </section>
   );

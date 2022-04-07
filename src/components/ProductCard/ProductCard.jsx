@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
         </div>
       )}
       <div className="card-img">
-        <img src={image} alt={title} />
+        <img src={image} alt={title} loading="lazy" />
       </div>
       {badge ? <div className="card-badge">{badge}</div> : ""}
       <button
@@ -150,7 +150,9 @@ const ProductCard = ({ product }) => {
             disabled={processing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
-            <span className="card-btn-text">Add To Cart</span>
+            <span className="card-btn-text">
+              {processing ? "Adding..." : "Add To Cart"}
+            </span>
           </button>
         )}
       </div>

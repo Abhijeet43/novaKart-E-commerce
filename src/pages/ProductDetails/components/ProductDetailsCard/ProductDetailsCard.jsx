@@ -53,7 +53,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
   return (
     <section className="product-details-section">
       <div className="product-img">
-        <img src={imageSrc} alt={title} />
+        <img src={imageSrc} alt={title} loading="lazy" />
       </div>
       <div className="product-details">
         <button
@@ -153,7 +153,9 @@ const ProductDetailsCard = ({ product, categoryId }) => {
             disabled={processing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
-            <span className="card-btn-text">Add To Cart</span>
+            <span className="card-btn-text">
+              {processing ? "Adding..." : "Add To Cart"}
+            </span>
           </button>
         )}
         <h3 className="product-description-title">

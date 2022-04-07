@@ -5,4 +5,4 @@ export { ProductCard } from "./ProductCard/ProductCard";
 export { ProductPagination } from "./ProductPagination/ProductPagination";
 export { CategoryCard } from "./CategoryCard/CategoryCard";
 export { Loader } from "./Loader/Loader";
-export { CartTotal } from "./CartTotal/CartTotal";
+export { CartTotal } from "../pages/Cart/components/CartTotal/CartTotal";
