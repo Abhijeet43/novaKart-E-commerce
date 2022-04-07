@@ -13,10 +13,10 @@ const getCartItemsHandler = async (token, cartDispatch, setCartLoader) => {
         cartDispatch({ type: "LOAD_CART", payload: response.data.cart });
         setCartLoader(false);
       } else {
-        throw new Error();
+        throw new Error("Something Went Wrong...Try Again Later");
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error.response.data.errors[0]);
     }
   }
 };
