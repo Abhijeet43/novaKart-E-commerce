@@ -46,7 +46,7 @@ NovaKart is one stop destination for all your Apparal Needs. NovaKart is User Fr
 
 - [ReactJS](https://reactjs.org/)
 - [React Router](https://reactrouter.com/)
-- [Velocity UI](https://velocity-ui.netlify.app/)
+- [Nova UI](https://nova-ui.netlify.app/)
 - [Mockbee](https://www.mockbe.netlify.app/)
 - [React Toastify](https://fkhadra.github.io/react-toastify/)
 - [Font Awesome](https://fontawesome.com/)
