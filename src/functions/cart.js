@@ -80,7 +80,7 @@ const removeFromCartHandler = async (token, id, cartDispatch, from = "") => {
     if (response.status === 200) {
       cartDispatch({ type: "REMOVE_FROM_CART", payload: response.data.cart });
       console.log("id", id);
-      !from && toast.info("Items removed from cart");
+      from && toast.info("Items removed from cart");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }
@@ -130,7 +130,8 @@ const callAddToCartHandler = (
   cartDispatch,
   cart,
   setProcessing,
-  navigate,toast
+  navigate,
+  toast
 ) => {
   if (token) {
     addToCartHandler(token, product, cartDispatch, cart, setProcessing);

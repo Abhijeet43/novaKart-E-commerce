@@ -2,14 +2,12 @@ import React from "react";
 import "./CartTotal.css";
 import { useCart } from "../../context";
 import { getCartTotal, getTotalCartItems } from "../../functions";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CartTotal = () => {
   const {
     cartState: { cart },
   } = useCart();
-
-  const location = useLocation();
 
   const { totalPrice, totalDiscount } = getCartTotal(cart);
   return (
@@ -44,17 +42,10 @@ const CartTotal = () => {
           </span>
         </div>
       </div>
-      {
-        (location.pathname = "/cart" ? (
-          <Link to="/checkout" className="cart-btn cart-btn-order">
-            Check Out
-          </Link>
-        ) : (
-          <Link to="/checkout" className="cart-btn cart-btn-order">
-            Place Order
-          </Link>
-        ))
-      }
+
+      <Link to="/checkout" className="cart-btn-order">
+        Check Out
+      </Link>
     </section>
   );
 };
