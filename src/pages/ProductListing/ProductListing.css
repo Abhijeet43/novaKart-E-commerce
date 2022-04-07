@@ -37,7 +37,12 @@
 /* MEDIA QUERIES */
 @media (max-width: 540px) {
   .all-products > .nav-search {
-    display: block;
+    display: flex;
+    width: 100%;
+  }
+
+  .all-products > .nav-search input:focus {
+    outline: none;
   }
 
   .filter-btn-container {

@@ -22,6 +22,10 @@
   background: var(--primary-color);
 }
 
+.btn-danger {
+  background: var(--danger-color);
+}
+
 /* backgrounds */
 .danger-bg {
   background-color: var(--danger-color);

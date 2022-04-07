@@ -4,6 +4,11 @@ const filterReducer = (state, action) => {
       return { ...state, sortBy: action.payload };
     case "RATING":
       return { ...state, rating: action.payload };
+    case "SEARCH":
+      return {
+        ...state,
+        search: action.payload.search,
+      };
     case "REMOVE_OUT_OF_STOCK":
       return { ...state, includeOutOfStock: !state.includeOutOfStock };
     case "RANGE":
@@ -26,6 +31,7 @@ const filterReducer = (state, action) => {
         rating: null,
         includeOutOfStock: true,
         priceRangeValue: 10000,
+        search: "",
       };
     default:
       return state;

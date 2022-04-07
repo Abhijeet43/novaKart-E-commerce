@@ -20,6 +20,7 @@
   padding: 0.5rem;
   border: 0.1rem solid var(--lynx-gray-color);
   border-radius: 30px;
+  width: 40%;
 }
 
 .nav-search input {

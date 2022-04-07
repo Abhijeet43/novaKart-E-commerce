@@ -1,0 +1,53 @@
+.address-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  transform: scale(0);
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 8;
+  transition: transform 0.3s ease;
+  color: var(--lynx-gray-color);
+}
+
+.address-modal.active {
+  transform: scale(1);
+}
+
+.address-form {
+  position: relative;
+}
+
+.address-form label {
+  font-size: var(--font-size-6);
+}
+
+.close-modal {
+  position: absolute;
+  font-size: var(--font-size-2);
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+
+.address-form-title {
+  font-size: var(--font-size-4);
+  text-align: center;
+}
+
+.address-btn {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 2rem;
+  color: var(--secondary-color);
+  padding: 1rem;
+  font-size: var(--font-size-6);
+  transition: transform 0.3s ease;
+}
+
+.address-btn:hover {
+  transform: scale(1.1);
+}
