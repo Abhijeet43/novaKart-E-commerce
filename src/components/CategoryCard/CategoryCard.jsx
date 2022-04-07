@@ -10,7 +10,7 @@ const CategoryCard = ({ title, image, alt, id }) => {
           {title}
         </Link>
       </div>
-      <img src={image} alt={alt} />
+      <img src={image} alt={alt} loading="lazy" />
     </div>
   );
 };

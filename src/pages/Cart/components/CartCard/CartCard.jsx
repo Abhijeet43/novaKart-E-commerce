@@ -27,7 +27,7 @@ const CartCard = ({ product }) => {
   return (
     <div className="cart-card">
       <div className="cart-card-img">
-        <img src={imageSrc} alt={title} />
+        <img src={imageSrc} alt={title} loading="lazy" />
       </div>
       <div className="cart-card-content">
         <div className="cart-card-text">
