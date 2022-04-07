@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import Razorpay from "razorpay";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useCart, useAddress, useAuth } from "../../context/";
