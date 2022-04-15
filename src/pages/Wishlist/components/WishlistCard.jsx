@@ -100,7 +100,7 @@ const WishlistCard = ({ product }) => {
       </div>
       <div className="card-footer">
         <Link to={`/products/${id}`} className="card-btn card-btn-outline">
-          <i className="fa-solid fa-eye"></i>
+          <i className="fa-solid fa-eye view"></i>
           <span className="card-btn-text">View Item</span>
         </Link>
 
