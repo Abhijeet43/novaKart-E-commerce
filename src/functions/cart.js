@@ -107,8 +107,7 @@ const removeFromCartHandler = async (token, id, cartDispatch, from = "") => {
         type: "REMOVE_FROM_CART",
         payload: response.data.cart,
       });
-      toast.warning("Item Removed From Cart");
-      from && toast.info("Items removed from cart");
+      !from && toast.warning("Item Removed from cart");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }
