@@ -41,7 +41,13 @@ const CartCard = ({ product }) => {
               onClick={() =>
                 qty <= 1
                   ? removeFromCartHandler(token, id, cartDispatch)
-                  : updateCartHandler(token, id, cartDispatch, "decrement")
+                  : updateCartHandler(
+                      token,
+                      id,
+                      cartDispatch,
+                      "decrement",
+                      setIsProcessing
+                    )
               }
             >
               <i
@@ -52,7 +58,13 @@ const CartCard = ({ product }) => {
             <button
               className="qty-btn"
               onClick={() =>
-                updateCartHandler(token, id, cartDispatch, "increment")
+                updateCartHandler(
+                  token,
+                  id,
+                  cartDispatch,
+                  "increment",
+                  setIsProcessing
+                )
               }
             >
               <i className="fas fa-plus"></i>

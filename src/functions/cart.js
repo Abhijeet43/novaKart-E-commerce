@@ -40,6 +40,7 @@ const addToCartHandler = async (
       "increment",
       setIsProcessing
     );
+    toast.info("Item Already Exists In Cart. Quantity Updated.");
   } else {
     try {
       setIsProcessing(true);
@@ -74,7 +75,6 @@ const updateCartHandler = async (
 ) => {
   try {
     setIsProcessing(true);
-    cartDispatch({ cartBtnDisable: true });
     const response = await axios.post(
       `/api/user/cart/${id}`,
       { action: { type: action } },
@@ -85,7 +85,6 @@ const updateCartHandler = async (
         type: "UPDATE_CART",
         payload: response.data.cart,
       });
-      toast.info("Item Already Exists In Cart. Quantity Updated");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }

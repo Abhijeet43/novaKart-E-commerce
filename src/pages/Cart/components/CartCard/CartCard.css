@@ -52,6 +52,10 @@
   color: var(--primary-color);
 }
 
+.qty-btn:disabled {
+  cursor: not-allowed;
+}
+
 .qty-text {
   padding: 0.5rem;
   font-size: var(--font-size-6);
