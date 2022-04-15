@@ -78,7 +78,7 @@ const Login = () => {
   return (
     <main className="auth-section">
       <section className="section-img">
-        <img src={headerImg} alt="section-img" />
+        <img src={headerImg} alt="section-img" loading="lazy" />
       </section>
       <section className="section-form">
         <form action="" onSubmit={submitHandler}>

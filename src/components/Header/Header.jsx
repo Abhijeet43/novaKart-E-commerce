@@ -29,7 +29,7 @@ const Header = () => {
   const checkStatus = (user) => (user ? `Hi, ${user.firstName}` : "LOGIN");
 
   const userHandler = async (type) => {
-    type === "LOGIN" ? navigate("/login") : navigate("/profile");
+    type === "LOGIN" ? navigate("/login") : navigate("/profile/profileDetails");
   };
 
   return (

@@ -2,6 +2,10 @@
   /* font variable */
   --default-font: "Montserrat", sans-serif;
 
+  /* toast colors */
+
+  --toastify-color-info: #7d4cc8;
+
   /* theme colors */
   --primary-color: #7245b6;
   --secondary-color: #f3f4f6;

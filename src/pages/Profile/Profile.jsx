@@ -1,14 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Profile.css";
-import { useNavigate, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const Profile = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate("/profile/profileDetails");
-  }, []);
-
   return (
     <main className="profile-section">
       <div className="tabs">
