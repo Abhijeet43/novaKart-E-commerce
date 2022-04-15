@@ -124,23 +124,6 @@ const getTotalCartItems = (cart) =>
 const checkItemInCart = (cart, id) =>
   cart.some((product) => product._id === id);
 
-const callAddToCartHandler = (
-  token,
-  product,
-  cartDispatch,
-  cart,
-  setProcessing,
-  navigate,
-  toast
-) => {
-  if (token) {
-    addToCartHandler(token, product, cartDispatch, cart, setProcessing);
-  } else {
-    navigate("/login");
-    toast.warning("You are not logged in");
-  }
-};
-
 export {
   loadCart,
   getCartItemsHandler,
@@ -150,5 +133,4 @@ export {
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
-  callAddToCartHandler,
 };

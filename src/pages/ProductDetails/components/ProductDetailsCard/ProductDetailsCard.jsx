@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
-  callAddToCartHandler,
+  addToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
   getProduct,
@@ -30,9 +30,24 @@ const ProductDetailsCard = ({ product, categoryId }) => {
     wishlistDispatch,
   } = useWishlist();
 
-  const [size, setSize] = useState(product.sizes[0]);
-
   const navigate = useNavigate();
+
+  const callAddToCartHandler = () => {
+    if (token) {
+      addToCartHandler(
+        token,
+        { ...product, size },
+        cartDispatch,
+        cart,
+        setProcessing
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
+  const [size, setSize] = useState(product.sizes[0]);
 
   const {
     _id: id,
@@ -134,22 +149,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         ) : (
           <button
             className="card-btn card-btn-solid"
-            onClick={() =>
-              callAddToCartHandler(
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                navigate,
-                toast
-              )
-            }
+            onClick={callAddToCartHandler}
             disabled={processing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
