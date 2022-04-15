@@ -4,14 +4,15 @@ import { toast } from "react-toastify";
 const loadCart = async (token) =>
   axios.get("/api/user/cart", { headers: { authorization: token } });
 
-const getCartItemsHandler = async (token, cartDispatch, setCartLoader) => {
+const getCartItemsHandler = async (token, cartDispatch) => {
   if (token) {
     try {
-      setCartLoader(true);
       const response = await loadCart(token);
       if (response.status === 200) {
-        cartDispatch({ type: "LOAD_CART", payload: response.data.cart });
-        setCartLoader(false);
+        cartDispatch({
+          type: "LOAD_CART",
+          payload: response.data.cart,
+        });
       } else {
         throw new Error("Something Went Wrong...Try Again Later");
       }
@@ -26,23 +27,32 @@ const addToCartHandler = async (
   product,
   cartDispatch,
   cart,
-  setProcessing
+  setIsProcessing
 ) => {
   const prod = cart.find(
     (item) => item.id === product.id && item.size === product.size
   );
   if (prod) {
-    updateCartHandler(token, product._id, cartDispatch, "increment");
+    updateCartHandler(
+      token,
+      product._id,
+      cartDispatch,
+      "increment",
+      setIsProcessing
+    );
   } else {
     try {
-      setProcessing(true);
+      setIsProcessing(true);
       const response = await axios.post(
         "/api/user/cart",
         { product },
         { headers: { authorization: token } }
       );
       if (response.status === 201) {
-        cartDispatch({ type: "ADD_TO_CART", payload: response.data.cart });
+        cartDispatch({
+          type: "ADD_TO_CART",
+          payload: response.data.cart,
+        });
         toast.info(`${product.title} added to cart`);
       } else {
         throw new Error("Something Went Wrong.... Try Later");
@@ -50,36 +60,54 @@ const addToCartHandler = async (
     } catch (error) {
       toast.error(error.response.data.errors[0]);
     } finally {
-      setProcessing(false);
+      setIsProcessing(false);
     }
   }
 };
 
-const updateCartHandler = async (token, id, cartDispatch, action) => {
+const updateCartHandler = async (
+  token,
+  id,
+  cartDispatch,
+  action,
+  setIsProcessing
+) => {
   try {
+    setIsProcessing(true);
+    cartDispatch({ cartBtnDisable: true });
     const response = await axios.post(
       `/api/user/cart/${id}`,
       { action: { type: action } },
       { headers: { authorization: token } }
     );
     if (response.status === 200) {
-      cartDispatch({ type: "UPDATE_CART", payload: response.data.cart });
+      cartDispatch({
+        type: "UPDATE_CART",
+        payload: response.data.cart,
+      });
+      toast.info("Item Already Exists In Cart. Quantity Updated");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }
   } catch (error) {
     toast.error(error.response.data.errors[0]);
+  } finally {
+    setIsProcessing(false);
   }
 };
 
 const removeFromCartHandler = async (token, id, cartDispatch, from = "") => {
   try {
+    cartDispatch({ cartBtnDisable: true });
     const response = await axios.delete(`/api/user/cart/${id}`, {
       headers: { authorization: token },
     });
     if (response.status === 200) {
-      cartDispatch({ type: "REMOVE_FROM_CART", payload: response.data.cart });
-      console.log("id", id);
+      cartDispatch({
+        type: "REMOVE_FROM_CART",
+        payload: response.data.cart,
+      });
+      toast.warning("Item Removed From Cart");
       from && toast.info("Items removed from cart");
     } else {
       throw new Error("Something Went Wrong.... Try Later");

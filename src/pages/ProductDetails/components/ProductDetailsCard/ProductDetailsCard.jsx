@@ -16,17 +16,14 @@ const ProductDetailsCard = ({ product, categoryId }) => {
     authState: { token },
   } = useAuth();
 
-  const [processing, setProcessing] = useState(false);
-
-  const [wishlistDisable, setWishlistDisable] = useState(false);
-
+  const [isProcessing, setIsProcessing] = useState(false);
   const {
     cartState: { cart },
     cartDispatch,
   } = useCart();
 
   const {
-    wishlistState: { wishlist },
+    wishlistState: { wishlist, wishlistDisable },
     wishlistDispatch,
   } = useWishlist();
 
@@ -39,7 +36,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         { ...product, size },
         cartDispatch,
         cart,
-        setProcessing
+        setIsProcessing
       );
     } else {
       navigate("/login");
@@ -81,8 +78,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
                   wishlist,
                   token,
                   { ...product, size },
-                  wishlistDispatch,
-                  setWishlistDisable
+                  wishlistDispatch
                 )
               : navigate("/login")
           }
@@ -150,11 +146,11 @@ const ProductDetailsCard = ({ product, categoryId }) => {
           <button
             className="card-btn card-btn-solid"
             onClick={callAddToCartHandler}
-            disabled={processing}
+            disabled={isProcessing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
             <span className="card-btn-text">
-              {processing ? "Adding..." : "Add To Cart"}
+              {isProcessing ? "Adding..." : "Add To Cart"}
             </span>
           </button>
         )}

@@ -12,11 +12,9 @@ import {
 import { useAuth, useCart, useWishlist } from "../../context/";
 
 const ProductCard = ({ product }) => {
-  const [processing, setProcessing] = useState(false);
-
-  const [wishlistDisable, setWishlistDisable] = useState(false);
-
   const navigate = useNavigate();
+
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const callAddToCartHandler = () => {
     if (token) {
@@ -25,7 +23,7 @@ const ProductCard = ({ product }) => {
         { ...product, size },
         cartDispatch,
         cart,
-        setProcessing
+        setIsProcessing
       );
     } else {
       navigate("/login");
@@ -57,7 +55,7 @@ const ProductCard = ({ product }) => {
   } = useCart();
 
   const {
-    wishlistState: { wishlist },
+    wishlistState: { wishlist, wishlistDisable },
     wishlistDispatch,
   } = useWishlist();
 
@@ -86,8 +84,7 @@ const ProductCard = ({ product }) => {
                 wishlist,
                 token,
                 { ...product, size },
-                wishlistDispatch,
-                setWishlistDisable
+                wishlistDispatch
               )
             : navigate("/login")
         }
@@ -147,11 +144,11 @@ const ProductCard = ({ product }) => {
           <button
             className="card-btn card-btn-solid"
             onClick={callAddToCartHandler}
-            disabled={processing}
+            disabled={isProcessing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
             <span className="card-btn-text">
-              {processing ? "Adding..." : "Add To Cart"}
+              {isProcessing ? "Adding..." : "Add To Cart"}
             </span>
           </button>
         )}
