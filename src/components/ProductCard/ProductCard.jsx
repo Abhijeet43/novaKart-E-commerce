@@ -31,6 +31,21 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  const callWishlistHandler = () => {
+    if (token) {
+      checkWishlistActionHandler(
+        id,
+        wishlist,
+        token,
+        { ...product, size },
+        wishlistDispatch
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
   const {
     _id: id,
     imageSrc: image,
@@ -77,17 +92,7 @@ const ProductCard = ({ product }) => {
       <button
         className="card-icon"
         disabled={wishlistDisable}
-        onClick={() =>
-          token
-            ? checkWishlistActionHandler(
-                id,
-                wishlist,
-                token,
-                { ...product, size },
-                wishlistDispatch
-              )
-            : navigate("/login")
-        }
+        onClick={callWishlistHandler}
       >
         <i
           className={
@@ -129,7 +134,7 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="card-footer">
         <Link to={`/products/${id}`} className="card-btn card-btn-outline">
-          <i className="fa-solid fa-eye"></i>
+          <i className="fa-solid fa-eye view"></i>
           <span className="card-btn-text">View Item</span>
         </Link>
         {checkItemInCart(cart, id) ? (

@@ -44,6 +44,21 @@ const ProductDetailsCard = ({ product, categoryId }) => {
     }
   };
 
+  const callWishlistHandler = () => {
+    if (token) {
+      checkWishlistActionHandler(
+        id,
+        wishlist,
+        token,
+        { ...product, size },
+        wishlistDispatch
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
   const [size, setSize] = useState(product.sizes[0]);
 
   const {
@@ -71,17 +86,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         <button
           disabled={wishlistDisable}
           className="card-icon"
-          onClick={() =>
-            token
-              ? checkWishlistActionHandler(
-                  id,
-                  wishlist,
-                  token,
-                  { ...product, size },
-                  wishlistDispatch
-                )
-              : navigate("/login")
-          }
+          onClick={callWishlistHandler}
         >
           <i
             className={

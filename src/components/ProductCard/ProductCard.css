@@ -97,6 +97,14 @@
   color: var(--secondary-color);
 }
 
+.fa-solid.fa-eye.view {
+  color: inherit;
+}
+
+.view:hover {
+  color: var(--secondary-color);
+}
+
 /* OVERLAY */
 
 .overlay {
