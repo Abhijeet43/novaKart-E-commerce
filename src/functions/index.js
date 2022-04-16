@@ -25,7 +25,6 @@ export {
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
-  callAddToCartHandler,
 } from "./cart";
 
 export {

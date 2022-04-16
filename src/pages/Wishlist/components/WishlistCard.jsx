@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./WishlistCard.css";
 import { Link } from "react-router-dom";
 import {
@@ -22,6 +22,8 @@ const WishlistCard = ({ product }) => {
   const {
     authState: { token },
   } = useAuth();
+
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const {
     cartState: { cart },
@@ -98,17 +100,20 @@ const WishlistCard = ({ product }) => {
       </div>
       <div className="card-footer">
         <Link to={`/products/${id}`} className="card-btn card-btn-outline">
-          <i className="fa-solid fa-eye"></i>
+          <i className="fa-solid fa-eye view"></i>
           <span className="card-btn-text">View Item</span>
         </Link>
+
         <button
+          disabled={isProcessing}
           onClick={() =>
             moveToCartHandler(
               token,
               product,
               cartDispatch,
               cart,
-              wishlistDispatch
+              wishlistDispatch,
+              setIsProcessing
             )
           }
           className="card-btn card-btn-solid"

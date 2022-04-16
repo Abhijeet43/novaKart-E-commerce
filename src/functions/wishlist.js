@@ -5,21 +5,15 @@ import { toast } from "react-toastify";
 const loadWishlist = (token) =>
   axios.get("/api/user/wishlist", { headers: { authorization: token } });
 
-const getWishlistItemsHandler = async (
-  token,
-  wishlistDispatch,
-  setWishlistLoader
-) => {
+const getWishlistItemsHandler = async (token, wishlistDispatch) => {
   if (token) {
     try {
-      setWishlistLoader(true);
       const response = await loadWishlist(token);
       if (response.status === 200) {
         wishlistDispatch({
           type: "LOAD_WISHLIST",
           payload: response.data.wishlist,
         });
-        setWishlistLoader(false);
       } else {
         throw new Error("Something Went Wrong...Try Again Later");
       }
@@ -29,14 +23,8 @@ const getWishlistItemsHandler = async (
   }
 };
 
-const addToWishListHandler = async (
-  token,
-  product,
-  wishlistDispatch,
-  setWishlistDisable
-) => {
+const addToWishListHandler = async (token, product, wishlistDispatch) => {
   try {
-    setWishlistDisable(true);
     const response = await axios.post(
       "/api/user/wishlist",
       { product },
@@ -53,8 +41,6 @@ const addToWishListHandler = async (
     }
   } catch (error) {
     toast.error(error.response.data.errors[0]);
-  } finally {
-    setWishlistDisable(false);
   }
 };
 
@@ -68,6 +54,7 @@ const removeFromWishlistHandler = async (token, id, wishlistDispatch) => {
         type: "REMOVE_FROM_WISHLIST",
         payload: response.data.wishlist,
       });
+      toast.warning("Item removed from wishlist");
     } else {
       throw new Error("Something Went Wrong.... Try Later");
     }
@@ -86,11 +73,10 @@ const checkWishlistActionHandler = (
   wishlist,
   token,
   product,
-  wishlistDispatch,
-  setWishlistDisable
+  wishlistDispatch
 ) => {
   return checkWishlistAction(id, wishlist, product, token) === "Add"
-    ? addToWishListHandler(token, product, wishlistDispatch, setWishlistDisable)
+    ? addToWishListHandler(token, product, wishlistDispatch)
     : removeFromWishlistHandler(token, id, wishlistDispatch);
 };
 
@@ -99,9 +85,10 @@ const moveToCartHandler = (
   product,
   cartDispatch,
   cart,
-  wishlistDispatch
+  wishlistDispatch,
+  setIsProcessing
 ) => {
-  addToCartHandler(token, product, cartDispatch, cart);
+  addToCartHandler(token, product, cartDispatch, cart, setIsProcessing);
   removeFromWishlistHandler(token, product._id, wishlistDispatch);
 };
 
@@ -113,10 +100,12 @@ const moveToWishListHandler = (
   product,
   wishlistDispatch,
   cartDispatch,
-  wishlist
+  wishlist,
+  setIsProcessing
 ) => {
   const item = getWishlistItem(wishlist, product._id);
-  !item && addToWishListHandler(token, product, wishlistDispatch);
+  !item &&
+    addToWishListHandler(token, product, wishlistDispatch, setIsProcessing);
 
   removeFromCartHandler(token, product._id, cartDispatch);
 };

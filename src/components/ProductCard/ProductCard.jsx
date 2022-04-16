@@ -1,20 +1,50 @@
 import React, { useState } from "react";
 import "./ProductCard.css";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import {
   checkWishlistActionHandler,
   checkWishlistAction,
   checkItemInCart,
-  callAddToCartHandler,
+  addToCartHandler,
 } from "../../functions/";
 
 import { useAuth, useCart, useWishlist } from "../../context/";
-import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
-  const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
 
-  const [wishlistDisable, setWishlistDisable] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const callAddToCartHandler = () => {
+    if (token) {
+      addToCartHandler(
+        token,
+        { ...product, size },
+        cartDispatch,
+        cart,
+        setIsProcessing
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
+  const callWishlistHandler = () => {
+    if (token) {
+      checkWishlistActionHandler(
+        id,
+        wishlist,
+        token,
+        { ...product, size },
+        wishlistDispatch
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
 
   const {
     _id: id,
@@ -28,8 +58,6 @@ const ProductCard = ({ product }) => {
     sizes,
   } = product;
 
-  const navigate = useNavigate();
-
   const size = sizes[0];
 
   const {
@@ -42,7 +70,7 @@ const ProductCard = ({ product }) => {
   } = useCart();
 
   const {
-    wishlistState: { wishlist },
+    wishlistState: { wishlist, wishlistDisable },
     wishlistDispatch,
   } = useWishlist();
 
@@ -64,18 +92,7 @@ const ProductCard = ({ product }) => {
       <button
         className="card-icon"
         disabled={wishlistDisable}
-        onClick={() =>
-          token
-            ? checkWishlistActionHandler(
-                id,
-                wishlist,
-                token,
-                { ...product, size },
-                wishlistDispatch,
-                setWishlistDisable
-              )
-            : navigate("/login")
-        }
+        onClick={callWishlistHandler}
       >
         <i
           className={
@@ -117,7 +134,7 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="card-footer">
         <Link to={`/products/${id}`} className="card-btn card-btn-outline">
-          <i className="fa-solid fa-eye"></i>
+          <i className="fa-solid fa-eye view"></i>
           <span className="card-btn-text">View Item</span>
         </Link>
         {checkItemInCart(cart, id) ? (
@@ -131,27 +148,12 @@ const ProductCard = ({ product }) => {
         ) : (
           <button
             className="card-btn card-btn-solid"
-            onClick={() =>
-              callAddToCartHandler(
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                navigate,
-                toast
-              )
-            }
-            disabled={processing}
+            onClick={callAddToCartHandler}
+            disabled={isProcessing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
             <span className="card-btn-text">
-              {processing ? "Adding..." : "Add To Cart"}
+              {isProcessing ? "Adding..." : "Add To Cart"}
             </span>
           </button>
         )}

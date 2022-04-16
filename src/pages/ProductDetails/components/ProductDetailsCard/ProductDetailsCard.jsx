@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
-  callAddToCartHandler,
+  addToCartHandler,
   checkWishlistActionHandler,
   checkWishlistAction,
   getProduct,
@@ -16,23 +16,50 @@ const ProductDetailsCard = ({ product, categoryId }) => {
     authState: { token },
   } = useAuth();
 
-  const [processing, setProcessing] = useState(false);
-
-  const [wishlistDisable, setWishlistDisable] = useState(false);
-
+  const [isProcessing, setIsProcessing] = useState(false);
   const {
     cartState: { cart },
     cartDispatch,
   } = useCart();
 
   const {
-    wishlistState: { wishlist },
+    wishlistState: { wishlist, wishlistDisable },
     wishlistDispatch,
   } = useWishlist();
 
-  const [size, setSize] = useState(product.sizes[0]);
-
   const navigate = useNavigate();
+
+  const callAddToCartHandler = () => {
+    if (token) {
+      addToCartHandler(
+        token,
+        { ...product, size },
+        cartDispatch,
+        cart,
+        setIsProcessing
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
+  const callWishlistHandler = () => {
+    if (token) {
+      checkWishlistActionHandler(
+        id,
+        wishlist,
+        token,
+        { ...product, size },
+        wishlistDispatch
+      );
+    } else {
+      navigate("/login");
+      toast.warning("You are not logged in");
+    }
+  };
+
+  const [size, setSize] = useState(product.sizes[0]);
 
   const {
     _id: id,
@@ -59,18 +86,7 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         <button
           disabled={wishlistDisable}
           className="card-icon"
-          onClick={() =>
-            token
-              ? checkWishlistActionHandler(
-                  id,
-                  wishlist,
-                  token,
-                  { ...product, size },
-                  wishlistDispatch,
-                  setWishlistDisable
-                )
-              : navigate("/login")
-          }
+          onClick={callWishlistHandler}
         >
           <i
             className={
@@ -134,27 +150,12 @@ const ProductDetailsCard = ({ product, categoryId }) => {
         ) : (
           <button
             className="card-btn card-btn-solid"
-            onClick={() =>
-              callAddToCartHandler(
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                token,
-                { ...product, size },
-                cartDispatch,
-                cart,
-                setProcessing,
-                navigate,
-                toast
-              )
-            }
-            disabled={processing}
+            onClick={callAddToCartHandler}
+            disabled={isProcessing}
           >
             <i className="fa-solid fa-cart-shopping"></i>
             <span className="card-btn-text">
-              {processing ? "Adding..." : "Add To Cart"}
+              {isProcessing ? "Adding..." : "Add To Cart"}
             </span>
           </button>
         )}

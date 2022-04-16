@@ -20,11 +20,6 @@ const Footer = () => {
               Products
             </Link>
           </li>
-          <li className="footer-item">
-            <Link className="footer-link" to="/about">
-              About
-            </Link>
-          </li>
         </ul>
       </div>
       <div className="footer-nav">
@@ -40,7 +35,7 @@ const Footer = () => {
             </Link>
           </li>
           <li className="footer-item">
-            <Link className="footer-link" to="/setting">
+            <Link className="footer-link" to="/profile/settings">
               Settings
             </Link>
           </li>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth, useCart, useWishlist } from "../../../../context/";
 import {
   removeFromCartHandler,
@@ -16,6 +16,7 @@ const CartCard = ({ product }) => {
 
   const { cartDispatch } = useCart();
 
+  const [isProcessing, setIsProcessing] = useState(false);
   const {
     wishlistState: { wishlist },
     wishlistDispatch,
@@ -35,11 +36,18 @@ const CartCard = ({ product }) => {
 
           <div className="cart-card-quantity">
             <button
+              disabled={isProcessing}
               className="qty-btn"
               onClick={() =>
                 qty <= 1
                   ? removeFromCartHandler(token, id, cartDispatch)
-                  : updateCartHandler(token, id, cartDispatch, "decrement")
+                  : updateCartHandler(
+                      token,
+                      id,
+                      cartDispatch,
+                      "decrement",
+                      setIsProcessing
+                    )
               }
             >
               <i
@@ -50,7 +58,13 @@ const CartCard = ({ product }) => {
             <button
               className="qty-btn"
               onClick={() =>
-                updateCartHandler(token, id, cartDispatch, "increment")
+                updateCartHandler(
+                  token,
+                  id,
+                  cartDispatch,
+                  "increment",
+                  setIsProcessing
+                )
               }
             >
               <i className="fas fa-plus"></i>
@@ -92,7 +106,8 @@ const CartCard = ({ product }) => {
                 product,
                 wishlistDispatch,
                 cartDispatch,
-                wishlist
+                wishlist,
+                setIsProcessing
               )
             }
             className="cart-btn btn-outline-primary"
