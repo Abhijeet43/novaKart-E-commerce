@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useCart, useAddress, useAuth } from "../../context/";
+import { useCart, useAddress, useAuth, useOrders } from "../../context/";
 import "./Checkout.css";
 import {
   getCartTotal,
@@ -21,6 +22,8 @@ const Checkout = () => {
     cartState: { cart, couponDiscount },
     cartDispatch,
   } = useCart();
+
+  const { setOrders } = useOrders();
 
   const {
     authState: { user, token },
@@ -82,6 +85,18 @@ const Checkout = () => {
         notes: { address: "Razorpay Corporate Office" },
         theme: { color: "#7d4cc8" },
         handler: function (response) {
+          setOrders((prevState) => [
+            ...prevState,
+            {
+              _id: uuid(),
+              date: new Date().toDateString(),
+              address: selectedAddress,
+              cart,
+              totalPrice,
+              amountToBePayed,
+              discount: totalPrice + couponDiscountPrice,
+            },
+          ]);
           cart.map((item) =>
             removeFromCartHandler(token, item._id, cartDispatch, "empty")
           );
@@ -144,7 +159,7 @@ const Checkout = () => {
               <BillDetails
                 totalPrice={totalPrice}
                 totalDiscount={totalDiscount}
-                couponDiscountPrice = {couponDiscountPrice}
+                couponDiscountPrice={couponDiscountPrice}
                 amountToBePayed={amountToBePayed}
                 cartItems={cartItems}
               />

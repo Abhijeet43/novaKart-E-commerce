@@ -15,6 +15,9 @@ const Profile = () => {
         <NavLink to="/profile/settings" className="tab-btn">
           Settings
         </NavLink>
+        <NavLink to="/profile/orders" className="tab-btn">
+          Orders
+        </NavLink>
       </div>
       <div className="output-container">
         <Outlet />

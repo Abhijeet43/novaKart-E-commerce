@@ -54,7 +54,10 @@ const CartTotal = ({
           </span>
         </div>
       </div>
-      <p class="savings">You save  <span className="success">₹{totalDiscount + couponDiscountPrice}</span></p>
+      <p className="savings">
+        You save{" "}
+        <span className="success">₹{totalDiscount + couponDiscountPrice}</span>
+      </p>
       <Link to="/checkout" className="cart-btn-order">
         Check Out
       </Link>
