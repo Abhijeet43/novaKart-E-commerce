@@ -100,7 +100,7 @@ const Checkout = () => {
           cart.map((item) =>
             removeFromCartHandler(token, item._id, cartDispatch, "empty")
           );
-          navigate("/products");
+          navigate("/profile/orders");
           toast.success("Order Placed Successfully");
         },
       };

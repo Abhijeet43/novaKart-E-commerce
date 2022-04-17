@@ -37,11 +37,15 @@ const BillDetails = ({
         </li>
         <li className="bill-item">
           <span>Total Discount</span>
-          <span>₹{totalDiscount + couponDiscountPrice}</span>
+          <span className="success">
+            <strong>₹{totalDiscount + couponDiscountPrice}</strong>
+          </span>
         </li>
         <li className="bill-item">
           <span>Total Amount Payable</span>
-          <span>₹{amountToBePayed}</span>
+          <span>
+            <strong>₹{amountToBePayed}</strong>
+          </span>
         </li>
       </ul>
     </div>

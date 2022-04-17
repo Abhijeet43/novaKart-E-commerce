@@ -57,6 +57,7 @@ const CartCard = ({ product }) => {
             <p className="qty-text">{qty}</p>
             <button
               className="qty-btn"
+              disabled={isProcessing}
               onClick={() =>
                 updateCartHandler(
                   token,
