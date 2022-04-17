@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Cart.css";
 import { CartCard } from "./components/CartCard/CartCard";
 import { CartTotal } from "./components/CartTotal/CartTotal";
+import { CouponModal } from "./components/CouponModal/CouponModal";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/";
 import { getTotalCartItems } from "../../functions/";
+import { getCartTotal, getCouponDiscountedPrice } from "../../functions/";
 
 const Cart = () => {
   const navigate = useNavigate();
+
   const {
-    cartState: { cart },
+    cartState: { cart, couponDiscount },
+    cartDispatch,
   } = useCart();
+
+  const { totalPrice, totalDiscount } = getCartTotal(cart);
+
+  const [openCouponModal, setOpenCouponModal] = useState(false);
+
+  useEffect(() => {
+    if (totalPrice < 5000) {
+      cartDispatch({ type: "COUPON", payload: 0 });
+    }
+  }, [totalPrice]);
+
+  //calculating coupon discount
+  const discountedPrice = totalPrice - totalDiscount;
+
+  const couponDiscountPrice = getCouponDiscountedPrice(
+    couponDiscount,
+    discountedPrice
+  );
   return (
     <main className="main-section">
+      <CouponModal
+        openCouponModal={openCouponModal}
+        setOpenCouponModal={setOpenCouponModal}
+        totalPrice={totalPrice}
+      />
       <section className="cart-products">
         <h2 className="cart-title">
           My Cart{" "}
@@ -31,7 +58,12 @@ const Cart = () => {
                 return <CartCard key={product._id} product={product} />;
               })}
             </section>
-            <CartTotal />
+            <CartTotal
+              setOpenCouponModal={setOpenCouponModal}
+              couponDiscountPrice={couponDiscountPrice}
+              totalDiscount={totalDiscount}
+              totalPrice={totalPrice}
+            />
           </section>
         ) : (
           <section className="empty-cart-container">

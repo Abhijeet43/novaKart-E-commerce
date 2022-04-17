@@ -6,6 +6,7 @@ import "./Checkout.css";
 import {
   getCartTotal,
   getTotalCartItems,
+  getCouponDiscountedPrice,
   removeFromCartHandler,
 } from "../../functions/";
 import { CheckoutAddressCard } from "./components/CheckoutAddressCard/CheckoutAddressCard";
@@ -17,7 +18,7 @@ import { brandLogo } from "../../assets/";
 
 const Checkout = () => {
   const {
-    cartState: { cart },
+    cartState: { cart, couponDiscount },
     cartDispatch,
   } = useCart();
 
@@ -34,7 +35,16 @@ const Checkout = () => {
   } = useAddress();
 
   const { totalPrice, totalDiscount } = getCartTotal(cart);
-  const amountToBePayed = totalPrice - totalDiscount;
+  //calculating coupon discount
+  const discountedPrice = totalPrice - totalDiscount;
+
+  const couponDiscountPrice = getCouponDiscountedPrice(
+    couponDiscount,
+    discountedPrice
+  );
+
+  const amountToBePayed = totalPrice - totalDiscount - couponDiscountPrice;
+
   const cartItems = getTotalCartItems(cart);
 
   const loadSdk = async () => {
@@ -134,6 +144,7 @@ const Checkout = () => {
               <BillDetails
                 totalPrice={totalPrice}
                 totalDiscount={totalDiscount}
+                couponDiscountPrice = {couponDiscountPrice}
                 amountToBePayed={amountToBePayed}
                 cartItems={cartItems}
               />

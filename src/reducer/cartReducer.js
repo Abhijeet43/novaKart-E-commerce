@@ -4,6 +4,7 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         cart: action.payload,
+        coupon: 0,
       };
     case "ADD_TO_CART":
       return {
@@ -22,6 +23,11 @@ const cartReducer = (state, action) => {
       };
     case "EMPTY_CART":
       return { ...state, cart: [] };
+    case "COUPON":
+      return {
+        ...state,
+        couponDiscount: action.payload,
+      };
     default:
       return state;
   }
