@@ -25,6 +25,7 @@ export {
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
+  getCouponDiscountedPrice,
 } from "./cart";
 
 export {

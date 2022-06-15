@@ -34,3 +34,7 @@
 .success-bg {
   background-color: var(--success-color);
 }
+
+.success {
+  color: var(--success-color);
+}

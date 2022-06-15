@@ -4,6 +4,7 @@ import "./BillDetails.css";
 const BillDetails = ({
   totalPrice,
   totalDiscount,
+  couponDiscountPrice,
   cartItems,
   amountToBePayed,
 }) => {
@@ -15,20 +16,36 @@ const BillDetails = ({
           <span>{cartItems}</span>
         </li>
         <li className="bill-item">
-          <span>Total Price</span>
+          <span>Total Price (Without Discount)</span>
           <span>₹{totalPrice}</span>
         </li>
         <li className="bill-item">
-          <span>Total Discount</span>
+          <span>Seller's Discount</span>
           <span>₹{totalDiscount}</span>
+        </li>
+        <li className="bill-item">
+          <span>Final Price</span>
+          <span>₹{totalPrice - totalDiscount}</span>
+        </li>
+        <li className="bill-item">
+          <span>Coupon Discount</span>
+          <span>₹{couponDiscountPrice}</span>
         </li>
         <li className="bill-item">
           <span>Delivery Charges</span>
           <span>₹0</span>
         </li>
         <li className="bill-item">
+          <span>Total Discount</span>
+          <span className="success">
+            <strong>₹{totalDiscount + couponDiscountPrice}</strong>
+          </span>
+        </li>
+        <li className="bill-item">
           <span>Total Amount Payable</span>
-          <span>₹{amountToBePayed}</span>
+          <span>
+            <strong>₹{amountToBePayed}</strong>
+          </span>
         </li>
       </ul>
     </div>

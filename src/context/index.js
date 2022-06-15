@@ -5,3 +5,4 @@ export { WishlistProvider, useWishlist } from "./wishlist-context";
 export { FilterProvider, useFilter } from "./filter-context";
 export { LoaderProvider, useLoader } from "./loader-context";
 export { AddressProvider, useAddress } from "./address-context";
+export { useOrders, OrderProvider } from "./order-context";

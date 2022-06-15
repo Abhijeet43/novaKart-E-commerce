@@ -150,6 +150,9 @@ const getTotalCartItems = (cart) =>
 const checkItemInCart = (cart, id) =>
   cart.some((product) => product._id === id);
 
+const getCouponDiscountedPrice = (couponDiscount, discountedPrice) =>
+  +couponDiscount > 0 ? +(discountedPrice / +couponDiscount).toFixed(2) : 0;
+
 export {
   loadCart,
   getCartItemsHandler,
@@ -159,4 +162,5 @@ export {
   getCartTotal,
   getTotalCartItems,
   checkItemInCart,
+  getCouponDiscountedPrice,
 };

@@ -40,6 +40,20 @@
   font-weight: var(--font-weight-4);
 }
 
+/* COUPON */
+
+.apply-coupon-container {
+  padding: 1rem;
+  margin-top: 1rem;
+  background: var(--lynx-purple-color);
+}
+
+.apply-coupon-btn {
+  display: block;
+  font-size: var(--font-size-6);
+  width: 100%;
+}
+
 /* ORDER BUTTON */
 .cart-btn-order {
   background-color: var(--primary-color);
@@ -55,6 +69,14 @@
 
 .cart-btn-order:hover {
   filter: brightness(120%);
+}
+
+/* SAVINGS*/
+.savings {
+  font-size: var(--font-size-4);
+  text-align: center;
+  padding: 1rem 0;
+  font-weight: var(--font-weight-4);
 }
 
 @media (max-width: 1023px) {

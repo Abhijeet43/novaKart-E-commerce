@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useCart, useAddress, useAuth } from "../../context/";
+import { useCart, useAddress, useAuth, useOrders } from "../../context/";
 import "./Checkout.css";
 import {
   getCartTotal,
   getTotalCartItems,
+  getCouponDiscountedPrice,
   removeFromCartHandler,
 } from "../../functions/";
 import { CheckoutAddressCard } from "./components/CheckoutAddressCard/CheckoutAddressCard";
@@ -17,9 +19,11 @@ import { brandLogo } from "../../assets/";
 
 const Checkout = () => {
   const {
-    cartState: { cart },
+    cartState: { cart, couponDiscount },
     cartDispatch,
   } = useCart();
+
+  const { setOrders } = useOrders();
 
   const {
     authState: { user, token },
@@ -34,7 +38,16 @@ const Checkout = () => {
   } = useAddress();
 
   const { totalPrice, totalDiscount } = getCartTotal(cart);
-  const amountToBePayed = totalPrice - totalDiscount;
+  //calculating coupon discount
+  const discountedPrice = totalPrice - totalDiscount;
+
+  const couponDiscountPrice = getCouponDiscountedPrice(
+    couponDiscount,
+    discountedPrice
+  );
+
+  const amountToBePayed = totalPrice - totalDiscount - couponDiscountPrice;
+
   const cartItems = getTotalCartItems(cart);
 
   const loadSdk = async () => {
@@ -72,10 +85,22 @@ const Checkout = () => {
         notes: { address: "Razorpay Corporate Office" },
         theme: { color: "#7d4cc8" },
         handler: function (response) {
+          setOrders((prevState) => [
+            ...prevState,
+            {
+              _id: uuid(),
+              date: new Date().toDateString(),
+              address: selectedAddress,
+              cart,
+              totalPrice,
+              amountToBePayed,
+              discount: totalPrice + couponDiscountPrice,
+            },
+          ]);
           cart.map((item) =>
             removeFromCartHandler(token, item._id, cartDispatch, "empty")
           );
-          navigate("/products");
+          navigate("/profile/orders");
           toast.success("Order Placed Successfully");
         },
       };
@@ -134,6 +159,7 @@ const Checkout = () => {
               <BillDetails
                 totalPrice={totalPrice}
                 totalDiscount={totalDiscount}
+                couponDiscountPrice={couponDiscountPrice}
                 amountToBePayed={amountToBePayed}
                 cartItems={cartItems}
               />
