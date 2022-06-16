@@ -13,6 +13,10 @@ import {
 
 const ProductListing = () => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(4);
+
   const {
     dataState: { products },
   } = useData();
@@ -31,7 +35,14 @@ const ProductListing = () => {
 
   const mobileFilterOpenHandler = () => setMobileFilterOpen(true);
 
-  const categorizedData = categoryData(products, category);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const categorizedData = categoryData(currentProducts, category);
   const ratedData = ratingData(categorizedData, rating);
   const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
   const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
@@ -80,7 +91,12 @@ const ProductListing = () => {
           </div>
         </section>
       </main>
-      <ProductPagination />
+      <ProductPagination
+        productsPerPage={productsPerPage}
+        totalProducts={products.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };

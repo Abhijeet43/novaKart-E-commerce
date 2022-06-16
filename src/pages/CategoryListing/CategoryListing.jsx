@@ -25,6 +25,9 @@ const CategoryListing = () => {
 
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(4);
+
   const { categoryId } = useParams();
 
   const [categoryName, description] = getCategoryName(categories, categoryId);
@@ -33,7 +36,14 @@ const CategoryListing = () => {
 
   const mobileFilterOpenHandler = () => setMobileFilterOpen(true);
 
-  const ratedData = ratingData(categoryProducts, rating);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = categoryProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const ratedData = ratingData(currentProducts, rating);
   const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
   const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
   const sortedData = sortData(filteredData, sortBy);
@@ -75,7 +85,12 @@ const CategoryListing = () => {
           </div>
         </section>
       </main>
-      <ProductPagination />
+      <ProductPagination
+        productsPerPage={productsPerPage}
+        totalProducts={categoryProducts.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
