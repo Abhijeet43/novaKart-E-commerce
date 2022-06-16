@@ -1,9 +1,10 @@
 import React from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Header, Footer, Loader } from "./components/";
+import { RequiresAuth } from "./RequiresAuth";
 import {
   Home,
   Login,
@@ -21,13 +22,9 @@ import {
   Orders,
 } from "./pages/";
 import { Address, ProfileDetails } from "./pages/Profile/components/";
-import { useAuth, useLoader } from "./context/";
+import { useLoader } from "./context/";
 
 function App() {
-  const {
-    authState: { user },
-  } = useAuth();
-
   const { loader } = useLoader();
 
   return (
@@ -52,25 +49,31 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/login"
-          element={user ? <Navigate replace to="/" /> : <Login />}
-        />
-        <Route
-          path="/signup"
-          element={user ? <Navigate replace to="/" /> : <Signup />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/wishlist"
-          element={user ? <Wishlist /> : <Navigate replace to="/login" />}
+          element={
+            <RequiresAuth>
+              <Wishlist />
+            </RequiresAuth>
+          }
         />
         <Route
           path="/cart"
-          element={user ? <Cart /> : <Navigate replace to="/login" />}
+          element={
+            <RequiresAuth>
+              <Cart />
+            </RequiresAuth>
+          }
         />
         <Route
           path="/profile"
-          element={user ? <Profile /> : <Navigate replace to="/login" />}
+          element={
+            <RequiresAuth>
+              <Profile />
+            </RequiresAuth>
+          }
         >
           <Route path="profiledetails" element={<ProfileDetails />} />
           <Route path="address" element={<Address />} />
@@ -84,7 +87,11 @@ function App() {
         <Route path="*" element={<Error404 />} />
         <Route
           path="/checkout"
-          element={user ? <Checkout /> : <Navigate replace to="/login" />}
+          element={
+            <RequiresAuth>
+              <Checkout />
+            </RequiresAuth>
+          }
         />
       </Routes>
       <Footer />
