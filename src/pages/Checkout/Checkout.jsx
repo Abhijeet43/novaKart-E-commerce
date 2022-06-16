@@ -94,7 +94,7 @@ const Checkout = () => {
               cart,
               totalPrice,
               amountToBePayed,
-              discount: totalPrice + couponDiscountPrice,
+              discount: totalDiscount + couponDiscountPrice,
             },
           ]);
           cart.map((item) =>
