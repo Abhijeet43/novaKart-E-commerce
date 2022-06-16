@@ -130,6 +130,7 @@ input[type="checkbox"] {
 
   .filter-section.active {
     transform: translateY(0);
+    background-color: var(--secondary-color);
   }
 
   .filter-container {
