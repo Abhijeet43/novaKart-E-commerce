@@ -7,6 +7,7 @@ import {
   login,
   getCartItemsHandler,
   getWishlistItemsHandler,
+  validateEmail,
 } from "../../../functions/";
 import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
@@ -23,6 +24,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [showPass, setShowPass] = useToggle(false);
+
+  const [saveUser, setSaveUser] = useToggle(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -45,30 +48,38 @@ const Login = () => {
   const guestUserHandler = (e) => {
     e.preventDefault();
     setUser(guestUser);
+    setSaveUser(true);
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      setLoader(true);
-      const response = await login(user);
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.encodedToken);
-        localStorage.setItem("user", JSON.stringify(response.data.foundUser));
-        getWishlistItemsHandler(response.data.encodedToken, wishlistDispatch);
-        getCartItemsHandler(response.data.encodedToken, cartDispatch);
-        authDispatch({
-          type: "LOGIN",
-          payload: {
-            token: response.data.encodedToken,
-            user: response.data.foundUser,
-          },
-        });
-        toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
-        setLoader(false);
-        navigate(-1);
-      } else {
-        throw new Error("Something went wrong! Please try again later");
+      if (validateEmail(user.email)) {
+        setLoader(true);
+        const response = await login(user);
+        if (response.status === 200) {
+          if (saveUser) {
+            localStorage.setItem("token", response.data.encodedToken);
+            localStorage.setItem(
+              "user",
+              JSON.stringify(response.data.foundUser)
+            );
+          }
+          getWishlistItemsHandler(response.data.encodedToken, wishlistDispatch);
+          getCartItemsHandler(response.data.encodedToken, cartDispatch);
+          authDispatch({
+            type: "LOGIN",
+            payload: {
+              token: response.data.encodedToken,
+              user: response.data.foundUser,
+            },
+          });
+          navigate(-1);
+          toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
+          setLoader(false);
+        } else {
+          throw new Error("Something went wrong! Please try again later");
+        }
       }
     } catch (error) {
       toast.error(error.response.data.errors[0]);
@@ -109,7 +120,11 @@ const Login = () => {
           </div>
           <div className="form-group check-remember">
             <div className="checkbox-group">
-              <input type="checkbox" id="checkbox-remember" />
+              <input
+                checked={saveUser === true}
+                type="checkbox"
+                id="checkbox-remember"
+              />
               <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
             <Link to="/forgotpassword" className="form-link">

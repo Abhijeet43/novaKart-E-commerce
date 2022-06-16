@@ -14,7 +14,14 @@ export {
   getFeaturedProducts,
 } from "./products";
 
-export { signUp, login, logout } from "./auth";
+export {
+  signUp,
+  login,
+  logout,
+  validateEmail,
+  validatePassword,
+  confirmPasswordCheck,
+} from "./auth";
 
 export {
   loadCart,
