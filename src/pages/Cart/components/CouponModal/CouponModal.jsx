@@ -10,6 +10,7 @@ const CouponModal = ({ openCouponModal, setOpenCouponModal, totalPrice }) => {
   return (
     <div>
       <section
+        onClick={() => setOpenCouponModal(false)}
         className={`coupon-overlay ${openCouponModal ? "active" : ""}`}
       ></section>
       <section className={`coupon-modal ${openCouponModal ? "active" : ""}`}>

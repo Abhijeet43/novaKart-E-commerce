@@ -68,3 +68,11 @@ input:disabled,
 input:disabled + label {
   cursor: not-allowed;
 }
+
+/* MEDIA QUERIES */
+
+@media (max-width: 540px) {
+  .coupon-modal {
+    width: 90%;
+  }
+}

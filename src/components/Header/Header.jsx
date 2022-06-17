@@ -93,6 +93,7 @@ const Header = () => {
               {searchedProducts.length > 0 ? (
                 searchedProducts.map((product) => (
                   <div
+                    key={product._id}
                     className="searched-product"
                     onClick={() => navigateHandler(product._id)}
                   >
