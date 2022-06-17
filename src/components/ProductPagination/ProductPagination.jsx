@@ -1,4 +1,5 @@
 import React from "react";
+import { scrollToTop } from "../../functions/";
 import "./ProductPagination.css";
 
 const ProductPagination = ({
@@ -18,7 +19,10 @@ const ProductPagination = ({
       {currentPage !== 1 ? (
         <span
           className="page-btn"
-          onClick={() => setCurrentPage((prev) => prev - 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            scrollToTop();
+          }}
         >
           <i className="fas fa-angle-left"></i>
         </span>
@@ -29,7 +33,10 @@ const ProductPagination = ({
           className={`page-btn ${
             currentPage === pageNumber ? "page-btn-active" : ""
           }`}
-          onClick={() => setCurrentPage(pageNumber)}
+          onClick={() => {
+            setCurrentPage(pageNumber);
+            scrollToTop();
+          }}
           key={pageNumber}
         >
           {pageNumber}
@@ -39,7 +46,10 @@ const ProductPagination = ({
       {currentPage !== Math.ceil(totalProducts / productsPerPage) ? (
         <span
           className="page-btn"
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev + 1);
+            scrollToTop();
+          }}
         >
           <i className="fas fa-angle-right"></i>
         </span>

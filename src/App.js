@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Header, Footer, Loader } from "./components/";
 import { RequiresAuth } from "./RequiresAuth";
+import { ScrollToTop } from "./ScrollToTop";
 import {
   Home,
   Login,
@@ -30,7 +31,6 @@ function App() {
   return (
     <>
       {loader ? <Loader /> : null}
-
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -44,6 +44,8 @@ function App() {
         pauseOnHover
         className="toast-text"
       />
+
+      <ScrollToTop />
 
       <Header />
 

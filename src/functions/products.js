@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getProducts = async (dataDispatch, setLoader) => {
+const getProducts = async (dataDispatch, setLoader, setProducts = "") => {
   try {
     setLoader(true);
     const response = await axios.get("/api/products");
@@ -9,13 +9,16 @@ const getProducts = async (dataDispatch, setLoader) => {
       payload: response.data.products,
     });
     setLoader(false);
+    if (setProducts !== "") {
+      setProducts(response.data.products);
+    }
   } catch (error) {
     console.log("Error:", error);
   }
   return dataDispatch;
 };
 
-const getCategories = async (dataDispatch, setLoader) => {
+const getCategories = async (dataDispatch, setLoader, setCategories = "") => {
   try {
     setLoader(true);
     const response = await axios.get("/api/categories");
@@ -25,6 +28,10 @@ const getCategories = async (dataDispatch, setLoader) => {
     });
     const categories = response.data.categories;
     setLoader(false);
+    if (setCategories !== "") {
+      setCategories(response.data.categories);
+      return;
+    }
     return categories;
   } catch (error) {
     console.log("Error:", error);

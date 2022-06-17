@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./CategoryListing.css";
 
 import { ProductPagination, ProductCard, Filters } from "../../components";
-import { useData, useFilter } from "../../context/";
+import { useData, useFilter, useLoader } from "../../context/";
 import { getCategoryName, getCategoryProducts } from "../../functions/";
 import { useParams } from "react-router-dom";
 
@@ -12,41 +12,61 @@ import {
   ratingData,
   getOutOfStockData,
   filterPriceData,
+  getCategories,
+  getProducts,
 } from "../../functions/";
 
 const CategoryListing = () => {
   const {
-    dataState: { products, categories },
-  } = useData();
-
-  const {
     filterState: { sortBy, rating, includeOutOfStock, priceRangeValue },
   } = useFilter();
 
+  const { dataDispatch } = useData();
+
+  let categoryProducts = [];
+  let desc = null;
+  let category = null;
+  let sortedData = [];
+
+  const { setLoader } = useLoader();
+
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(4);
 
   const { categoryId } = useParams();
 
-  const [categoryName, description] = getCategoryName(categories, categoryId);
-
-  const categoryProducts = getCategoryProducts(products, categoryName);
+  if (categories.length > 0 && products.length > 0) {
+    const [categoryName, description] = getCategoryName(categories, categoryId);
+    categoryProducts = getCategoryProducts(products, categoryName);
+    desc = description;
+    category = categoryName;
+  }
 
   const mobileFilterOpenHandler = () => setMobileFilterOpen(true);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = categoryProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  if (categoryProducts.length > 0) {
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = categoryProducts.slice(
+      indexOfFirstProduct,
+      indexOfLastProduct
+    );
 
-  const ratedData = ratingData(currentProducts, rating);
-  const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
-  const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
-  const sortedData = sortData(filteredData, sortBy);
+    const ratedData = ratingData(currentProducts, rating);
+    const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
+    const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
+    sortedData = sortData(filteredData, sortBy);
+    console.log(sortedData);
+  }
+
+  useEffect(() => {
+    getCategories(dataDispatch, setLoader, setCategories);
+    getProducts(dataDispatch, setLoader, setProducts);
+  }, []);
 
   return (
     <>
@@ -67,8 +87,8 @@ const CategoryListing = () => {
               placeholder="search items here"
             />
           </div>
-          <h2 className="section-title">{categoryName}</h2>
-          <p className="description">{description}</p>
+          <h2 className="section-title">{category}</h2>
+          <p className="description">{desc}</p>
           <div className="card-container">
             {sortedData.length > 0 ? (
               sortedData.map((product) => {
@@ -85,12 +105,14 @@ const CategoryListing = () => {
           </div>
         </section>
       </main>
-      <ProductPagination
-        productsPerPage={productsPerPage}
-        totalProducts={categoryProducts.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {categoryProducts.length > 0 ? (
+        <ProductPagination
+          productsPerPage={productsPerPage}
+          totalProducts={categoryProducts.length}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ) : null}
     </>
   );
 };

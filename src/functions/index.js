@@ -61,3 +61,5 @@ export {
   deleteAddress,
   updateAddress,
 } from "./address";
+
+export { scrollToTop } from "./util";
