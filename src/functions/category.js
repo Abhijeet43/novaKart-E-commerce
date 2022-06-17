@@ -1,6 +1,6 @@
 const getCategoryName = (categories, categoryId) => {
   const { categoryName, description } = categories.find(
-    (category) => category.id === categoryId
+    (category) => category._id === categoryId
   );
   return [categoryName, description];
 };
@@ -10,7 +10,7 @@ const getCategoryProducts = (products, categoryName) => {
 };
 
 const getCategoryId = (categories, categoryName) => {
-  const { id } = categories.find(
+  const { _id: id } = categories.find(
     (category) => category.categoryName === categoryName
   );
   return id;

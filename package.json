@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.26.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.0",
     "jsonwebtoken": "^8.5.1",

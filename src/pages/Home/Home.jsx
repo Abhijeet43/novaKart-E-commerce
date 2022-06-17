@@ -28,7 +28,7 @@ const Home = () => {
         <section className="categories">
           <h2 className="section-title">Featured Categories</h2>
           <div className="categories-container">
-            {featuredCategories.map(({ categoryName, imageSrc, id }) => {
+            {featuredCategories.map(({ categoryName, imageSrc, _id: id }) => {
               return (
                 <CategoryCard
                   key={id}

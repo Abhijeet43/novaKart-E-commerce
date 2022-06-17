@@ -3,7 +3,12 @@ import "../authentication.css";
 import { headerImg } from "../../../assets/index";
 import { Link } from "react-router-dom";
 import { useAuth, useLoader } from "../../../context/";
-import { signUp } from "../../../functions/";
+import {
+  signUp,
+  validateEmail,
+  validatePassword,
+  confirmPasswordCheck,
+} from "../../../functions/";
 import { useNavigate } from "react-router-dom";
 import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
@@ -37,27 +42,27 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      if (user.password !== user.confirmPassword) {
-        toast.error("Password and Confirm Password donot match");
-        return;
-      }
-      setLoader(true);
-      const response = await signUp(user);
-      if (response.status === 201) {
-        authDispatch({
-          type: "SIGNUP",
-          payload: {
-            token: response.data.encodedToken,
-            user: response.data.createdUser,
-          },
-        });
-        localStorage.setItem("token", response.data.encodedToken);
-        localStorage.setItem("user", JSON.stringify(response.data.createdUser));
-        toast.success("Signup Success!!");
-        setLoader(false);
-        navigate("/");
-      } else {
-        throw new Error("Something went wrong! Please try again later");
+      if (
+        validateEmail(user.email) &&
+        validatePassword(user.password) &&
+        confirmPasswordCheck(user.password, user.confirmPassword)
+      ) {
+        setLoader(true);
+        const response = await signUp(user);
+        if (response.status === 201) {
+          authDispatch({
+            type: "SIGNUP",
+            payload: {
+              token: response.data.encodedToken,
+              user: response.data.createdUser,
+            },
+          });
+          toast.success("Signup Success!!");
+          setLoader(false);
+          navigate("/");
+        } else {
+          throw new Error("Something went wrong! Please try again later");
+        }
       }
     } catch (error) {
       toast.error(error.response.data.errors[0]);

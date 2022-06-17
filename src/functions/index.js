@@ -14,7 +14,14 @@ export {
   getFeaturedProducts,
 } from "./products";
 
-export { signUp, login, logout } from "./auth";
+export {
+  signUp,
+  login,
+  logout,
+  validateEmail,
+  validatePassword,
+  confirmPasswordCheck,
+} from "./auth";
 
 export {
   loadCart,
@@ -45,7 +52,6 @@ export {
   getOutOfStockData,
   filterPriceData,
   categoryData,
-  searchData,
 } from "./filter";
 
 export {
@@ -54,3 +60,5 @@ export {
   deleteAddress,
   updateAddress,
 } from "./address";
+
+export { scrollToTop } from "./util";

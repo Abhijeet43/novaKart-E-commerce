@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import {
   categoryOne,
   categoryTwo,
@@ -13,7 +12,7 @@ import {
 
 export const categories = [
   {
-    _id: uuid(),
+    _id: "Wdc1_AbA",
     categoryName: "Tracks",
     description:
       "Tracks provides the comfort of moving around also helping in uping one's style quotitent",
@@ -21,7 +20,7 @@ export const categories = [
     isFeatured: false,
   },
   {
-    _id: uuid(),
+    _id: "Wdc1_AbB",
     categoryName: "Sneakers",
     description:
       "Stylish and Comfortable Sneakers allows the comfort of moving anywhere around also adding to one's styles",
@@ -29,7 +28,7 @@ export const categories = [
     isFeatured: true,
   },
   {
-    _id: uuid(),
+    _id: "Wdc1_AbC",
     categoryName: "T-Shirts",
     description:
       "T-Shirts gives a funky appeal to individual's style quotitent",
@@ -37,7 +36,7 @@ export const categories = [
     isFeatured: true,
   },
   {
-    _id: uuid(),
+    _id: "Wdc1_AbD",
     categoryName: "Watches",
     description:
       "Watches come in handy while helping in keeping track of time.",

@@ -9,10 +9,6 @@
   padding: 0 1.5rem;
 }
 
-.all-products > .nav-search {
-  display: none;
-}
-
 /* FILTER BTN CONTAINER */
 .filter-btn-container {
   display: none;
@@ -34,17 +30,15 @@
   color: var(--primary-color);
 }
 
+.no-data-text {
+  font-size: var(--font-size-2);
+  width: 100%;
+  text-align: center;
+  align-self: center;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 540px) {
-  .all-products > .nav-search {
-    display: flex;
-    width: 100%;
-  }
-
-  .all-products > .nav-search input:focus {
-    outline: none;
-  }
-
   .filter-btn-container {
     display: block;
   }

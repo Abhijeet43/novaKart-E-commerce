@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Header.css";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth, useCart, useWishlist, useFilter } from "../../context/";
-import { getTotalCartItems } from "../../functions/";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth, useCart, useWishlist } from "../../context/";
+import { getTotalCartItems, getProducts } from "../../functions/";
 
 const Header = () => {
   const {
@@ -17,12 +17,13 @@ const Header = () => {
     wishlistState: { wishlist },
   } = useWishlist();
 
-  const {
-    filterState: { search },
-    filterDispatch,
-  } = useFilter();
-
-  const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [products, setProducts] = useState([]);
+  const [searchedProducts, setSearchedProducts] = useState([]);
+  const [showSearchResult, setShowSearchResult] = useState(false);
+  const [isDebouncing, setIsDebouncing] = useState(false);
+  const timerRef = useRef();
+  const searchBarRef = useRef();
 
   const navigate = useNavigate();
 
@@ -32,6 +33,41 @@ const Header = () => {
     type === "LOGIN" ? navigate("/login") : navigate("/profile/profileDetails");
   };
 
+  useEffect(() => {
+    clearTimeout(timerRef.current);
+    setIsDebouncing(false);
+    timerRef.current = setTimeout(() => {
+      const availableProducts = products.filter(
+        (product) =>
+          searchQuery.length !== 0 &&
+          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setSearchedProducts(availableProducts);
+      setIsDebouncing(true);
+    }, 300);
+  }, [searchQuery]);
+
+  const navigateHandler = (productId) => {
+    navigate(`products/${productId}`);
+    setSearchQuery("");
+  };
+
+  const closeSearchBar = (e) => {
+    if (!searchBarRef.current.contains(e.target)) {
+      setShowSearchResult(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", closeSearchBar);
+
+    return () => {
+      document.removeEventListener("click", closeSearchBar);
+    };
+  }, []);
+
+  useEffect(() => getProducts("", "", setProducts), []);
+
   return (
     <header>
       <nav className="navbar">
@@ -40,25 +76,36 @@ const Header = () => {
             NOVAKART
           </Link>
         </div>
-        {location.pathname === "/products" && (
-          <div className="nav-search">
-            <button className="search-icon">
-              <i className="fas fa-search"></i>
-            </button>
-            <input
-              type="search"
-              className="nav-search"
-              placeholder="search items here"
-              value={search}
-              onChange={(e) =>
-                filterDispatch({
-                  type: "SEARCH",
-                  payload: { search: e.target.value },
-                })
-              }
-            />
-          </div>
-        )}
+        <div className="nav-search" ref={searchBarRef}>
+          <button className="search-icon">
+            <i className="fas fa-search"></i>
+          </button>
+          <input
+            type="search"
+            className="search-input"
+            placeholder="search items here"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setShowSearchResult(true)}
+          />
+          {showSearchResult && isDebouncing && searchQuery ? (
+            <div className="search-results">
+              {searchedProducts.length > 0 ? (
+                searchedProducts.map((product) => (
+                  <div
+                    key={product._id}
+                    className="searched-product"
+                    onClick={() => navigateHandler(product._id)}
+                  >
+                    {product.title}
+                  </div>
+                ))
+              ) : (
+                <p className="not-found-text">No result found</p>
+              )}
+            </div>
+          ) : null}
+        </div>
 
         <ul className="nav-items">
           <li className="nav-item">

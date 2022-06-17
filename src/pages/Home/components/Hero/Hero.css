@@ -33,6 +33,10 @@
 /* MEDIA QUERIES */
 
 @media (max-width: 540px) {
+  .hero {
+    margin-top: 2rem;
+  }
+
   .hero-img {
     display: none;
   }

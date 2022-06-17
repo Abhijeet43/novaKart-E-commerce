@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import {
   productOne,
   productTwo,
@@ -21,7 +20,7 @@ import {
 
 export const products = [
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbA",
     title: "Red T-Shirt",
     price: "999",
     discount: "40",
@@ -37,7 +36,7 @@ export const products = [
     sizes: ["XXL", "XL", "L", "M"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbB",
     title: "Black Sneakers",
     price: "1299",
     discount: "30",
@@ -53,7 +52,7 @@ export const products = [
     sizes: ["10", "11", "12"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbC",
     title: "Gray Track",
     price: "499",
     discount: "20",
@@ -69,7 +68,7 @@ export const products = [
     sizes: ["28", "32", "34", "36", "38"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbD",
     title: "Blue T-Shirt",
     price: "799",
     discount: "45",
@@ -85,7 +84,7 @@ export const products = [
     sizes: ["L", "M"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbE",
     title: "White Sneakers",
     price: "1299",
     discount: "30",
@@ -101,7 +100,7 @@ export const products = [
     sizes: ["11", "12"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbF",
     title: "Black T-Shirt",
     price: "499",
     discount: "20",
@@ -117,7 +116,7 @@ export const products = [
     sizes: ["XL", "L"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbG",
     title: "Pair of Socks",
     price: "499",
     discount: "10",
@@ -133,7 +132,7 @@ export const products = [
     sizes: ["9", "10", "12"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbH",
     title: "Black Watch",
     price: "1499",
     discount: "20",
@@ -149,7 +148,7 @@ export const products = [
     sizes: ["36", "38", "42", "46"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbI",
     title: "Yellow Dial Watch",
     price: "2999",
     discount: "20",
@@ -165,7 +164,7 @@ export const products = [
     sizes: ["38", "42", "46"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbJ",
     title: "Black Sports Shoes",
     price: "999",
     discount: "10",
@@ -181,7 +180,7 @@ export const products = [
     sizes: ["10", "12"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbK",
     title: "White Loafers",
     price: "899",
     discount: "10",
@@ -197,7 +196,7 @@ export const products = [
     sizes: ["9", "12"],
   },
   {
-    _id: uuid(),
+    _id: "Wo1dMEP_BbL",
     title: "Black Track",
     price: "499",
     discount: "0",
