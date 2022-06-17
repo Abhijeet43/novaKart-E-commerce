@@ -60,7 +60,7 @@ const ProductListing = () => {
                 return <ProductCard key={product._id} product={product} />;
               })
             ) : (
-              <h1>No Data to show</h1>
+              <p className="no-data-text">No Data to show</p>
             )}
           </div>
           <div className="filter-btn-container">
@@ -70,12 +70,14 @@ const ProductListing = () => {
           </div>
         </section>
       </main>
-      <ProductPagination
-        productsPerPage={productsPerPage}
-        totalProducts={products.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      {sortedData.length > 0 ? (
+        <ProductPagination
+          productsPerPage={productsPerPage}
+          totalProducts={products.length}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ) : null}
     </>
   );
 };

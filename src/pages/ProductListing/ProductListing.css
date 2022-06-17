@@ -9,10 +9,6 @@
   padding: 0 1.5rem;
 }
 
-.all-products > .nav-search {
-  display: none;
-}
-
 /* FILTER BTN CONTAINER */
 .filter-btn-container {
   display: none;
@@ -32,6 +28,13 @@
 
 .fitler-btn:hover {
   color: var(--primary-color);
+}
+
+.no-data-text {
+  font-size: var(--font-size-2);
+  width: 100%;
+  text-align: center;
+  align-self: center;
 }
 
 /* MEDIA QUERIES */

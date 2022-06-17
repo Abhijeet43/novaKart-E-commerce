@@ -29,6 +29,7 @@
 
 /* CARD CONTAINER*/
 .card-container {
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
