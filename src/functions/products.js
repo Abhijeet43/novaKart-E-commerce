@@ -1,16 +1,29 @@
 import axios from "axios";
 
-const getProducts = async (dataDispatch, setLoader, setProducts = "") => {
+const getProducts = async (
+  dataDispatch = "",
+  setLoader = "",
+  setProducts = ""
+) => {
   try {
-    setLoader(true);
+    if (setLoader !== "") {
+      setLoader(true);
+    }
     const response = await axios.get("/api/products");
-    dataDispatch({
-      type: "LOAD_INITIAL_DATA",
-      payload: response.data.products,
-    });
-    setLoader(false);
+    if (dataDispatch !== "") {
+      dataDispatch({
+        type: "LOAD_INITIAL_DATA",
+        payload: response.data.products,
+      });
+    }
+    if (setLoader !== "") {
+      setLoader(false);
+    }
     if (setProducts !== "") {
       setProducts(response.data.products);
+      if (dataDispatch === "") {
+        return;
+      }
     }
   } catch (error) {
     console.log("Error:", error);

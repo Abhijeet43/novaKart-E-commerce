@@ -52,7 +52,6 @@ export {
   getOutOfStockData,
   filterPriceData,
   categoryData,
-  searchData,
 } from "./filter";
 
 export {

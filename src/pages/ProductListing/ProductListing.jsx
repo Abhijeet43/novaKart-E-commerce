@@ -8,7 +8,6 @@ import {
   getOutOfStockData,
   filterPriceData,
   categoryData,
-  searchData,
 } from "../../functions/";
 
 const ProductListing = () => {
@@ -28,9 +27,7 @@ const ProductListing = () => {
       rating,
       includeOutOfStock,
       priceRangeValue,
-      search,
     },
-    filterDispatch,
   } = useFilter();
 
   const mobileFilterOpenHandler = () => setMobileFilterOpen(true);
@@ -47,7 +44,6 @@ const ProductListing = () => {
   const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
   const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
   const sortedData = sortData(filteredData, sortBy);
-  const searchedData = searchData(sortedData, search);
 
   return (
     <>
@@ -57,27 +53,10 @@ const ProductListing = () => {
           setMobileFilterOpen={setMobileFilterOpen}
         />
         <section className="all-products">
-          <div className="nav-search">
-            <button className="search-icon">
-              <i className="fas fa-search"></i>
-            </button>
-            <input
-              type="search"
-              placeholder="search items here"
-              value={search}
-              onChange={(e) =>
-                filterDispatch({
-                  type: "SEARCH",
-                  payload: { search: e.target.value },
-                })
-              }
-            />
-          </div>
-
           <h2 className="section-title">All Products</h2>
           <div className="card-container">
-            {searchedData.length > 0 ? (
-              searchedData.map((product) => {
+            {sortedData.length > 0 ? (
+              sortedData.map((product) => {
                 return <ProductCard key={product._id} product={product} />;
               })
             ) : (

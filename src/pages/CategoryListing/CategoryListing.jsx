@@ -60,7 +60,6 @@ const CategoryListing = () => {
     const getOutOfStockedData = getOutOfStockData(ratedData, includeOutOfStock);
     const filteredData = filterPriceData(getOutOfStockedData, priceRangeValue);
     sortedData = sortData(filteredData, sortBy);
-    console.log(sortedData);
   }
 
   useEffect(() => {
@@ -77,16 +76,6 @@ const CategoryListing = () => {
           categoryCheck={"true"}
         />
         <section className="all-products">
-          <div className="nav-search">
-            <button className="search-icon">
-              <i className="fas fa-search"></i>
-            </button>
-            <input
-              type="search"
-              className="nav-search"
-              placeholder="search items here"
-            />
-          </div>
           <h2 className="section-title">{category}</h2>
           <p className="description">{desc}</p>
           <div className="card-container">
