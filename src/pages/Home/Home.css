@@ -87,10 +87,6 @@ a {
     display: flex;
     flex-direction: column;
   }
-
-  .main-section {
-    margin-top: 2rem;
-  }
 }
 
 @media (max-width: 540px) {
