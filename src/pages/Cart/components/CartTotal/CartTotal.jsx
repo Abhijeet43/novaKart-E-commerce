@@ -17,13 +17,11 @@ const CartTotal = ({
   return (
     <section className="cart-price-container">
       <h2 className="price-heading">Price Total</h2>
-      <div className="apply-coupon-container">
-        <button
-          className="apply-coupon-btn"
-          onClick={() => setOpenCouponModal(true)}
-        >
-          <i className="fas fa-tags"></i> Apply Coupon
-        </button>
+      <div
+        className="apply-coupon-container"
+        onClick={() => setOpenCouponModal(true)}
+      >
+        <i className="fas fa-tags"></i> Apply Coupon
       </div>
       <div className="price-details">
         <div>

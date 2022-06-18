@@ -157,6 +157,7 @@
     top: 7rem;
     width: 90%;
     z-index: 4;
+    margin: 0.5rem;
     border: 1px solid var(--lynx-gray-color);
   }
 }

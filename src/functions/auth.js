@@ -45,7 +45,7 @@ const validatePassword = (password) => {
     return true;
   } else {
     toast.warning(
-      "Password must include a number, a uppercase letter, a lowercase letter and a special character"
+      "Password must be between 8 to 16 chars and must include a number, a uppercase letter, a lowercase letter and a special character"
     );
     return false;
   }
