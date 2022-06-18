@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../authentication.css";
 import { headerImg } from "../../../assets/index";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +13,10 @@ import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { authDispatch } = useAuth();
+  const {
+    authState: { token },
+    authDispatch,
+  } = useAuth();
 
   const { cartDispatch } = useCart();
 
@@ -85,6 +88,10 @@ const Login = () => {
       toast.error(error.response.data.errors[0]);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, []);
 
   return (
     <main className="auth-section">
