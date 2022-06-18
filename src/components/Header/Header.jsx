@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useCart, useWishlist } from "../../context/";
 import { getTotalCartItems, getProducts } from "../../functions/";
 
@@ -26,6 +26,8 @@ const Header = () => {
   const searchBarRef = useRef();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const checkStatus = (user) => (user ? `Hi, ${user.firstName}` : "LOGIN");
 
@@ -76,36 +78,39 @@ const Header = () => {
             NOVAKART
           </Link>
         </div>
-        <div className="nav-search" ref={searchBarRef}>
-          <button className="search-icon">
-            <i className="fas fa-search"></i>
-          </button>
-          <input
-            type="search"
-            className="search-input"
-            placeholder="search items here"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setShowSearchResult(true)}
-          />
-          {showSearchResult && isDebouncing && searchQuery ? (
-            <div className="search-results">
-              {searchedProducts.length > 0 ? (
-                searchedProducts.map((product) => (
-                  <div
-                    key={product._id}
-                    className="searched-product"
-                    onClick={() => navigateHandler(product._id)}
-                  >
-                    {product.title}
-                  </div>
-                ))
-              ) : (
-                <p className="not-found-text">No result found</p>
-              )}
-            </div>
-          ) : null}
-        </div>
+        {location.pathname === "/login" ||
+        location.pathname === "/signup" ? null : (
+          <div className="nav-search" ref={searchBarRef}>
+            <button className="search-icon">
+              <i className="fas fa-search"></i>
+            </button>
+            <input
+              type="search"
+              className="search-input"
+              placeholder="search items here"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setShowSearchResult(true)}
+            />
+            {showSearchResult && isDebouncing && searchQuery ? (
+              <div className="search-results">
+                {searchedProducts.length > 0 ? (
+                  searchedProducts.map((product) => (
+                    <div
+                      key={product._id}
+                      className="searched-product"
+                      onClick={() => navigateHandler(product._id)}
+                    >
+                      {product.title}
+                    </div>
+                  ))
+                ) : (
+                  <p className="not-found-text">No result found</p>
+                )}
+              </div>
+            ) : null}
+          </div>
+        )}
 
         <ul className="nav-items">
           <li className="nav-item">

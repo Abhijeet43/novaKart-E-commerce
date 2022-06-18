@@ -41,6 +41,12 @@
 @media (max-width: 540px) {
   .tabs {
     padding: 0;
+    margin-top: 4rem;
     width: 100%;
+  }
+
+  .tab-btn {
+    padding: 0.5rem;
+    font-size: var(--font-size-6);
   }
 }

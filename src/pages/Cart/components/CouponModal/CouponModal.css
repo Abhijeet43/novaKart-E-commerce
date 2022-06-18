@@ -75,4 +75,8 @@ input:disabled + label {
   .coupon-modal {
     width: 90%;
   }
+
+  .coupon-modal label {
+    font-size: var(--font-size-7);
+  }
 }

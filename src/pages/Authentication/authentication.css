@@ -128,4 +128,7 @@ form {
   .section-img {
     display: none;
   }
+  .checkbox-group label {
+    font-size: var(--font-size-8);
+  }
 }
