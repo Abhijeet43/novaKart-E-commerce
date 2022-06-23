@@ -28,7 +28,7 @@ const Login = () => {
 
   const [showPass, setShowPass] = useToggle(false);
 
-  const [saveUser, setSaveUser] = useToggle(false);
+  const [saveUser, setSaveUser] = useState(false);
 
   const [user, setUser] = useState({
     email: "",

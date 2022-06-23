@@ -135,4 +135,7 @@ form {
   .checkbox-group label {
     font-size: var(--font-size-8);
   }
+  .checkbox-group label {
+    font-size: var(--font-size-5);
+  }
 }
