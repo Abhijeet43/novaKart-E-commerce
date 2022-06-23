@@ -39,8 +39,6 @@
 }
 
 .address-btn {
-  max-width: 100%;
-  width: 100%;
   border-radius: 2rem;
   color: var(--secondary-color);
   padding: 1rem;
@@ -50,4 +48,9 @@
 
 .address-btn:hover {
   transform: scale(1.1);
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
 }

@@ -22,6 +22,17 @@ const AddressModal = ({ modalOpen, setModalOpen }) => {
 
   const [address, setAddress] = useState(initialAddressState);
 
+  const dummyAddress = {
+    name: "Guest User",
+    building: "111 Main Building",
+    area: "Santa Cruz",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    pincode: "405789",
+    mobile: "9814235478",
+  };
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setAddress((prevValue) => ({
@@ -124,9 +135,21 @@ const AddressModal = ({ modalOpen, setModalOpen }) => {
               required
             />
           </div>
-          <div className="form-group">
-            <button type="submit" className="address-btn btn-primary">
+          <div className="form-group btn-group">
+            <button
+              type="submit"
+              className="address-btn address-btn btn-primary"
+            >
               Save Address
+            </button>
+            <button
+              className="address-btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setAddress(dummyAddress);
+              }}
+            >
+              Dummy Address
             </button>
           </div>
         </form>

@@ -39,6 +39,11 @@
   filter: brightness(130%);
 }
 
+.add-address-btn {
+  display: block;
+  margin-top: 2rem;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 540px) {
   .checkout-section {
