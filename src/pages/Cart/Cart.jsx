@@ -4,12 +4,20 @@ import { CartCard } from "./components/CartCard/CartCard";
 import { CartTotal } from "./components/CartTotal/CartTotal";
 import { CouponModal } from "./components/CouponModal/CouponModal";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../../context/";
+import { useCart, useAuth } from "../../context/";
 import { getTotalCartItems } from "../../functions/";
-import { getCartTotal, getCouponDiscountedPrice } from "../../functions/";
+import {
+  getCartTotal,
+  getCouponDiscountedPrice,
+  getCartItemsHandler,
+} from "../../functions/";
 
 const Cart = () => {
   const navigate = useNavigate();
+
+  const {
+    authState: { token },
+  } = useAuth();
 
   const {
     cartState: { cart, couponDiscount },
@@ -33,6 +41,11 @@ const Cart = () => {
     couponDiscount,
     discountedPrice
   );
+
+  useEffect(() => {
+    getCartItemsHandler(token, cartDispatch);
+  }, []);
+
   return (
     <main className="main-section">
       <CouponModal

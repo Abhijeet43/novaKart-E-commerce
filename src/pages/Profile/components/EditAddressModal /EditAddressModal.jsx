@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./EditAddressModal.css";
 import { useAddress, useAuth } from "../../../../context";
 import { updateAddress } from "../../../../functions/address";
-
+import { toast } from "react-toastify";
 const EditAddressModal = ({ updateModal, setUpdateModal, address }) => {
   const { addressDispatch } = useAddress();
 
@@ -20,12 +20,49 @@ const EditAddressModal = ({ updateModal, setUpdateModal, address }) => {
     });
   };
 
+  const checkMobile = () => {
+    if (editedAddress.mobile.length === 10) {
+      return true;
+    } else {
+      toast.warning("Mobile No. must be of 10 digits");
+      return false;
+    }
+  };
+
+  const checkPincode = () => {
+    if (
+      editedAddress.pincode.length >= 4 &&
+      editedAddress.pincode.length <= 6
+    ) {
+      return true;
+    } else {
+      toast.warning("Pincode must be between 4-6 chars");
+    }
+  };
+
+  const checkInputs = () => {
+    if (
+      editedAddress.name &&
+      editedAddress.building &&
+      editedAddress.area &&
+      editedAddress.city &&
+      editedAddress.state
+    ) {
+      return true;
+    } else {
+      toast.warning("Inputs cannot be empty");
+      return false;
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      await updateAddress(editedAddress, addressDispatch, token);
-      setUpdateModal();
-    } catch (error) {}
+    if (checkInputs() && checkPincode() && checkMobile()) {
+      try {
+        await updateAddress(editedAddress, addressDispatch, token);
+        setUpdateModal();
+      } catch (error) {}
+    }
   };
 
   return (

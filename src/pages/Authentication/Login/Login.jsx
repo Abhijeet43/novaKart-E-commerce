@@ -28,7 +28,7 @@ const Login = () => {
 
   const [showPass, setShowPass] = useToggle(false);
 
-  const [saveUser, setSaveUser] = useToggle(false);
+  const [saveUser, setSaveUser] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -128,15 +128,15 @@ const Login = () => {
           <div className="form-group check-remember">
             <div className="checkbox-group">
               <input
-                checked={saveUser === true}
+                onChange={(e) =>
+                  e.target.checked ? setSaveUser(true) : setSaveUser(false)
+                }
+                checked={saveUser}
                 type="checkbox"
                 id="checkbox-remember"
               />
               <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
-            <Link to="/forgotpassword" className="form-link">
-              Forgot Password?
-            </Link>
           </div>
           <div className="form-group">
             <button className="btn btn-primary" onClick={guestUserHandler}>

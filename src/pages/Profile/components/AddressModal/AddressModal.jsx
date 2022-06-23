@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./AddressModal.css";
 import { useAddress, useAuth } from "../../../../context/";
 import { addAddress } from "../../../../functions/address";
+import { toast } from "react-toastify";
 
 const AddressModal = ({ modalOpen, setModalOpen }) => {
   const { addressDispatch } = useAddress();
@@ -22,6 +23,17 @@ const AddressModal = ({ modalOpen, setModalOpen }) => {
 
   const [address, setAddress] = useState(initialAddressState);
 
+  const dummyAddress = {
+    name: "Guest User",
+    building: "111 Main Building",
+    area: "Santa Cruz",
+    city: "Mumbai",
+    state: "Maharashtra",
+    country: "India",
+    pincode: "405789",
+    mobile: "9814235478",
+  };
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setAddress((prevValue) => ({
@@ -30,13 +42,47 @@ const AddressModal = ({ modalOpen, setModalOpen }) => {
     }));
   };
 
+  const checkMobile = () => {
+    if (address.mobile.length === 10) {
+      return true;
+    } else {
+      toast.warning("Mobile No. must be of 10 digits");
+      return false;
+    }
+  };
+
+  const checkPincode = () => {
+    if (address.pincode.length >= 4 && address.pincode.length <= 6) {
+      return true;
+    } else {
+      toast.warning("Pincode must be between 4-6 chars");
+    }
+  };
+
+  const checkInputs = () => {
+    if (
+      address.name &&
+      address.building &&
+      address.area &&
+      address.city &&
+      address.state
+    ) {
+      return true;
+    } else {
+      toast.warning("Inputs cannot be empty");
+      return false;
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      await addAddress(address, addressDispatch, token);
-      setAddress(initialAddressState);
-      setModalOpen();
-    } catch (error) {}
+    if (checkInputs() && checkPincode() && checkMobile()) {
+      try {
+        await addAddress(address, addressDispatch, token);
+        setAddress(initialAddressState);
+        setModalOpen();
+      } catch (error) {}
+    }
   };
 
   return (
@@ -124,9 +170,21 @@ const AddressModal = ({ modalOpen, setModalOpen }) => {
               required
             />
           </div>
-          <div className="form-group">
-            <button type="submit" className="address-btn btn-primary">
+          <div className="form-group btn-group">
+            <button
+              type="submit"
+              className="address-btn address-btn btn-primary"
+            >
               Save Address
+            </button>
+            <button
+              className="address-btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setAddress(dummyAddress);
+              }}
+            >
+              Dummy Address
             </button>
           </div>
         </form>

@@ -122,11 +122,19 @@ const Checkout = () => {
           {address.length > 0 ? (
             address.map((addressItem) => {
               return (
-                <CheckoutAddressCard
-                  key={addressItem._id}
-                  address={addressItem}
-                  setSelectedAddress={setSelectedAddress}
-                />
+                <>
+                  <CheckoutAddressCard
+                    key={addressItem._id}
+                    address={addressItem}
+                    setSelectedAddress={setSelectedAddress}
+                  />
+                  <Link
+                    className="btn btn-primary add-address-btn"
+                    to="/profile/address"
+                  >
+                    Add New Address
+                  </Link>
+                </>
               );
             })
           ) : (
