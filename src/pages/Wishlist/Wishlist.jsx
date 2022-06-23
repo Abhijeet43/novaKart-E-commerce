@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Wishlist.css";
 import { WishlistCard } from "./components/WishlistCard";
-import { useWishlist } from "../../context/";
+import { useWishlist, useAuth } from "../../context/";
 import { wishlistImg } from "../../assets/";
 import { Link } from "react-router-dom";
+import { getWishlistItemsHandler } from "../../functions/";
 
 const Wishlist = () => {
   const {
     wishlistState: { wishlist },
+    wishlistDispatch,
   } = useWishlist();
+
+  const {
+    authState: { token },
+  } = useAuth();
+
+  useEffect(() => {
+    getWishlistItemsHandler(token, wishlistDispatch);
+  }, []);
+
   return (
     <main className="main-section">
       <section className="wishlist-products">
