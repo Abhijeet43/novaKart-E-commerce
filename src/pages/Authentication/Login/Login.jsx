@@ -128,7 +128,10 @@ const Login = () => {
           <div className="form-group check-remember">
             <div className="checkbox-group">
               <input
-                checked={saveUser === true}
+                onChange={(e) =>
+                  e.target.checked ? setSaveUser(true) : setSaveUser(false)
+                }
+                checked={saveUser}
                 type="checkbox"
                 id="checkbox-remember"
               />
