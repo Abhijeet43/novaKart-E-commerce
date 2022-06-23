@@ -14,7 +14,7 @@ const ProductListing = () => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(4);
+  const [productsPerPage] = useState(6);
 
   const {
     dataState: { products },

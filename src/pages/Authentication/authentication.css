@@ -75,7 +75,8 @@ form {
 
 .check-remember {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin: 0;
 }
 
 .checkbox-group,
@@ -125,6 +126,9 @@ form {
 /* MEDIA QUERIES */
 
 @media (max-width: 540px) {
+  .auth-section {
+    margin-top: 3rem;
+  }
   .section-img {
     display: none;
   }

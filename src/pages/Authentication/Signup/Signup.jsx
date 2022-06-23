@@ -143,18 +143,6 @@ const Signup = () => {
             ></i>
           </div>
           <div className="form-group">
-            <span className="terms">
-              By creating an account you agree to our
-              <Link to="/privacy" className="form-link">
-                Privacy Policy
-              </Link>
-              and
-              <Link to="/terms" className="form-link">
-                Terms of Use
-              </Link>
-            </span>
-          </div>
-          <div className="form-group">
             <button type="submit" className="btn btn-primary">
               Sign Up
             </button>
