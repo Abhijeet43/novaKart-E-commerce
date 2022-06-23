@@ -165,7 +165,7 @@ export const products = [
   },
   {
     _id: "Wo1dMEP_BbJ",
-    title: "Black Sports Shoes",
+    title: "Sports Shoes",
     price: "999",
     discount: "10",
     categoryName: "Sneakers",
